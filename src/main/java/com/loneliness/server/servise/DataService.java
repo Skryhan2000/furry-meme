@@ -1,6 +1,6 @@
 package com.loneliness.server.servise;
 
-public interface Service <A,R,C>{
+public interface DataService<A,R,C>{
     R add(A note);
     R update(A note);
     A receive(A note);

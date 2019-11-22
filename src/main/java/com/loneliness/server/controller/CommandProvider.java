@@ -1,5 +1,6 @@
 package com.loneliness.server.controller;
 
+import com.loneliness.server.controller.command_implements.business_command.*;
 import com.loneliness.server.controller.command_implements.user_command.*;
 
 import java.util.HashMap;
@@ -17,6 +18,12 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ALL_USERS_IN_LIMIT,new ReceiveAllUsersInLimit());
         repository.put(CommandName.RECEIVE_USER,new ReceiveUser());
 
+
+        repository.put(CommandName.CALCULATE_PROFITABILITY,new CalculateProfitability());
+        repository.put(CommandName.CALCULATE_NET_ASSET_TURNOVER,new CalculateNetAssetTurnover());
+        repository.put(CommandName.CALCULATE_RONA,new CalculateRONA());
+        repository.put(CommandName.CALCULATE_FL,new CalculateFL());
+        repository.put(CommandName.CALCULATE_ROE,new CalculateROE());
     }
     public Map<CommandName, Command> getRepository() {
         return repository;
@@ -25,8 +32,8 @@ public class CommandProvider {
         return commandProvider;
     }
 
-    public <s>Command getCommand(CommandName name){
-        Command <s,s>command=repository.get(name);
+    public Command getCommand(CommandName name){
+        Command command=repository.get(name);
         return repository.get(name);
     }
 }

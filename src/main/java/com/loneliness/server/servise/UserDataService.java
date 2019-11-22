@@ -6,7 +6,7 @@ import com.loneliness.server.dao.SQLUserDAO;
 
 import java.util.Map;
 
-public class UserService implements Service<UserData,String, Map<Integer,UserData>>{
+public class UserDataService implements DataService<UserData,String, Map<Integer,UserData>> {
     private final SQLUserDAO userDAO =DAOFactory.getInstance().getUserDAO();
     @Override
     public String add(UserData note) {
