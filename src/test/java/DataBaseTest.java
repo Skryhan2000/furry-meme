@@ -1,11 +1,10 @@
 import com.github.javafaker.Faker;
-import com.loneliness.entity.Transmission;
 import com.loneliness.entity.UserData;
 import com.loneliness.server.controller.CommandName;
 import com.loneliness.server.controller.CommandProvider;
-import com.loneliness.server.controller.command_implements.user_command.AuthoriseUser;
 import com.loneliness.server.dao.DataBaseConnection;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.beans.PropertyVetoException;
@@ -15,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DataBaseTest {
     private Faker faker=new Faker();
-    private int quantity=5;
+    private int quantity=1;
 
 
     private Map<Integer,UserData> createUser(int quantity){
@@ -43,7 +42,8 @@ public class DataBaseTest {
         return data;
     }
 
-    @Test public void connectionTest() throws PropertyVetoException, SQLException {
+    @BeforeClass
+    public static void connectionTest() throws PropertyVetoException, SQLException {
         Assert.assertNotNull(DataBaseConnection.getInstance().getConnection());
     }
     @Test public void addUser(){

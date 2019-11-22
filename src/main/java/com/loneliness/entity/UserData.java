@@ -71,4 +71,21 @@ public class UserData implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return id == userData.id &&
+                type == userData.type &&
+                login.equals(userData.login) &&
+                password.equals(userData.password) &&
+                email.equals(userData.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, login, password, email);
+    }
 }
