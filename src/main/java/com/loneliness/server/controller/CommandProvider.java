@@ -26,6 +26,8 @@ public class CommandProvider {
         repository.put(CommandName.CALCULATE_FL,new CalculateFL());
         repository.put(CommandName.CALCULATE_ROE,new CalculateROE());
         repository.put(CommandName.CALCULATE_ALL_DIFFERENTIAL_INDICATORS,new CalculateAllDifferentialIndicators());
+        repository.put(CommandName.CALCULATE_WACC,new CalculateWACC());
+        repository.put(CommandName.CALCULATE_SG,new CalculateSG());
 
         repository.put(CommandName.CREATE_DIFFERENTIAL_INDICATORS, new CreateDifferentialIndicators());
         repository.put(CommandName.DELETE_DIFFERENTIAL_INDICATORS,new DeleteDifferentialIndicators());

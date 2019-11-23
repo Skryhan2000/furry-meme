@@ -1,4 +1,4 @@
-package com.loneliness.client.controller.user_impl;
+package com.loneliness.client.controller.command_impl.user;
 
 import com.loneliness.client.controller.Command;
 import com.loneliness.client.service.FactoryService;

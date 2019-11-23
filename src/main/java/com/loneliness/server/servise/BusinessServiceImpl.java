@@ -9,7 +9,6 @@ import java.math.RoundingMode;
 
 public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
 
-    // TODO: 22.11.2019 что такое FL?
     private RoundingMode roundingMode=RoundingMode.HALF_UP;
     private int scale=4;
 
