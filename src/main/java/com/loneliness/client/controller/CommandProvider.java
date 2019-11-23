@@ -1,6 +1,6 @@
 package com.loneliness.client.controller;
 
-import com.loneliness.client.controller.user_command.*;
+import com.loneliness.client.controller.user_impl.*;
 
 import java.util.HashMap;
 import java.util.Map;

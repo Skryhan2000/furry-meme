@@ -1,6 +1,6 @@
-package com.loneliness.client.controller.user_command;
+package com.loneliness.client.controller.user_impl;
 
-import com.loneliness.client.servise.FactoryService;
+import com.loneliness.client.service.FactoryService;
 import com.loneliness.entity.UserData;
 import com.loneliness.client.controller.Command;
 

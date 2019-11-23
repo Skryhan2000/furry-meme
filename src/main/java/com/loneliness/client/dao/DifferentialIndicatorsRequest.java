@@ -1,6 +1,7 @@
 package com.loneliness.client.dao;
 
 import com.loneliness.client.launcher.Client;
+import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Transmission;
 import com.loneliness.entity.UserData;
 
@@ -8,61 +9,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>> {
+public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>>{
     private Transmission transmission;
-
     @Override
-    public String add(UserData note) throws DAOException {
+    public String add(DifferentialIndicators note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("CREATE_USER");
-        transmission.setUserData(note);
-        try {
-            Client.getOutObject().writeObject(transmission);
-            return (String) Client.getInObject().readObject();
-        } catch (IOException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
-        }
-
-    }
-
-    @Override
-    public String update(UserData note) throws DAOException {
-        transmission = new Transmission();
-        transmission.setCommand("UPDATE_USER");
-        transmission.setUserData(note);
-        try {
-            Client.getOutObject().writeObject(transmission);
-            return (String) Client.getInObject().readObject();
-        } catch (IOException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
-        }
-    }
-
-
-    @Override
-    public UserData receive(UserData note) throws DAOException {
-        transmission = new Transmission();
-        transmission.setCommand("RECEIVE_USER");
-        transmission.setUserData(note);
-        try {
-            Client.getOutObject().writeObject(transmission);
-            return (UserData) Client.getInObject().readObject();
-        } catch (IOException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
-        }
-    }
-
-    @Override
-    public String delete(UserData note) throws DAOException {
-        transmission = new Transmission();
-        transmission.setCommand("DELETE_USER");
-        transmission.setUserData(note);
+        transmission.setCommand(" CREATE_DIFFERENTIAL_INDICATORS");
+        transmission.setDifferentialIndicators(note);
         try {
             Client.getOutObject().writeObject(transmission);
             return (String) Client.getInObject().readObject();
@@ -74,12 +27,13 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public Map<Integer, UserData> receiveAll() throws DAOException {
+    public String update(DifferentialIndicators note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("RECEIVE_ALL_USERS");
+        transmission.setCommand("UPDATE_DIFFERENTIAL_INDICATORS");
+        transmission.setDifferentialIndicators(note);
         try {
             Client.getOutObject().writeObject(transmission);
-            return (ConcurrentHashMap<Integer, UserData>) Client.getInObject().readObject();
+            return (String) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
@@ -88,29 +42,61 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public Map<Integer, UserData> receiveAllInLimit(int left, int right) throws DAOException {
+    public DifferentialIndicators receive(DifferentialIndicators note) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("RECEIVE_DIFFERENTIAL_INDICATORS");
+        transmission.setDifferentialIndicators(note);
         try {
+            Client.getOutObject().writeObject(transmission);
+            return (DifferentialIndicators) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+
+    @Override
+    public String delete(DifferentialIndicators note) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("DELETE_DIFFERENTIAL_INDICATORS");
+        transmission.setDifferentialIndicators(note);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (String) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+
+    @Override
+    public Map<Integer, DifferentialIndicators> receiveAll() throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("RECEIVE_ALL_DIFFERENTIAL_INDICATORS");
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (ConcurrentHashMap<Integer, DifferentialIndicators>) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+
+    @Override
+    public Map<Integer, DifferentialIndicators> receiveAllInLimit(int left, int right) throws DAOException {
             transmission = new Transmission();
             transmission.setBounds(new int[]{left, right});
-            transmission.setCommand("RECEIVE_ALL_USERS_IN_LIMIT");
+            transmission.setCommand("RECEIVE_ALL_DIFFERENTIAL_INDICATORS_IN_LIMIT");
+            try {
             Client.getOutObject().writeObject(transmission);
-            return (Map<Integer, UserData>) Client.getInObject().readObject();
+            return (Map<Integer, DifferentialIndicators>) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
-        }
-    }
-
-    public UserData.Type authorise(UserData note) throws DAOException {
-        transmission = new Transmission();
-        transmission.setCommand("AUTHORISE_USER");
-        transmission.setUserData(note);
-        try {
-            Client.getOutObject().writeObject(transmission);
-            return (UserData.Type) Client.getInObject().readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new DAOException("Ошибка получения данных", "ServerUserRequest " + e.getMessage());
         }
     }
 }

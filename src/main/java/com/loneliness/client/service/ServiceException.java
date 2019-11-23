@@ -1,4 +1,4 @@
-package com.loneliness.client.servise;
+package com.loneliness.client.service;
 
 public class ServiceException extends RuntimeException{
     private String userMessage;
