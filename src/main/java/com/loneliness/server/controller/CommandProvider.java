@@ -24,6 +24,7 @@ public class CommandProvider {
         repository.put(CommandName.CALCULATE_RONA,new CalculateRONA());
         repository.put(CommandName.CALCULATE_FL,new CalculateFL());
         repository.put(CommandName.CALCULATE_ROE,new CalculateROE());
+        repository.put(CommandName.CALCULATE_ALL_DIFFERENTIAL_INDICATORS,new CalculateAllDifferentialIndicators());
     }
     public Map<CommandName, Command> getRepository() {
         return repository;

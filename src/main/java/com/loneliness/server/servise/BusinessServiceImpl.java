@@ -1,5 +1,6 @@
 package com.loneliness.server.servise;
 
+import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
 import com.loneliness.server.controller.command_implements.business_command.CalculateRONA;
 
@@ -28,11 +29,11 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     }
 
     @Override
-    public BigDecimal calculateRONA(Index data) {
+    public BigDecimal calculateRONA(Index data) throws ServiceException {
         try {
             return calculateProfitability(data).multiply(calculateNetAssetTurnover(data)).setScale(1, RoundingMode.HALF_UP);
         }
-        catch (NullPointerException e){
+        catch (NullPointerException | ServiceException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
     }
@@ -63,5 +64,17 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     @Override
     public BigDecimal calculateWACC(Index data) {
         return null;
+    }
+
+    public DifferentialIndicators calculateAllDifferentialIndicators(Index data) throws ServiceException {
+        DifferentialIndicators indicators=new DifferentialIndicators();
+        indicators.setProfitability(calculateProfitability(data));
+        indicators.setNetAssetTurnover(calculateNetAssetTurnover(data));
+        indicators.setRONA(calculateRONA(data));
+        indicators.setFL(calculateFL(data));
+        indicators.setROE(calculateROE(data));
+        indicators.setSG(calculateSG(data));
+        indicators.setWACC(calculateWACC(data));
+        return indicators;
     }
 }

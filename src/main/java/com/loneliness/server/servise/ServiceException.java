@@ -1,42 +1,39 @@
 package com.loneliness.server.servise;
 
-public class ServiceException extends RuntimeException{
-    private String message;
-    private Throwable cause;
+public class ServiceException extends Throwable{
+    private String clientMessage;
 
-    public ServiceException(String message) {
+
+    public ServiceException(String message,String clientMessage) {
         super(message);
-        this.message = message;
+        this.clientMessage = clientMessage;
     }
 
-    public ServiceException(String message, Throwable cause) {
-        super(message);
-        this.message = message;
-        this.cause = cause;
+    public ServiceException(Throwable cause,String clientMessage) {
+        super(cause);
+        this.clientMessage = clientMessage;
+
     }
 
 
     public ServiceException(Throwable cause) {
         super(cause);
-        this.cause = cause;
+    }
+
+    public ServiceException(String message, Throwable cause) {
+        super(cause);
+        this.clientMessage = message;
     }
 
 
     @Override
     public String getMessage() {
-        return message;
+        return clientMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setClientMessage(String clientMessage) {
+        this.clientMessage = clientMessage;
     }
 
-    @Override
-    public Throwable getCause() {
-        return cause;
-    }
 
-    public void setCause(Throwable cause) {
-        this.cause = cause;
-    }
 }

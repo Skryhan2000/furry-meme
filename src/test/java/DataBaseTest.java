@@ -2,6 +2,7 @@ import com.github.javafaker.Faker;
 import com.loneliness.entity.UserData;
 import com.loneliness.server.controller.CommandName;
 import com.loneliness.server.controller.CommandProvider;
+import com.loneliness.server.controller.ControllerException;
 import com.loneliness.server.dao.DataBaseConnection;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -46,7 +47,7 @@ public class DataBaseTest {
     public static void connectionTest() throws PropertyVetoException, SQLException {
         Assert.assertNotNull(DataBaseConnection.getInstance().getConnection());
     }
-    @Test public void addUser(){
+    @Test public void addUser() throws ControllerException {
         UserData userData;
         int c=0;
         for(int i=0;i<quantity;i++){
@@ -60,7 +61,7 @@ public class DataBaseTest {
 
         Assert.assertEquals(c,quantity);
     }
-    @Test public void updateUser(){
+    @Test public void updateUser() throws ControllerException {
       int updateQuantity=0;
       int[] bound={0,5};
         Map<Integer,UserData> dataMap=(Map<Integer, UserData>) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ALL_USERS_IN_LIMIT).execute(bound);
@@ -74,7 +75,7 @@ public class DataBaseTest {
         }
         Assert.assertEquals(updateQuantity,quantity);
     }
-    @Test public void deleteUser() {
+    @Test public void deleteUser() throws ControllerException {
         int deleteQuantity = 0;
         int[] bound = {deleteQuantity, deleteQuantity+quantity};
         Map<Integer, UserData> dataMap = (Map<Integer, UserData>) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ALL_USERS_IN_LIMIT).execute(bound);
@@ -88,7 +89,7 @@ public class DataBaseTest {
         }
         Assert.assertEquals(deleteQuantity,quantity);
     }
-    @Test public void authoriseUserPos(){
+    @Test public void authoriseUserPos() throws ControllerException {
         boolean valid=false;
         int[] bound = {0, 1};
         UserData userData = ((Map<Integer, UserData>) CommandProvider.getCommandProvider().
@@ -104,7 +105,7 @@ public class DataBaseTest {
 
         Assert.assertTrue(valid);
     }
-    @Test public void authoriseUserNeg(){
+    @Test public void authoriseUserNeg() throws ControllerException {
         boolean invalid=false;
         int[] bound = {0, 1};
         UserData userData = ((Map<Integer, UserData>) CommandProvider.getCommandProvider().
