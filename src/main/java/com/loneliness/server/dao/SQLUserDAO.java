@@ -79,7 +79,6 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
     @Override
     public UserData receive(UserData note) {
         ResultSet resultSet;
-        Statement statement;
         String sql;
         if(note.getId()!=0) {
             sql = "SELECT * FROM Users WHERE id = '" + note.getId() + "';";

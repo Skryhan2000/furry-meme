@@ -94,7 +94,7 @@ public class BusinessServiceTest {
         commandProvider.getCommand(CommandName.CALCULATE_ROE).execute(invalid);
     }
     @Test public void calculateAllDifferentialIndicators() throws ControllerException {
-        // TODO: 23.11.2019 дописать 
+        // TODO: 23.11.2019 дописать
         Assert.assertEquals(validDifferentialIndicators,CommandProvider.getCommandProvider().
                 getCommand(CommandName.CALCULATE_ALL_DIFFERENTIAL_INDICATORS).execute(invalid));
 

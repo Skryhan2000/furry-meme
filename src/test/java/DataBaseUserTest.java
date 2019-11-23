@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DataBaseTest {
+public class DataBaseUserTest {
     private Faker faker=new Faker();
     private int quantity=1;
 

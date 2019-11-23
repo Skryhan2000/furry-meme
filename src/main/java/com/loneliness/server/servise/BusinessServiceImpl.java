@@ -8,12 +8,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
-    // TODO: 22.11.2019 Какое округление?
+
     // TODO: 22.11.2019 что такое FL?
+    private RoundingMode roundingMode=RoundingMode.HALF_UP;
+    private int scale=4;
+
     @Override
     public BigDecimal calculateProfitability(Index data) throws ServiceException {
         try {
-            return (data.getNetProfit().divide(data.getRevenuesFromSales(), 9, RoundingMode.HALF_DOWN)).multiply(new BigDecimal(100)).setScale(1, RoundingMode.FLOOR);
+            return (data.getNetProfit().divide(data.getRevenuesFromSales(), scale, roundingMode)).multiply(new BigDecimal(100)).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
@@ -22,7 +25,7 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     @Override
     public BigDecimal calculateNetAssetTurnover(Index data) throws ServiceException {
         try {
-        return data.getRevenuesFromSales().divide(data.getAssets(),9,RoundingMode.HALF_DOWN).setScale(2, RoundingMode.FLOOR);
+        return data.getRevenuesFromSales().divide(data.getAssets(),scale,RoundingMode.HALF_DOWN).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
@@ -31,7 +34,7 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     @Override
     public BigDecimal calculateRONA(Index data) throws ServiceException {
         try {
-            return calculateProfitability(data).multiply(calculateNetAssetTurnover(data)).setScale(1, RoundingMode.HALF_UP);
+            return calculateProfitability(data).multiply(calculateNetAssetTurnover(data)).setScale(scale, roundingMode);
         }
         catch (NullPointerException | ServiceException e){
             throw new ServiceException(e.getMessage(),e.getCause());
@@ -41,7 +44,7 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     @Override
     public BigDecimal calculateFL(Index data) throws ServiceException {
         try {
-        return (data.getAttractedCapital().add(data.getEquity())).divide(data.getEquity(),1,RoundingMode.FLOOR);
+        return (data.getAttractedCapital().add(data.getEquity())).divide(data.getEquity(),scale,roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
@@ -50,7 +53,7 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     @Override
     public BigDecimal calculateROE(Index data) throws ServiceException {
         try {
-            return calculateRONA(data).multiply(calculateFL(data)).setScale(1, RoundingMode.HALF_UP);
+            return calculateRONA(data).multiply(calculateFL(data)).setScale(scale, roundingMode);
         } catch (ArithmeticException | NullPointerException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
