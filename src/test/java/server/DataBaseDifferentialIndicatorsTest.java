@@ -1,6 +1,7 @@
+package server;
+
 import com.github.javafaker.Faker;
 import com.loneliness.entity.DifferentialIndicators;
-import com.loneliness.entity.UserData;
 import com.loneliness.server.controller.CommandName;
 import com.loneliness.server.controller.CommandProvider;
 import com.loneliness.server.controller.ControllerException;
@@ -8,7 +9,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
@@ -20,8 +20,8 @@ public class DataBaseDifferentialIndicatorsTest {
     @BeforeClass public static void addDifferentialIndicators(){
         valid.setCompanyName("valid");
         valid.setReportingPeriod(LocalDate.now());
-        valid.setProfitability(new BigDecimal("10"));
-        valid.setNetAssetTurnover(new BigDecimal("10"));
+        valid.setProfR(new BigDecimal("10"));
+        valid.setNetA(new BigDecimal("10"));
         valid.setRONA(new BigDecimal("12"));
         valid.setFL(new BigDecimal("10"));
         valid.setROE(new BigDecimal("10"));
@@ -30,8 +30,8 @@ public class DataBaseDifferentialIndicatorsTest {
 
         invalid.setCompanyName("invalid");
         invalid.setReportingPeriod(LocalDate.now());
-        invalid.setProfitability(new BigDecimal("10"));
-        invalid.setNetAssetTurnover(new BigDecimal("10"));
+        invalid.setProfR(new BigDecimal("10"));
+        invalid.setNetA(new BigDecimal("10"));
         invalid.setRONA(new BigDecimal("12"));
         invalid.setFL(new BigDecimal("10"));
         invalid.setROE(new BigDecimal("10"));
@@ -42,8 +42,8 @@ public class DataBaseDifferentialIndicatorsTest {
     private DifferentialIndicators changeData(DifferentialIndicators data){
         data.setCompanyName(faker.company().name());
         data.setReportingPeriod(LocalDate.now());
-        data.setProfitability(new BigDecimal(faker.number().randomDigit()));
-        data.setNetAssetTurnover(new BigDecimal(faker.number().randomDigit()));
+        data.setProfR(new BigDecimal(faker.number().randomDigit()));
+        data.setNetA(new BigDecimal(faker.number().randomDigit()));
         data.setRONA(new BigDecimal(faker.number().randomDigit()));
         data.setFL(new BigDecimal(faker.number().randomDigit()));
         data.setROE(new BigDecimal(faker.number().randomDigit()));
@@ -64,8 +64,11 @@ public class DataBaseDifferentialIndicatorsTest {
                 getCommand(CommandName.UPDATE_DIFFERENTIAL_INDICATORS).execute(dataMap.values().iterator().next()));
     }
     @Test public void deleteValidDifferentialIndicators() throws ControllerException {
+        int[] bound={0,1};
+        Map<Integer, DifferentialIndicators> dataMap=(Map<Integer, DifferentialIndicators>) CommandProvider.getCommandProvider().
+                getCommand(CommandName.RECEIVE_ALL_DIFFERENTIAL_INDICATORS_IN_LIMIT).execute(bound);
         Assert.assertEquals("Данные удалены", CommandProvider.getCommandProvider().
-                getCommand(CommandName.DELETE_DIFFERENTIAL_INDICATORS).execute(valid));
+                getCommand(CommandName.DELETE_DIFFERENTIAL_INDICATORS).execute(dataMap.values().iterator().next()));
     }
 
 }

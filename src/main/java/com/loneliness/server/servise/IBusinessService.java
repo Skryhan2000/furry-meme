@@ -8,6 +8,6 @@ public interface IBusinessService<D,R> {
     R calculateRONA(D data) throws ServiceException;
     R calculateFL(D data) throws ServiceException;
     R calculateROE(D data) throws ServiceException;
-    R calculateSG(D data);
+    R calculateSG(D data) throws ServiceException;
     R calculateWACC(D data);
 }

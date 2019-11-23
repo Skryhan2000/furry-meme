@@ -1,3 +1,5 @@
+package server;
+
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
 import com.loneliness.server.controller.CommandName;
@@ -17,17 +19,17 @@ public class BusinessServiceTest {
 
 
     {
-        validIndex.setNetProfit(new BigDecimal("78096"));
-        validIndex.setRevenuesFromSales(new BigDecimal("296809"));
+        validIndex.setPBIT(new BigDecimal("78096"));
+        validIndex.setSales(new BigDecimal("296809"));
         validIndex.setAssets(new BigDecimal("672421"));
         validIndex.setEquity(new BigDecimal("478853"));
-        validIndex.setAttractedCapital(new BigDecimal("193568"));
+        validIndex.setCredit(new BigDecimal("193568"));
         commandProvider = CommandProvider.getCommandProvider();
-        invalid.setRevenuesFromSales(new BigDecimal("0"));
+        invalid.setSales(new BigDecimal("0"));
         invalid.setAssets(new BigDecimal("0"));
         invalid.setEquity(new BigDecimal("0"));
-        validDifferentialIndicators.setProfitability(new BigDecimal("26.3"));
-        validDifferentialIndicators.setNetAssetTurnover(new BigDecimal("0.44"));
+        validDifferentialIndicators.setProfR(new BigDecimal("26.3"));
+        validDifferentialIndicators.setNetA(new BigDecimal("0.44"));
         validDifferentialIndicators.setRONA(new BigDecimal("16.6"));
         validDifferentialIndicators.setFL(new BigDecimal("11.4"));
 

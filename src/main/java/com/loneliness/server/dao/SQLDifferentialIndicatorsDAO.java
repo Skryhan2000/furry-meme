@@ -1,7 +1,6 @@
 package com.loneliness.server.dao;
 
 import com.loneliness.entity.DifferentialIndicators;
-import com.loneliness.entity.UserData;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -23,8 +22,8 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
         indicators.setId(resultSet.getInt("id_дифференциальных_показателей"));
         indicators.setCompanyName(resultSet.getString("имя_компании"));
         indicators.setReportingPeriod(resultSet.getDate("отчетный_период").toLocalDate());
-        indicators.setNetAssetTurnover(resultSet.getBigDecimal("оборачиваемость_чистых_активов"));
-        indicators.setProfitability(resultSet.getBigDecimal("рентабельность_продаж"));
+        indicators.setNetA(resultSet.getBigDecimal("оборачиваемость_чистых_активов"));
+        indicators.setProfR(resultSet.getBigDecimal("рентабельность_продаж"));
         indicators.setRONA(resultSet.getBigDecimal("RONA"));
         indicators.setROE(resultSet.getBigDecimal("ROE"));
         indicators.setSG(resultSet.getBigDecimal("SG"));
@@ -42,8 +41,8 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
                     "VALUES ( '"+
                     note.getCompanyName()+"',' "+
                     note.getReportingPeriod()+"', '"+
-                    note.getNetAssetTurnover()+"', '"+
-                    note.getProfitability()+"', '"+
+                    note.getNetA()+"', '"+
+                    note.getProfR()+"', '"+
                     note.getRONA()+"', '"+
                     note.getROE()+"', '"+
                     note.getSG()+"', '"+
@@ -70,8 +69,8 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
         sql = "UPDATE дифференциальные_показатели SET " +
                 "имя_компании='" + note.getCompanyName() + "'," +
                 "отчетный_период='" + note.getReportingPeriod() + "'," +
-                "оборачиваемость_чистых_активов='" + note.getNetAssetTurnover().toString() + "'," +
-                "рентабельность_продаж='" + note.getProfitability().toString() + "'," +
+                "оборачиваемость_чистых_активов='" + note.getNetA().toString() + "'," +
+                "рентабельность_продаж='" + note.getProfR().toString() + "'," +
                 "RONA='" + note.getRONA().toString() + "'," +
                 "ROE='" + note.getROE().toString() + "'," +
                 "SG='" + note.getSG().toString() + "'," +

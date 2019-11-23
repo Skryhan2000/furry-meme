@@ -12,9 +12,9 @@ public class DifferentialIndicators implements Serializable {
     @NotNull(message = "Должен быть задан отчетный период")
     private LocalDate reportingPeriod;
     @NotNull(message = "Должна быть задана рентабельность продаж ")
-    private BigDecimal profitability;
+    private BigDecimal profR;
     @NotNull(message = "Должна быть задана оборачиваемость чистых активов ")
-    private BigDecimal netAssetTurnover;
+    private BigDecimal netA;
     @NotNull(message = "Должна быть задана RONA ")
     private BigDecimal RONA;
     @NotNull(message = "Должна быть задана FL ")
@@ -53,20 +53,20 @@ public class DifferentialIndicators implements Serializable {
         this.reportingPeriod = reportingPeriod;
     }
 
-    public BigDecimal getProfitability() {
-        return profitability;
+    public BigDecimal getProfR() {
+        return profR;
     }
 
-    public void setProfitability(BigDecimal profitability) {
-        this.profitability = profitability;
+    public void setProfR(BigDecimal profR) {
+        this.profR = profR;
     }
 
-    public BigDecimal getNetAssetTurnover() {
-        return netAssetTurnover;
+    public BigDecimal getNetA() {
+        return netA;
     }
 
-    public void setNetAssetTurnover(BigDecimal netAssetTurnover) {
-        this.netAssetTurnover = netAssetTurnover;
+    public void setNetA(BigDecimal netA) {
+        this.netA = netA;
     }
 
     public BigDecimal getRONA() {

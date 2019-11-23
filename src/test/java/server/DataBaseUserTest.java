@@ -1,3 +1,5 @@
+package server;
+
 import com.github.javafaker.Faker;
 import com.loneliness.entity.UserData;
 import com.loneliness.server.controller.CommandName;
