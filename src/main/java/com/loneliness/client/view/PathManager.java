@@ -10,7 +10,10 @@ public class PathManager {
     private PathManager() {
     }
 
-   public String getAuthorisationForm(){return "/AuthorisationForm.fxml";}
+    public String getAuthorisationForm(){return "/AuthorisationForm.fxml";}
+    public String getAddDifferentialIndicators(){return "/AddDifferentialIndicators.fxml";}
+    public String getManagerStartWindow(){return "/ManagerStartWindow.fxml";}
+    public String getAdminStartWindow(){return "/AdminStartWindow.fxml";}
 
 
 }

@@ -3,6 +3,7 @@ package com.loneliness.server.launcher;
 
 
 import com.loneliness.server.view.ClientWorkingThread;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,6 +24,7 @@ public class Server extends Thread {
             socket = new ServerSocket(port);
             setOpen(true);
             quantity.set(0);
+            System.out.println("Сервер запущен");
         } catch (IOException e) {
             e.printStackTrace();
         }
