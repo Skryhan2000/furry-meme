@@ -12,7 +12,7 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     private Transmission transmission;
 
     @Override
-    public String add(UserData note) {
+    public String add(UserData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("CREATE_USER");
         transmission.setUserData(note);
@@ -28,7 +28,7 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public String update(UserData note) {
+    public String update(UserData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("UPDATE_USER");
         transmission.setUserData(note);
@@ -44,7 +44,7 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
 
 
     @Override
-    public UserData receive(UserData note) {
+    public UserData receive(UserData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("RECEIVE_USER");
         transmission.setUserData(note);
@@ -59,7 +59,7 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public String delete(UserData note) {
+    public String delete(UserData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("DELETE_USER");
         transmission.setUserData(note);
@@ -74,8 +74,8 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public Map<Integer, UserData> receiveAll() {
-        Transmission transmission = new Transmission();
+    public Map<Integer, UserData> receiveAll() throws DAOException {
+        transmission = new Transmission();
         transmission.setCommand("RECEIVE_ALL_USERS");
         try {
             Client.getOutObject().writeObject(transmission);
@@ -88,19 +88,21 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
     }
 
     @Override
-    public Map<Integer, UserData> receiveAllInLimit(int left, int right) {
+    public Map<Integer, UserData> receiveAllInLimit(int left, int right) throws DAOException {
         try {
             transmission = new Transmission();
             transmission.setBounds(new int[]{left, right});
             transmission.setCommand("RECEIVE_ALL_USERS_IN_LIMIT");
             Client.getOutObject().writeObject(transmission);
             return (Map<Integer, UserData>) Client.getInObject().readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new DAOException("Ошибка получения данных", "ServerUserRequest " + e.getMessage());
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
 
-    public UserData.Type authorise(UserData note) {
+    public UserData.Type authorise(UserData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("AUTHORISE_USER");
         transmission.setUserData(note);

@@ -4,6 +4,8 @@ public class ServiceFactory {
     private static final ServiceFactory instance=new ServiceFactory();
     private final UserDataService userService=new UserDataService();
     private final BusinessServiceImpl businessService=new BusinessServiceImpl();
+    private final DifferentialIndicatorsDataService differentialIndicatorsDataService=
+            new DifferentialIndicatorsDataService();
     private ServiceFactory(){}
 
     public static ServiceFactory getInstance() {
@@ -16,5 +18,9 @@ public class ServiceFactory {
 
     public BusinessServiceImpl getBusinessService() {
         return businessService;
+    }
+
+    public DifferentialIndicatorsDataService getDifferentialIndicatorsDataService() {
+        return differentialIndicatorsDataService;
     }
 }

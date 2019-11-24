@@ -7,6 +7,7 @@ public class Transmission implements Serializable {
     private int[] bounds;
     private Index index;
     private UserData userData;
+    private DifferentialIndicators differentialIndicators;
 
     public Index getIndex() {
         return index;
@@ -38,5 +39,13 @@ public class Transmission implements Serializable {
 
     public void setUserData(UserData userData) {
         this.userData = userData;
+    }
+
+    public DifferentialIndicators getDifferentialIndicators() {
+        return differentialIndicators;
+    }
+
+    public void setDifferentialIndicators(DifferentialIndicators differentialIndicators) {
+        this.differentialIndicators = differentialIndicators;
     }
 }

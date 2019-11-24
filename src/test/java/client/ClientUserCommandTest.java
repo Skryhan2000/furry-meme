@@ -1,8 +1,11 @@
+package client;
+
 import com.github.javafaker.Faker;
 import com.loneliness.client.controller.CommandName;
 import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.launcher.Client;
 import com.loneliness.entity.UserData;
+import com.loneliness.server.controller.ControllerException;
 import com.loneliness.server.launcher.ServerLauncher;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -46,7 +49,7 @@ public class ClientUserCommandTest {
         Assert.assertTrue(Client.connect("localhost",8000));
     }
 
-    @Test public void createUser(){
+    @Test public void createUser() throws com.loneliness.client.controller.ControllerException {
         boolean success=false;
         UserData userData=createUser(1).values().iterator().next();
         if(CommandProvider.getCommandProvider().getCommand(CommandName.CREATE_USER).execute(userData).
@@ -55,7 +58,7 @@ public class ClientUserCommandTest {
         }
         Assert.assertTrue(success);
     }
-    @Test public void updateUser(){
+    @Test public void updateUser() throws ControllerException, com.loneliness.client.controller.ControllerException {
         boolean success=false;
         int[] bound={0,1};
         Map<Integer,UserData> dataMap=(Map<Integer, UserData>) com.loneliness.server.
@@ -69,7 +72,7 @@ public class ClientUserCommandTest {
         }
         Assert.assertTrue(success);
     }
-    @Test public void deleteUser(){
+    @Test public void deleteUser() throws ControllerException, com.loneliness.client.controller.ControllerException {
         boolean success=false;
         int[] bound={0,1};
         Map<Integer,UserData> dataMap=(Map<Integer, UserData>) com.loneliness.server.
@@ -81,7 +84,7 @@ public class ClientUserCommandTest {
         }
         Assert.assertTrue(success);
     }
-    @Test public void receiveUser(){
+    @Test public void receiveUser() throws ControllerException, com.loneliness.client.controller.ControllerException {
 
         int[] bound={0,1};
         Map<Integer,UserData> dataMap=(Map<Integer, UserData>) com.loneliness.server.
@@ -91,7 +94,7 @@ public class ClientUserCommandTest {
         Assert.assertEquals(RECEIVE_ALL_USERS_IN_LIMIT, CommandProvider.getCommandProvider().getCommand(CommandName.
                 RECEIVE_USER).execute(RECEIVE_ALL_USERS_IN_LIMIT));
     }
-    @Test public void authoriseUser(){
+    @Test public void authoriseUser() throws ControllerException, com.loneliness.client.controller.ControllerException {
         int[] bound={0,1};
         UserData RECEIVE_ALL_USERS_IN_LIMIT;
         while (true) {

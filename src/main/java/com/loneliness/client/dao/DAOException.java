@@ -1,6 +1,6 @@
 package com.loneliness.client.dao;
 
-public class DAOException extends RuntimeException{
+public class DAOException extends Throwable{
     private String userMessage;
     public DAOException(String message,String userMessage) {
         super(message);

@@ -34,11 +34,9 @@ public class AuthorisationFormController {
         }
         private boolean isValid(){
                 boolean valid=false;
-                if(userData.getPassword()!=null&&userData.getPassword().length()!=0){
-                        if(userData.getLogin()!=null&&userData.getLogin().length()!=0){
-                                CommandProvider.getCommandProvider().getCommand(CommandName.AUTHORISE_USER).execute(userData);
+                        if (userData.getPassword() != null && userData.getPassword().length() != 0) {
+                                return userData.getLogin() != null && userData.getLogin().length() != 0;
                         }
-                }
                 return false;
         }
         @FXML

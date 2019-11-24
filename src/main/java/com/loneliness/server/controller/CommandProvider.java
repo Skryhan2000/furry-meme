@@ -1,6 +1,7 @@
 package com.loneliness.server.controller;
 
 import com.loneliness.server.controller.command_implements.business_command.*;
+import com.loneliness.server.controller.command_implements.differential_indicators_command.*;
 import com.loneliness.server.controller.command_implements.user_command.*;
 
 import java.util.HashMap;
@@ -24,6 +25,16 @@ public class CommandProvider {
         repository.put(CommandName.CALCULATE_RONA,new CalculateRONA());
         repository.put(CommandName.CALCULATE_FL,new CalculateFL());
         repository.put(CommandName.CALCULATE_ROE,new CalculateROE());
+        repository.put(CommandName.CALCULATE_ALL_DIFFERENTIAL_INDICATORS,new CalculateAllDifferentialIndicators());
+        repository.put(CommandName.CALCULATE_WACC,new CalculateWACC());
+        repository.put(CommandName.CALCULATE_SG,new CalculateSG());
+
+        repository.put(CommandName.CREATE_DIFFERENTIAL_INDICATORS, new CreateDifferentialIndicators());
+        repository.put(CommandName.DELETE_DIFFERENTIAL_INDICATORS,new DeleteDifferentialIndicators());
+        repository.put(CommandName.RECEIVE_ALL_DIFFERENTIAL_INDICATORS,new ReceiveAllDifferentialIndicators());
+        repository.put(CommandName.RECEIVE_ALL_DIFFERENTIAL_INDICATORS_IN_LIMIT,new ReceiveAllDifferentialIndicatorsInLimit());
+        repository.put(CommandName.RECEIVE_DIFFERENTIAL_INDICATORS,new ReceiveDifferentialIndicators());
+        repository.put(CommandName.UPDATE_DIFFERENTIAL_INDICATORS,new UpdateDifferentialIndicators());
     }
     public Map<CommandName, Command> getRepository() {
         return repository;

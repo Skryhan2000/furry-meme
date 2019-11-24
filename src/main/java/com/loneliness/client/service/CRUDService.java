@@ -1,4 +1,4 @@
-package com.loneliness.client.servise;
+package com.loneliness.client.service;
 
 public interface CRUDService <D, S, C> {
     S create(D obj) throws  ServiceException;

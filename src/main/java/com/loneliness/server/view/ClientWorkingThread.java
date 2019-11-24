@@ -4,6 +4,7 @@ package com.loneliness.server.view;
 import com.loneliness.entity.Transmission;
 import com.loneliness.server.controller.CommandName;
 import com.loneliness.server.controller.CommandProvider;
+import com.loneliness.server.controller.ControllerException;
 import com.loneliness.server.launcher.Server;
 
 
@@ -50,7 +51,7 @@ public class ClientWorkingThread implements Runnable{
 
 
 
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException | IOException | ControllerException e) {
             killOneClient();
             // e.printStackTrace();
         }

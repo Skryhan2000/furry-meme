@@ -1,6 +1,6 @@
-package com.loneliness.client.servise;
+package com.loneliness.client.service;
 
-public class ServiceException extends RuntimeException{
+public class ServiceException extends Throwable{
     private String userMessage;
     public ServiceException(String message,String userMessage) {
         super(message);
