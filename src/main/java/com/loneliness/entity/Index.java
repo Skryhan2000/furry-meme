@@ -21,6 +21,8 @@ public class Index implements Serializable {
     private BigDecimal ratioRec;
     @NotNull(message = "Задайте оперативную прибыль ")
     private BigDecimal EBIT;
+    @NotNull(message = "Задайте собственный капитал текущий период ")
+    private BigDecimal E;
     @NotNull(message = "Задайте собственный капитал на начало года ")
     private BigDecimal E1;
     @NotNull(message = "Задайте собственный капитал на конец года ")
@@ -129,5 +131,13 @@ public class Index implements Serializable {
 
     public void setD(BigDecimal d) {
         D = d;
+    }
+
+    public BigDecimal getE() {
+        return E;
+    }
+
+    public void setE(BigDecimal e) {
+        E = e;
     }
 }

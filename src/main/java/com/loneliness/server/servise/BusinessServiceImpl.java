@@ -74,7 +74,8 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     public BigDecimal calculateWACC(Index data) {
         // TODO: 23.11.2019 уточнить формулу
 //        BigDecimal f=data.getR().multiply(new BigDecimal(1).min(T));
-//        BigDecimal s=data.getL().divide(data.getL(),scale,roundingMode).add()
+//        BigDecimal s=data.getL().divide(data.getL(),scale,roundingMode).add(data.getE());
+//        BigDecimal t=data.getE().divide(data.)
         return null;
     }
 
