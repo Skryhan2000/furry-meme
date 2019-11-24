@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AuthorisationFormController {
         @FXML
         private Stage dialogStage;
-        private UserData userData=new UserData();
+        private UserData userData = new UserData();
         @FXML
         private PasswordField passwordField;
 
@@ -35,7 +35,7 @@ public class AuthorisationFormController {
                         UserData userData = new UserData();
                         getAllData(userData);
                         try {
-                                UserData.Type type=(UserData.Type) CommandProvider.getCommandProvider().getCommand(
+                                UserData.Type type = (UserData.Type) CommandProvider.getCommandProvider().getCommand(
                                         CommandName.AUTHORISE_USER).execute(userData);
 
                                 switch (type) {
@@ -49,7 +49,7 @@ public class AuthorisationFormController {
                                                 break;
                                         case NO_TYPE:
                                                 FilledAlert.getInstance().showAlert("Авторизация",
-                                                        "Ошибка авторизации", "Нет такого пользователя или ваш статус еще не подтвержден",
+                                                        "Ошибка авторизации", "Нет такого логина и пароля или ваш статус еще не подтвержден",
                                                         dialogStage, "ERROR");
                                                 break;
                                         default:
@@ -66,11 +66,13 @@ public class AuthorisationFormController {
                         }
                 }
         }
-        private void getAllData(UserData userData){
+
+        private void getAllData(UserData userData) {
                 userData.setPassword(passwordField.getText());
                 userData.setLogin(loginField.getText());
         }
-        private boolean isValid(){
+
+        private boolean isValid() {
                 String errorMessage = "";
 
                 if (loginField.getText() == null || loginField.getText().length() == 0) {
@@ -87,11 +89,12 @@ public class AuthorisationFormController {
                         return false;
                 }
         }
+
         @FXML
         public void initialize() {
 
-                FilledAlert.getInstance().showAlert("furry-meme","Добро пожаловать в furry-meme",
-                        "Сдесь должна быть заставка, но ее съели мыши",dialogStage,"INFORMATION");
+                FilledAlert.getInstance().showAlert("furry-meme", "Добро пожаловать в furry-meme",
+                        "Сдесь должна быть заставка, но ее съели мыши", dialogStage, "INFORMATION");
                 while (!Reconnect.getInstance().getCancel().get()) {
                         if (!FilledAlert.getInstance().showAlert("Ошибка подключения",
                                 "Подключение к серверу отсутствует",
