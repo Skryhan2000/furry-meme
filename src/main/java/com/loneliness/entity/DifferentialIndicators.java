@@ -7,10 +7,12 @@ import java.time.LocalDate;
 
 public class DifferentialIndicators implements Serializable {
     private int id;
-    @NotNull(message = "Должна быть задана имя компании")
-    private String companyName;
+    @NotNull(message = "Задайте id компании ")
+    private int companyID;
     @NotNull(message = "Должен быть задан отчетный период")
-    private LocalDate reportingPeriod;
+    private LocalDate reportingDate;
+    @NotNull(message = "Должен быть задан квартал")
+    private Quarter quarter;
     @NotNull(message = "Должна быть задана рентабельность продаж ")
     private BigDecimal profR;
     @NotNull(message = "Должна быть задана оборачиваемость чистых активов ")
@@ -27,6 +29,7 @@ public class DifferentialIndicators implements Serializable {
     private BigDecimal WACC;
 
     public DifferentialIndicators() {
+
     }
 
     public int getId() {
@@ -37,20 +40,12 @@ public class DifferentialIndicators implements Serializable {
         this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public LocalDate getReportingDate() {
+        return reportingDate;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public LocalDate getReportingPeriod() {
-        return reportingPeriod;
-    }
-
-    public void setReportingPeriod(LocalDate reportingPeriod) {
-        this.reportingPeriod = reportingPeriod;
+    public void setReportingDate(LocalDate reportingDate) {
+        this.reportingDate = reportingDate;
     }
 
     public BigDecimal getProfR() {
@@ -107,5 +102,21 @@ public class DifferentialIndicators implements Serializable {
 
     public void setWACC(BigDecimal WACC) {
         this.WACC = WACC;
+    }
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
+    }
+
+    public Quarter getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(Quarter quarter) {
+        this.quarter = quarter;
     }
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 public class BusinessServiceTest {
+    // TODO: 25.11.2019 исправить тесты
     private Index validIndex = new Index();
     private Index invalid=new Index();
     private CommandProvider commandProvider;
