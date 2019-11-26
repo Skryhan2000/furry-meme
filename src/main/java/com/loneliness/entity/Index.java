@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Index implements Serializable {
+    // TODO: 26.11.2019 отсутствуют объёмы продаж
+    // TODO: 26.11.2019 отсутствует средняя сумма процента по кредиту
+    // TODO: 26.11.2019 отсутствует ливеридж
     private int indexID;
     @NotNull(message = "Задайте id компании ")
     private int companyID;

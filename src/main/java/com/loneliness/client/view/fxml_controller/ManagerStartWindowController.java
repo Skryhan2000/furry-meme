@@ -74,13 +74,29 @@ public class ManagerStartWindowController {
 
         @FXML
         void deleteDifferentialIndicators(ActionEvent event) {
-
+                try {
+                        Index index=findDifferentialIndicators();
+                        if(index.getIndexID()>0){
+                                if (!FilledAlert.getInstance().showAlert("Требуется подтверждение",
+                                        "Удаление дифференциальных показателей",
+                                        "Нажмите ок для подтверждения", dialogStage, "INFORMATION")) {
+                                        // TODO: 25.11.2019 команда для удаления
+                                }
+                        }
+                        else {
+                                FilledAlert.getInstance().showAlert("Поиск данных",
+                                        "Не валидные данные", "Нет таких данных",
+                                        this.dialogStage, "INFORMATION");
+                        }
+                } catch (ViewException e) {
+                        e.printStackTrace();
+                }
         }
 
         @FXML
         void updateDifferentialIndicators() {
                 try {
-                        index =findDifferentialIndicators();
+                        Index index =findDifferentialIndicators();
                         if(index.getIndexID()>0) {
                                 dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
                                         getChangeIndex(), "Изменение данных");
