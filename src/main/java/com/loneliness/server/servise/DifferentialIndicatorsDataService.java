@@ -3,12 +3,12 @@ package com.loneliness.server.servise;
 
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.server.dao.DAOFactory;
-import com.loneliness.server.dao.SQLDifferentialIndicatorsDAO;
+import com.loneliness.server.dao.sql_dao.SQLDifferentialIndicatorsDAO;
 
 import java.util.Map;
 
 public class DifferentialIndicatorsDataService implements DataService<DifferentialIndicators,String, Map<Integer, DifferentialIndicators>> {
-    SQLDifferentialIndicatorsDAO dao= DAOFactory.getInstance().getDifferentialIndicatorsDAO();
+    private SQLDifferentialIndicatorsDAO dao= DAOFactory.getInstance().getDifferentialIndicatorsDAO();
     @Override
     public String add(DifferentialIndicators note) {
         return dao.add(note);

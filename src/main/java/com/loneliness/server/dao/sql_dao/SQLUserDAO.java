@@ -1,6 +1,8 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
 import com.loneliness.entity.UserData;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.*;
@@ -27,7 +29,7 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
     public String add(UserData note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+            Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT Users (login , password , type, email) " +
                     "VALUES ( '"+
                     note.getLogin()+"',' "+

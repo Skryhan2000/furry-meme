@@ -1,7 +1,8 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
-import com.loneliness.entity.Company;
-import com.loneliness.entity.UserData;
+import com.loneliness.entity.Dividend;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -10,29 +11,34 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>> {
-    private static final SQLCompanyDAO instance=new SQLCompanyDAO();
-    private SQLCompanyDAO(){}
-
-    public static SQLCompanyDAO getInstance() {
+public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividend>> {
+    private static final SQLDividendDAO instance=new SQLDividendDAO();
+    private SQLDividendDAO(){}
+    public static SQLDividendDAO getInstance() {
         return instance;
     }
 
-    private Company getDataFromResultSet(ResultSet resultSet) throws SQLException {
-        Company company = new Company();
-        company.setCompanyId(resultSet.getInt("id_компании"));
-        company.setCompanyName(resultSet.getString("имя_компании"));
-        return company;
+    private Dividend getDataFromResultSet(ResultSet resultSet) throws SQLException {
+        Dividend dividend  = new Dividend ();
+        dividend.setDividendId(resultSet.getInt("id_дивидент"));
+        dividend.setCompanyId(resultSet.getInt("id_компании"));
+        dividend.setReportingPeriodId(resultSet.getInt("id_отчётного_периода"));
+        dividend.setDividendPercentage(resultSet.getBigDecimal("процент_дивидента"));
+        dividend.setRecipient(resultSet.getString("получатель"));
+        return dividend;
     }
 
     @Override
-    public String add(Company note) {
+    public String add(Dividend note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
-            sql="INSERT компании (имя_компании) " +
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            sql="INSERT дивиденты (id_компании , id_отчётного_периода , процент_дивидента, получатель) " +
                     "VALUES ( '"+
-                    note.getCompanyName()+
+                    note.getCompanyId()+"',' "+
+                    note.getReportingPeriodId()+"', '"+
+                    note.getDividendPercentage()+"', '"+
+                    note.getRecipient()+
                     "');";
             if(connection.prepareStatement(sql).executeUpdate()>=1){
                 return "Данные успешно добавлены";
@@ -50,11 +56,14 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     }
 
     @Override
-    public String update(Company note) {
+    public String update(Dividend note) {
         String sql;
-        sql = "UPDATE компании SET " +
-                "имя_компании='" + note.getCompanyName() + "' " +
-                "WHERE id_компании=" + note.getCompanyId() + ";";
+        sql = "UPDATE дивиденты SET " +
+                "id_компании='" + note.getCompanyId() + "'," +
+                "id_отчётного_периода='" + note.getReportingPeriodId()+ "'," +
+                "процент_дивидента='" + note.getDividendPercentage() + "'," +
+                "получатель='" +note.getRecipient() + "' " +
+                "WHERE id_кредита=" + note.getDividendId() + ";";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             if(connection.createStatement().executeUpdate(sql)==1){
@@ -72,17 +81,15 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         }
     }
 
-
     @Override
-    public Company receive(Company note) {
+    public Dividend receive(Dividend note) {
         ResultSet resultSet;
         String sql;
-        sql = "SELECT * FROM компании WHERE id_компании = '" + note.getCompanyId() + "';";
-
+        sql= "SELECT * FROM дивиденты WHERE id_дивидент = " + note.getDividendId() + ";";
         try {
-            Connection connection = DataBaseConnection.getInstance().getConnection();
-            resultSet = connection.createStatement().executeQuery(sql);
-            if (resultSet.next()) {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            resultSet =connection.createStatement().executeQuery(sql);
+            if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
@@ -92,9 +99,9 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     }
 
     @Override
-    public String delete(Company note) {
+    public String delete(Dividend note) {
         String sql;
-        sql="DELETE FROM компании WHERE id_компании = '"+note.getCompanyId()+"';";
+        sql="DELETE FROM дивиденты WHERE id_дивидент = " + note.getDividendId() + ";";
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             if(connection.createStatement().executeUpdate(sql) == 1) {
@@ -111,18 +118,18 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     }
 
     @Override
-    public Map<Integer, Company> receiveAll() {
+    public Map<Integer, Dividend> receiveAll() {
         ResultSet resultSet;
-        ConcurrentHashMap<Integer,Company> data=new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, Dividend> data=new ConcurrentHashMap<>();
         String sql;
-        Company company;
-        sql = "SELECT * FROM users ;";
+        Dividend dividend;
+        sql = "SELECT * FROM дивиденты ;";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
-                company=getDataFromResultSet(resultSet);
-                data.put(company.getCompanyId(),company);
+                dividend=getDataFromResultSet(resultSet);
+                data.put(dividend.getDividendId(),dividend);
             }
         } catch (SQLException | PropertyVetoException e) {
             e.printStackTrace();
@@ -131,23 +138,22 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     }
 
     @Override
-    public Map<Integer, Company> receiveAllInLimit(int left, int right) {
+    public Map<Integer, Dividend> receiveAllInLimit(int left, int right) {
         ResultSet resultSet;
-        ConcurrentHashMap<Integer,Company> data=new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, Dividend> data=new ConcurrentHashMap<>();
         String sql;
-        Company company;
-        sql = "SELECT * FROM users Users LIMIT "+left+" , "+right+" ;";
+        Dividend dividend;
+        sql = "SELECT * FROM дивиденты LIMIT "+left+" , "+right+" ;";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
-                company=getDataFromResultSet(resultSet);
-                data.put(company.getCompanyId(),company);
+                dividend=getDataFromResultSet(resultSet);
+                data.put(dividend.getDividendId(),dividend);
             }
         } catch (SQLException | PropertyVetoException e) {
             e.printStackTrace();
         }
         return data;
-
     }
 }

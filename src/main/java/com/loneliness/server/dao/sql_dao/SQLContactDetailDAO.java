@@ -1,7 +1,8 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
 import com.loneliness.entity.ContactDetail;
-import com.loneliness.entity.UserData;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integer,ContactDetail>>{
+public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integer,ContactDetail>> {
     private static final SQLContactDetailDAO instance=new SQLContactDetailDAO();
     private SQLContactDetailDAO(){}
     public static SQLContactDetailDAO getInstance() {
@@ -30,7 +31,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
     public String add(ContactDetail note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+            Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT контактные_данные (email , номер_телефона , инфо, id_компании) " +
                     "VALUES ( '"+
                     note.getEmail()+"',' "+

@@ -1,7 +1,9 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Quarter;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>>{
+public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>> {
     private static final SQLDifferentialIndicatorsDAO instance=new SQLDifferentialIndicatorsDAO();
     private SQLDifferentialIndicatorsDAO(){}
 
@@ -37,7 +39,7 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     public String add(DifferentialIndicators note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+            Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT дифференциальные_показатели (имя_компании , квартал , отчетный_год , оборачиваемость_чистых_активов, " +
                     "рентабельность_продаж,RONA,ROE,SG,WACC) " +
                     "VALUES ( '"+

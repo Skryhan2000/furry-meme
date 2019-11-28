@@ -1,6 +1,6 @@
 package com.loneliness.entity;
 
-import java.time.LocalDate;
+
 
 public class ReportingPeriod {
     private int reportingPeriodId;

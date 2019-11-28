@@ -1,5 +1,8 @@
 package com.loneliness.server.dao;
 
+import com.loneliness.server.dao.sql_dao.SQLDifferentialIndicatorsDAO;
+import com.loneliness.server.dao.sql_dao.SQLUserDAO;
+
 public class DAOFactory {
     private static final  DAOFactory instance=new DAOFactory();
     private DAOFactory(){}

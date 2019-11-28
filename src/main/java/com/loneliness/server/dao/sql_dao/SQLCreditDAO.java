@@ -1,7 +1,8 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
-import com.loneliness.entity.ContactDetail;
 import com.loneliness.entity.Credit;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -31,7 +32,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
     public String add(Credit note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+            Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT кредиты (id_компании , процент_кредита , сумма_по_кредиту, дата_взятия,дата_выплаты) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
