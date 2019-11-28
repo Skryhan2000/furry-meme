@@ -2,7 +2,7 @@ package com.loneliness.server.servise;
 
 import com.loneliness.entity.UserData;
 import com.loneliness.server.dao.DAOFactory;
-import com.loneliness.server.dao.SQLUserDAO;
+import com.loneliness.server.dao.sql_dao.SQLUserDAO;
 
 import java.util.Map;
 

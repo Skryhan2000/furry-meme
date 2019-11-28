@@ -14,12 +14,13 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class DataBaseDifferentialIndicatorsTest {
+    // TODO: 25.11.2019 исправить тесты
     private Faker faker=new Faker();
     private static DifferentialIndicators valid=new DifferentialIndicators();
     private static DifferentialIndicators invalid=new DifferentialIndicators();
     @BeforeClass public static void addDifferentialIndicators(){
-        valid.setCompanyName("valid");
-        valid.setReportingPeriod(LocalDate.now());
+        valid.setCompanyID(1);
+        valid.setReportingDate(LocalDate.now());
         valid.setProfR(new BigDecimal("10"));
         valid.setNetA(new BigDecimal("10"));
         valid.setRONA(new BigDecimal("12"));
@@ -28,8 +29,8 @@ public class DataBaseDifferentialIndicatorsTest {
         valid.setSG(new BigDecimal("10"));
         valid.setWACC(new BigDecimal("10"));
 
-        invalid.setCompanyName("invalid");
-        invalid.setReportingPeriod(LocalDate.now());
+        invalid.setCompanyID(-1);
+        invalid.setReportingDate(LocalDate.now());
         invalid.setProfR(new BigDecimal("10"));
         invalid.setNetA(new BigDecimal("10"));
         invalid.setRONA(new BigDecimal("12"));
@@ -40,8 +41,8 @@ public class DataBaseDifferentialIndicatorsTest {
 
     }
     private DifferentialIndicators changeData(DifferentialIndicators data){
-        data.setCompanyName(faker.company().name());
-        data.setReportingPeriod(LocalDate.now());
+        data.setCompanyID(faker.number().randomDigit());
+        data.setReportingDate(LocalDate.now());
         data.setProfR(new BigDecimal(faker.number().randomDigit()));
         data.setNetA(new BigDecimal(faker.number().randomDigit()));
         data.setRONA(new BigDecimal(faker.number().randomDigit()));

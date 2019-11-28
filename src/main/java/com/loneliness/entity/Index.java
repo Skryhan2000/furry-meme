@@ -3,10 +3,16 @@ package com.loneliness.entity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Index implements Serializable {
-    // TODO: 23.11.2019  Коэффициент реинвестирования?
-    // TODO: 23.11.2019 Оперативная прибыль?
+    private int indexID;
+    @NotNull(message = "Задайте id компании ")
+    private int companyID;
+    @NotNull(message = "Должен быть задан отчетный период")
+    private LocalDate reportingDate;
+    @NotNull(message = "Должен быть задан квартал")
+    private Quarter quarter;
     @NotNull(message = "Задайте чистую прибыль ")
     private BigDecimal PBIT;
     @NotNull(message = "Задайте выручка от реализации ")
@@ -21,7 +27,7 @@ public class Index implements Serializable {
     private BigDecimal ratioRec;
     @NotNull(message = "Задайте оперативную прибыль ")
     private BigDecimal EBIT;
-    @NotNull(message = "Задайте собственный капитал текущий период ")
+    @NotNull(message = "Задайте собственный капитал на текущий период ")
     private BigDecimal E;
     @NotNull(message = "Задайте собственный капитал на начало года ")
     private BigDecimal E1;
@@ -37,6 +43,13 @@ public class Index implements Serializable {
 
     }
 
+    public Quarter getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(Quarter quarter) {
+        this.quarter = quarter;
+    }
     public BigDecimal getSales() {
         return sales;
     }
@@ -139,5 +152,29 @@ public class Index implements Serializable {
 
     public void setE(BigDecimal e) {
         E = e;
+    }
+
+    public int getIndexID() {
+        return indexID;
+    }
+
+    public void setIndexID(int indexID) {
+        this.indexID = indexID;
+    }
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
+    }
+
+    public LocalDate getReportingDate() {
+        return reportingDate;
+    }
+
+    public void setReportingDate(LocalDate reportingDate) {
+        this.reportingDate = reportingDate;
     }
 }

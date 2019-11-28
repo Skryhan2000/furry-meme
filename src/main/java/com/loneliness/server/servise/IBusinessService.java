@@ -9,5 +9,5 @@ public interface IBusinessService<D,R> {
     R calculateFL(D data) throws ServiceException;
     R calculateROE(D data) throws ServiceException;
     R calculateSG(D data) throws ServiceException;
-    R calculateWACC(D data);
+    R calculateWACC(D data) throws ServiceException;
 }

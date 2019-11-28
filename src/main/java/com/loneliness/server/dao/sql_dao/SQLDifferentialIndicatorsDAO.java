@@ -1,6 +1,9 @@
-package com.loneliness.server.dao;
+package com.loneliness.server.dao.sql_dao;
 
 import com.loneliness.entity.DifferentialIndicators;
+import com.loneliness.entity.Quarter;
+import com.loneliness.server.dao.DataBaseConnection;
+import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -9,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>>{
+public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>> {
     private static final SQLDifferentialIndicatorsDAO instance=new SQLDifferentialIndicatorsDAO();
     private SQLDifferentialIndicatorsDAO(){}
 
@@ -20,8 +23,9 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     private DifferentialIndicators getDataFromResultSet(ResultSet resultSet) throws SQLException {
         DifferentialIndicators indicators = new DifferentialIndicators();
         indicators.setId(resultSet.getInt("id_дифференциальных_показателей"));
-        indicators.setCompanyName(resultSet.getString("имя_компании"));
-        indicators.setReportingPeriod(resultSet.getDate("отчетный_период").toLocalDate());
+        indicators.setCompanyID(resultSet.getInt("id_компании"));
+        indicators.setReportingDate(resultSet.getDate("отчетный_год").toLocalDate());
+        indicators.setQuarter(Quarter.valueOf(resultSet.getString("квартал")));
         indicators.setNetA(resultSet.getBigDecimal("оборачиваемость_чистых_активов"));
         indicators.setProfR(resultSet.getBigDecimal("рентабельность_продаж"));
         indicators.setRONA(resultSet.getBigDecimal("RONA"));
@@ -35,12 +39,13 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     public String add(DifferentialIndicators note) {
         String sql;
         try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
-            sql="INSERT дифференциальные_показатели (имя_компании , отчетный_период , оборачиваемость_чистых_активов, " +
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            sql="INSERT дифференциальные_показатели (имя_компании , квартал , отчетный_год , оборачиваемость_чистых_активов, " +
                     "рентабельность_продаж,RONA,ROE,SG,WACC) " +
                     "VALUES ( '"+
-                    note.getCompanyName()+"',' "+
-                    note.getReportingPeriod()+"', '"+
+                    note.getCompanyID()+"',' "+
+                    note.getQuarter().toString()+"', '"+
+                    note.getReportingDate()+"', '"+
                     note.getNetA()+"', '"+
                     note.getProfR()+"', '"+
                     note.getRONA()+"', '"+
@@ -67,8 +72,9 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     public String update(DifferentialIndicators note) {
         String sql;
         sql = "UPDATE дифференциальные_показатели SET " +
-                "имя_компании='" + note.getCompanyName() + "'," +
-                "отчетный_период='" + note.getReportingPeriod() + "'," +
+                "имя_компании='" + note.getCompanyID() + "'," +
+                "квартал='" + note.getQuarter() + "'," +
+                "отчетный_год='" + note.getReportingDate() + "'," +
                 "оборачиваемость_чистых_активов='" + note.getNetA().toString() + "'," +
                 "рентабельность_продаж='" + note.getProfR().toString() + "'," +
                 "RONA='" + note.getRONA().toString() + "'," +

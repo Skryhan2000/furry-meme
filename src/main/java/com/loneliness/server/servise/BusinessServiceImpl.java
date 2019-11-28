@@ -71,12 +71,15 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
     }
 
     @Override
-    public BigDecimal calculateWACC(Index data) {
-        // TODO: 23.11.2019 уточнить формулу
-//        BigDecimal f=data.getR().multiply(new BigDecimal(1).min(T));
-//        BigDecimal s=data.getL().divide(data.getL(),scale,roundingMode).add(data.getE());
-//        BigDecimal t=data.getE().divide(data.)
-        return null;
+    public BigDecimal calculateWACC(Index data) throws ServiceException {
+        try {
+            return data.getR().multiply(new BigDecimal(1).min(T)).multiply(data.getL().divide(data.getL(),
+                    scale,roundingMode).add(data.getE())).add(data.getL().divide((data.getL().add(data.getE())),
+                    scale,roundingMode));
+        }catch (ArithmeticException e){
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+
     }
 
     public DifferentialIndicators calculateAllDifferentialIndicators(Index data) throws ServiceException {

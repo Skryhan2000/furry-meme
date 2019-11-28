@@ -24,14 +24,14 @@ public class PrimaryStage {
     public void changeStage(Scene scene, Parent root){
         this.scene=scene;
         this.root=root;
-        primaryStage.setTitle("a-king-s-ransom");
+        primaryStage.setTitle("furry-meme");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void changeStage(Parent root){
         this.root=root;
-        scene = new Scene(root, 600, 400);
+        scene = new Scene(root, 700, 500);
         primaryStage.setTitle("furry-meme");
         primaryStage.setScene(scene);
         primaryStage.show();
