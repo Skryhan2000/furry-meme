@@ -1,6 +1,6 @@
 package com.loneliness.server.dao.sql_dao;
 
-import com.loneliness.entity.ROE;
+import com.loneliness.entity.SG;
 import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
@@ -11,16 +11,16 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
+public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
     private String sql;
-    private static final SQLROEDAO instance=new SQLROEDAO();
-    private SQLROEDAO(){}
-    public static SQLROEDAO getInstance() {
+    private String tableName="sg";
+    private static final SQLSGDAO instance=new SQLSGDAO();
+    private SQLSGDAO(){}
+    public static SQLSGDAO getInstance() {
         return instance;
     }
-
     @Override
-    public String add(ROE note) {
+    public String add(SG note) {
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT roe (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
@@ -31,10 +31,9 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
                     note.getCreditId()+"', '"+
                     note.getDividendID()+"', '"+
                     note.getROE()+"', '"+
-                    note.getEBIT()+"', '"+
-                    note.getProfR()+"', '"+
-                    note.getRONA()+"', '"+
-                    note.getFL()+
+                    note.getReinvestmentProfit().toString()+"', '"+
+                    note.getReinvestmentRatio().toString()+"', '"+
+                    note.getSG().toString()+
                     "');";
             if(connection.prepareStatement(sql).executeUpdate()>=1){
                 return "Данные успешно добавлены";
@@ -52,19 +51,17 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     }
 
     @Override
-    public String update(ROE note) {
-
-        sql = "UPDATE roe SET " +
+    public String update(SG note) {
+        sql = "UPDATE "+tableName+" SET " +
                 "id_компании='" + note.getCompanyId() + "'," +
                 "id_исходных_данных='" + note.getInitialDataId()+ "'," +
                 "id_кредита='" + note.getCreditId()+ "'," +
                 "id_дивиденда='" + note.getDividendID()+ "'," +
-                "ROE='" + note.getROE()+ "'," +
-                "EBIT='" + note.getEBIT()+ "'," +
-                "рентабельность_продаж='" + note.getProfR()+ "'," +
-                "RONA='" + note.getRONA()+ "'," +
-                "FL='" + note.getFL().toString()+  "' " +
-                "WHERE id_ROE=" + note.getROEId() + ";";
+                "id_ROE='" + note.getROE()+ "'," +
+                "реинвестиционная_прибыль='" + note.getReinvestmentProfit().toString()+ "'," +
+                "Коэффициент_реинвестирования='" + note.getReinvestmentRatio().toString()+ "'," +
+                "SG='" + note.getSG().toString()+  "' " +
+                "WHERE id_SG=" + note.getSGId() + ";";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             if(connection.createStatement().executeUpdate(sql)==1){
@@ -83,8 +80,8 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     }
 
     @Override
-    public ROE receive(ROE note) {
-        sql= "SELECT * FROM roe WHERE id_ROE = " + note.getROEId() + ";";
+    public SG receive(SG note) {
+        sql= "SELECT * FROM "+tableName+" WHERE id_ROE = " + note.getSGId() + ";";
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
@@ -98,8 +95,8 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     }
 
     @Override
-    public String delete(ROE note) {
-        sql="DELETE FROM roe WHERE id_ROE = " + note.getROEId() + ";";
+    public String delete(SG note) {
+        sql="DELETE FROM "+tableName+" WHERE id_ROE = " + note.getSGId() + ";";
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             if(connection.createStatement().executeUpdate(sql) == 1) {
@@ -116,40 +113,39 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     }
 
     @Override
-    public Map<Integer, ROE> receiveAll() {
-        sql = "SELECT * FROM roe ;";
+    public Map<Integer, SG> receiveAll() {
+        sql = "SELECT * FROM "+tableName+" ;";
         return receiveData(sql);
     }
 
     @Override
-    public Map<Integer, ROE> receiveAllInLimit(int left, int right) {
-        sql="SELECT * FROM roe LIMIT "+left+" , "+right+" ;";
+    public Map<Integer, SG> receiveAllInLimit(int left, int right) {
+        sql="SELECT * FROM "+tableName+" LIMIT "+left+" , "+right+" ;";
         return receiveData(sql);
     }
-    private ROE getDataFromResultSet(ResultSet resultSet) throws SQLException {
-        ROE roe  = new ROE ();
-        roe.setROEId(resultSet.getInt("id_ROE"));
-        roe.setCompanyId(resultSet.getInt("id_компании"));
-        roe.setInitialDataId(resultSet.getInt("id_исходных_данных"));
-        roe.setCreditId(resultSet.getInt("id_кредита"));
-        roe.setDividendID(resultSet.getInt("id_дивиденда"));
-        roe.setROE(resultSet.getBigDecimal("ROE"));
-        roe.setEBIT(resultSet.getBigDecimal("EBIT"));
-        roe.setProfR(resultSet.getBigDecimal("рентабельность_продаж"));
-        roe.setRONA(resultSet.getBigDecimal("RONA"));
-        roe.setFL(resultSet.getBigDecimal("FL"));
-        return roe;
+    private SG getDataFromResultSet(ResultSet resultSet) throws SQLException {
+        SG sg  = new SG ();
+        sg.setSGId(resultSet.getInt("id_SG"));
+        sg.setCompanyId(resultSet.getInt("id_компании"));
+        sg.setInitialDataId(resultSet.getInt("id_исходных_данных"));
+        sg.setCreditId(resultSet.getInt("id_кредита"));
+        sg.setDividendID(resultSet.getInt("id_дивиденда"));
+        sg.setROE(resultSet.getBigDecimal("ROE"));
+        sg.setReinvestmentProfit(resultSet.getBigDecimal("реинвестиционная_прибыль"));
+        sg.setReinvestmentRatio(resultSet.getBigDecimal("Коэффициент_реинвестирования"));
+        sg.setSG(resultSet.getBigDecimal("SG"));
+        return sg;
     }
-    private Map<Integer, ROE> receiveData(String sql){
+    private Map<Integer, SG> receiveData(String sql){
         ResultSet resultSet;
-        ConcurrentHashMap<Integer, ROE> data=new ConcurrentHashMap<>();
-        ROE roe;
+        ConcurrentHashMap<Integer, SG> data=new ConcurrentHashMap<>();
+        SG sg;
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
-                roe=getDataFromResultSet(resultSet);
-                data.put(roe.getROEId(),roe);
+                sg=getDataFromResultSet(resultSet);
+                data.put(sg.getSGId(),sg);
             }
         } catch (SQLException | PropertyVetoException e) {
             e.printStackTrace();

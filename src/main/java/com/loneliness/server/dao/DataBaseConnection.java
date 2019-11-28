@@ -30,7 +30,7 @@ public class DataBaseConnection {
         comboPooledDataSource.setUser("root");
         comboPooledDataSource.setPassword("con2Egor");
 // the settings below are optional -- c3p0 can work with defaults
-        comboPooledDataSource.setMinPoolSize(1);
+        comboPooledDataSource.setMinPoolSize(5);
         comboPooledDataSource.setAcquireIncrement(5);
         comboPooledDataSource.setMaxPoolSize(50);
 

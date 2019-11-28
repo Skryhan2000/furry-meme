@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SG implements Serializable {
     private int SGId;
     @Positive(message = "Id исходных данных должно быть положительным")
-    private int sourceDataId;
+    private int initialDataId;
     @NotNull(message = "Задайте ROE")
     private BigDecimal ROE;
     @Positive(message = "Id компании должно быть положительным")
@@ -33,12 +33,12 @@ public class SG implements Serializable {
         this.SGId = SGId;
     }
 
-    public int getSourceDataId() {
-        return sourceDataId;
+    public int getInitialDataId() {
+        return initialDataId;
     }
 
-    public void setSourceDataId(int sourceDataId) {
-        this.sourceDataId = sourceDataId;
+    public void setInitialDataId(int initialDataId) {
+        this.initialDataId = initialDataId;
     }
 
     public BigDecimal getROE() {
@@ -103,7 +103,7 @@ public class SG implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         SG sg = (SG) o;
         return SGId == sg.SGId &&
-                sourceDataId == sg.sourceDataId &&
+                initialDataId == sg.initialDataId &&
                 companyId == sg.companyId &&
                 creditId == sg.creditId &&
                 dividendID == sg.dividendID &&
@@ -115,14 +115,14 @@ public class SG implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(SGId, sourceDataId, ROE, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
+        return Objects.hash(SGId, initialDataId, ROE, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
     }
 
     @Override
     public String toString() {
         return "SG{" +
                 "SGId=" + SGId +
-                ", sourceDataId=" + sourceDataId +
+                ", sourceDataId=" + initialDataId +
                 ", ROE=" + ROE +
                 ", companyId=" + companyId +
                 ", creditId=" + creditId +
