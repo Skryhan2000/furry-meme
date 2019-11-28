@@ -1,5 +1,6 @@
 package com.loneliness.entity;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,10 +8,13 @@ import java.util.Objects;
 
 public class Dividend implements Serializable {
     private int dividendId;
-    @Positive()
+    @Positive(message = "id компании должно быть положительным ")
     private int companyId;
+    @NotNull(message = "Должны быть заданы проценты дивидента ")
     private BigDecimal dividendPercentage;
+    @NotNull(message = "Должен быть задан получатель ")
     private String recipient;
+    @Positive(message = "id отчётного периода должно быть положительным ")
     private int reportingPeriodId;
 
     public int getDividendId() {

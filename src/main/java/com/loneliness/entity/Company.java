@@ -9,8 +9,6 @@ public class Company implements Serializable {
     @NotNull(message = "Задайте имя компании")
     private String companyName;
 
-
-
     public int getCompanyId() {
         return companyId;
     }
