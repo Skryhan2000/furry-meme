@@ -1,0 +1,102 @@
+package com.loneliness.entity;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
+
+public class Credit implements Serializable {
+    private int creditId;
+    @Positive(message = "Задайте положительный id компании ")
+    private int companyId;
+    @NotNull(message = "Задайте процент кредита")
+    private BigDecimal loanPercentage;
+    @NotNull(message = "Задайте сумма по кредиту")
+    private BigDecimal loanTotal;
+    @PastOrPresent(message = "дата взятия должна быть в прошлом ")
+    @NotNull(message = "Задайте дата взятия")
+    private LocalDate dateOfCollection;
+    @NotNull(message = "Задайте дата выплаты")
+    private LocalDate payDate;
+
+    public int getCreditId() {
+        return creditId;
+    }
+
+    public void setCreditId(int creditId) {
+        this.creditId = creditId;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public BigDecimal getLoanPercentage() {
+        return loanPercentage;
+    }
+
+    public void setLoanPercentage(BigDecimal loanPercentage) {
+        this.loanPercentage = loanPercentage;
+    }
+
+    public BigDecimal getLoanTotal() {
+        return loanTotal;
+    }
+
+    public void setLoanTotal(BigDecimal loanTotal) {
+        this.loanTotal = loanTotal;
+    }
+
+    public LocalDate getDateOfCollection() {
+        return dateOfCollection;
+    }
+
+    public void setDateOfCollection(LocalDate dateOfCollection) {
+        this.dateOfCollection = dateOfCollection;
+    }
+
+    public LocalDate getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(LocalDate payDate) {
+        this.payDate = payDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Credit credit = (Credit) o;
+        return creditId == credit.creditId &&
+                companyId == credit.companyId &&
+                loanPercentage.equals(credit.loanPercentage) &&
+                loanTotal.equals(credit.loanTotal) &&
+                dateOfCollection.equals(credit.dateOfCollection) &&
+                payDate.equals(credit.payDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(creditId, companyId, loanPercentage, loanTotal, dateOfCollection, payDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Credit{" +
+                "creditId=" + creditId +
+                ", companyId=" + companyId +
+                ", loanPercentage=" + loanPercentage +
+                ", loanTotal=" + loanTotal +
+                ", dateOfCollection=" + dateOfCollection +
+                ", payDate=" + payDate +
+                '}';
+    }
+}
