@@ -1,12 +1,13 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.ContactDetail;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLContactDetailDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 
-public class ContactDetailService implements DataService<ContactDetail,String, Map<Integer,ContactDetail>>{
+public class ContactDetailService implements DataService<ContactDetail,String, Map<Integer,ContactDetail>> {
     private ContactDetailService(){}
     private static final ContactDetailService instance=new ContactDetailService();
     private SQLContactDetailDAO dao= DAOFactory.getInstance().getContactDetailDAO();

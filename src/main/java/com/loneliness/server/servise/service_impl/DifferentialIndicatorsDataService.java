@@ -1,9 +1,10 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLDifferentialIndicatorsDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 

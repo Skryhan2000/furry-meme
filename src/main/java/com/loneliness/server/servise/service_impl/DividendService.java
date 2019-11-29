@@ -1,12 +1,13 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.Dividend;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLDividendDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 
-public class DividendService implements DataService<Dividend,String, Map<Integer, Dividend>>{
+public class DividendService implements DataService<Dividend,String, Map<Integer, Dividend>> {
     private DividendService(){}
     private final static DividendService instance=new DividendService();
     private SQLDividendDAO dao=DAOFactory.getInstance().getDividendDAO();

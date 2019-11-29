@@ -1,7 +1,8 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.*;
 import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
+import com.loneliness.server.servise.ServiceException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -80,6 +81,14 @@ public class BusinessServiceImpl {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
 
+    }
+    public ROE calculateAllROEData(ROE note) throws ServiceException {
+        calculateProfitability(note);
+        calculateNetAssetTurnover(note);
+        calculateRONA(note);
+        calculateROE(note);
+        calculateFL(note);
+        return note;
     }
 
 

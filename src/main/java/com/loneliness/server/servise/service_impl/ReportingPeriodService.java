@@ -1,15 +1,15 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
-import com.loneliness.client.dao.FactoryDAO;
 import com.loneliness.entity.InitialData;
 import com.loneliness.entity.ReportingPeriod;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class ReportingPeriodService implements DataService<ReportingPeriod,String, Map<Integer,ReportingPeriod>>{
+public class ReportingPeriodService implements DataService<ReportingPeriod,String, Map<Integer,ReportingPeriod>> {
     private ReportingPeriodService(){}
     private static final ReportingPeriodService instance=new ReportingPeriodService();
     private SQLReportingPeriodDAO dao= DAOFactory.getInstance().getReportingPeriodDAO();

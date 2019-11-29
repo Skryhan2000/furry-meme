@@ -1,12 +1,13 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.Credit;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLCreditDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 
-public class CreditService implements DataService<Credit,String, Map<Integer, Credit>>{
+public class CreditService implements DataService<Credit,String, Map<Integer, Credit>> {
     private CreditService(){}
     private final static CreditService instance=new CreditService();
     private SQLCreditDAO dao= DAOFactory.getInstance().getCreditDAO();

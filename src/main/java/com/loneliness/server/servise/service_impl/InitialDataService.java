@@ -1,12 +1,13 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.InitialData;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLInitialDataDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 
-public class InitialDataService implements DataService<InitialData,String, Map<Integer,InitialData>>{
+public class InitialDataService implements DataService<InitialData,String, Map<Integer,InitialData>> {
     private InitialDataService(){}
     private static final InitialDataService instance=new InitialDataService();
     private SQLInitialDataDAO dao= DAOFactory.getInstance().getInitialDataDAO();

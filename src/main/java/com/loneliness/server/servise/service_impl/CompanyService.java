@@ -1,9 +1,9 @@
-package com.loneliness.server.servise;
+package com.loneliness.server.servise.service_impl;
 
-import com.loneliness.client.dao.FactoryDAO;
 import com.loneliness.entity.Company;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLCompanyDAO;
+import com.loneliness.server.servise.DataService;
 
 import java.util.Map;
 
