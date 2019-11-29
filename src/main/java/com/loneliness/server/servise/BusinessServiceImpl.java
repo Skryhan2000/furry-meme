@@ -1,37 +1,38 @@
 package com.loneliness.server.servise;
 
-import com.loneliness.entity.DifferentialIndicators;
-import com.loneliness.entity.Index;
+import com.loneliness.entity.*;
+import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
+public class BusinessServiceImpl {
+    private final static RoundingMode roundingMode=RoundingMode.HALF_UP;
+    private final static int scale=4;
+    private final static BigDecimal T=new BigDecimal(0.35);
 
-    private RoundingMode roundingMode=RoundingMode.HALF_UP;
-    private int scale=4;
-    private final BigDecimal T=new BigDecimal(0.35);
 
-    @Override
-    public BigDecimal calculateProfitability(Index data) throws ServiceException {
+    public BigDecimal calculateProfitability(ROE data) throws ServiceException {//рентабельность продаж
         try {
-            return (data.getPBIT().divide(data.getSales(), scale, roundingMode)).multiply(new BigDecimal(100)).setScale(scale, roundingMode);
+            return (data.getInitialData().getPBIT().divide(data.getInitialData().getSales(), scale, roundingMode)).
+                    multiply(new BigDecimal(100)).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
     }
 
-    @Override
-    public BigDecimal calculateNetAssetTurnover(Index data) throws ServiceException {
+
+    public BigDecimal calculateNetAssetTurnover(ROE data) throws ServiceException { //оборачиваемость чистых активов
         try {
-        return data.getSales().divide(data.getAssets(),scale,RoundingMode.HALF_DOWN).setScale(scale, roundingMode);
+        return data.getInitialData().getSales().divide(data.getInitialData().getAssets(),
+                scale,RoundingMode.HALF_DOWN).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
     }
 
-    @Override
-    public BigDecimal calculateRONA(Index data) throws ServiceException {
+
+    public BigDecimal calculateRONA(ROE data) throws ServiceException {
         try {
             return calculateProfitability(data).multiply(calculateNetAssetTurnover(data)).setScale(scale, roundingMode);
         }
@@ -40,17 +41,16 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
         }
     }
 
-    @Override
-    public BigDecimal calculateFL(Index data) throws ServiceException {
+
+    public BigDecimal calculateFL(ROE data) throws ServiceException {
         try {
-        return (data.getCredit().add(data.getEquity())).divide(data.getEquity(),scale,roundingMode);
+        return (data.getInitialData().getCredit().add(data.getInitialData().getEquity())).divide(data.getInitialData().getEquity(),scale,roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
     }
 
-    @Override
-    public BigDecimal calculateROE(Index data) throws ServiceException {
+    public BigDecimal calculateROE(ROE data) throws ServiceException {
         try {
             return calculateRONA(data).multiply(calculateFL(data)).setScale(scale, roundingMode);
         } catch (ArithmeticException | NullPointerException e) {
@@ -58,39 +58,29 @@ public class BusinessServiceImpl implements IBusinessService<Index,BigDecimal>{
         }
     }
 
-    @Override
-    public BigDecimal calculateSG(Index data) throws ServiceException {
+
+    public BigDecimal calculateSG(SG data) throws ServiceException {
         try {
-            return ((calculateRONA(data).multiply(calculateFL(data))).multiply(T).multiply(data.getPBIT().
-                    divide(data.getEBIT(),scale,roundingMode))).multiply(data.getE2().divide(data.
-                    getE1(),scale,roundingMode));
+
+            return ((calculateRONA(data.getRoe()).multiply(calculateFL(data.getRoe()))).multiply(T).multiply(data.getRoe().getInitialData().getPBIT().
+                    divide(data.getRoe().getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()).
+                    divide(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()),scale,roundingMode));
         } catch (ServiceException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
 
     }
 
-    @Override
-    public BigDecimal calculateWACC(Index data) throws ServiceException {
+    public BigDecimal calculateWACC(InitialData initialData) throws ServiceException {
         try {
-            return data.getR().multiply(new BigDecimal(1).min(T)).multiply(data.getL().divide(data.getL(),
-                    scale,roundingMode).add(data.getE())).add(data.getL().divide((data.getL().add(data.getE())),
-                    scale,roundingMode));
+            return SQLReportingPeriodDAO.getInstance().findCreditInPeriod(initialData.getReportingDateId()).multiply(new BigDecimal(1).min(T)).multiply( initialData.getCredit().divide( initialData.getCredit(),
+                    scale,roundingMode).add(initialData.getEquity())).add( initialData.getCredit().divide(( initialData.getCredit().add(initialData.getEquity())),
+                    scale,roundingMode)).add((new BigDecimal(0.07).multiply(initialData.getPBIT())).multiply(initialData.getEquity().divide((initialData.getCredit().add(initialData.getEquity())),scale,roundingMode)));
         }catch (ArithmeticException e){
             throw new ServiceException(e.getMessage(), e.getCause());
         }
 
     }
 
-    public DifferentialIndicators calculateAllDifferentialIndicators(Index data) throws ServiceException {
-        DifferentialIndicators indicators=new DifferentialIndicators();
-        indicators.setProfR(calculateProfitability(data));
-        indicators.setNetA(calculateNetAssetTurnover(data));
-        indicators.setRONA(calculateRONA(data));
-        indicators.setFL(calculateFL(data));
-        indicators.setROE(calculateROE(data));
-        indicators.setSG(calculateSG(data));
-        indicators.setWACC(calculateWACC(data));
-        return indicators;
-    }
+
 }

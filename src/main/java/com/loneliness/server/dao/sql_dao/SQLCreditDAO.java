@@ -5,6 +5,7 @@ import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
         credit.setLoanTotal(resultSet.getBigDecimal("сумма_по_кредиту"));
         credit.setDateOfCollection(resultSet.getDate("дата_взятия").toLocalDate());
         credit.setPayDate(resultSet.getDate("дата_выплаты").toLocalDate());
+        credit.setR(resultSet.getBigDecimal("кредитная_ставка"));
         return credit;
     }
     @Override
@@ -33,12 +35,13 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
         String sql;
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
-            sql="INSERT кредиты (id_компании , процент_кредита , сумма_по_кредиту, дата_взятия,дата_выплаты) " +
+            sql="INSERT кредиты (id_компании , процент_кредита , сумма_по_кредиту, дата_взятия,кредитная_ставка,дата_выплаты,) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
                     note.getLoanPercentage()+"', '"+
                     note.getLoanTotal()+"', '"+
                     note.getDateOfCollection().toString()+"', '"+
+                    note.getR()+"', '"+
                     note.getPayDate().toString()+"' "+
                     ");";
             if(connection.prepareStatement(sql).executeUpdate()>=1){
@@ -64,6 +67,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
                 "процент_кредита='" + note.getLoanPercentage()+ "'," +
                 "сумма_по_кредиту='" + note.getLoanTotal() + "'," +
                 "дата_взятия='" +note.getDateOfCollection() +"'," +
+                "кредитная_ставка='" + note.getR()+"', '"+
                 "дата_выплаты='" +note.getPayDate() + "' " +
                 "WHERE id_кредита=" + note.getCreditId() + ";";
         try {
@@ -158,4 +162,5 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
         }
         return data;
     }
+
 }

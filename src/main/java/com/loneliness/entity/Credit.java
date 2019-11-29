@@ -21,9 +21,19 @@ public class Credit implements Serializable {
     private LocalDate dateOfCollection;
     @NotNull(message = "Задайте дата выплаты")
     private LocalDate payDate;
+    @NotNull(message = "Задайте кредитную ставка банка")
+    private BigDecimal R;
 
     public int getCreditId() {
         return creditId;
+    }
+
+    public BigDecimal getR() {
+        return R;
+    }
+
+    public void setR(BigDecimal r) {
+        R = r;
     }
 
     public void setCreditId(int creditId) {

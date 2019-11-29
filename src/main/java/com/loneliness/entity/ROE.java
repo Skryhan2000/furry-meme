@@ -27,6 +27,8 @@ public class ROE implements Serializable {
     @NotNull(message = "Задайте Fl")
     private BigDecimal FL;
 
+    private InitialData initialData;
+
     public int getROEId() {
         return ROEId;
     }
@@ -105,6 +107,14 @@ public class ROE implements Serializable {
 
     public void setFL(BigDecimal FL) {
         this.FL = FL;
+    }
+
+    public InitialData getInitialData() {
+        return initialData;
+    }
+
+    public void setInitialData(InitialData initialData) {
+        this.initialData = initialData;
     }
 
     @Override
