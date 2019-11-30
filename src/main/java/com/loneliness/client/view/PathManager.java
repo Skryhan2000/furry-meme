@@ -11,7 +11,7 @@ public class PathManager {
     }
 
     public String getAuthorisationForm(){return "/AuthorisationForm.fxml";}
-    public String getChangeIndex(){return "/ChangeIndex.fxml";}
+    public String getChangeIndex(){return "/ChangeRoe.fxml";}
     public String getManagerStartWindow(){return "/ManagerStartWindow.fxml";}
     public String getAdminStartWindow(){return "/AdminStartWindow.fxml";}
     public String getSearchByDateAndNameOrId(){return "/SearchByDateAndNameOrId.fxml";}

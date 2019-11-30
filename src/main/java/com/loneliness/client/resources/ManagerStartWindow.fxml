@@ -40,13 +40,19 @@
                         <MenuItem mnemonicParsing="false" onAction="#calculateAllInDetail" text="Подробный расчёт" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Дифференциальный расчет показателей">
+                  <Menu mnemonicParsing="false" text="Добавить данные">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addDifferentialIndicators" text="Добавить" />
-                        <MenuItem mnemonicParsing="false" onAction="#updateDifferentialIndicators" text="Редактировать" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteDifferentialIndicators" text="Удалить" />
+                        <MenuItem mnemonicParsing="false" text="Отчётные периоды" />
+                        <MenuItem mnemonicParsing="false" onAction="#addDifferentialIndicators" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#updateDifferentialIndicators" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteDifferentialIndicators" text="Дивиденты" />
+                        <MenuItem mnemonicParsing="false" text="Исходные данные" />
+                        <MenuItem mnemonicParsing="false" text="Кредиты" />
                      </items>
                   </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Сохранить" />
+                  <MenuItem mnemonicParsing="false" text="Загрузить" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="График">
