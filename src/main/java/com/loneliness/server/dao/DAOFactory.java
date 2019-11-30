@@ -3,20 +3,23 @@ package com.loneliness.server.dao;
 import com.loneliness.server.dao.sql_dao.*;
 
 public class DAOFactory {
-    private static final  DAOFactory instance=new DAOFactory();
-    private DAOFactory(){}
-    private final SQLUserDAO userDAO=SQLUserDAO.getInstance();
-    private final SQLDifferentialIndicatorsDAO differentialIndicatorsDAO=SQLDifferentialIndicatorsDAO.getInstance();
-    private final SQLCompanyDAO companyDAO=SQLCompanyDAO.getInstance();
-    private final SQLContactDetailDAO contactDetailDAO =SQLContactDetailDAO.getInstance();
-    private final SQLCreditDAO creditDAO=SQLCreditDAO.getInstance();
-    private final SQLDividendDAO dividendDAO=SQLDividendDAO.getInstance();
-    private final SQLInitialDataDAO initialDataDAO=SQLInitialDataDAO.getInstance();
-    private final SQLReportingPeriodDAO reportingPeriodDAO=SQLReportingPeriodDAO.getInstance();
-    private final SQLROEDAO roeDAO=SQLROEDAO.getInstance();
-    private final SQLSGDAO sgDAO=SQLSGDAO.getInstance();
+    private final static DAOFactory instance = new DAOFactory();
+    private final SQLUserDAO userDAO = SQLUserDAO.getInstance();
+    private final SQLDifferentialIndicatorsDAO differentialIndicatorsDAO = SQLDifferentialIndicatorsDAO.getInstance();
+    private final SQLCompanyDAO companyDAO = SQLCompanyDAO.getInstance();
+    private final SQLContactDetailDAO contactDetailDAO = SQLContactDetailDAO.getInstance();
+    private final SQLCreditDAO creditDAO = SQLCreditDAO.getInstance();
+    private final SQLDividendDAO dividendDAO = SQLDividendDAO.getInstance();
+    private final SQLInitialDataDAO initialDataDAO = SQLInitialDataDAO.getInstance();
+    private final SQLReportingPeriodDAO reportingPeriodDAO = SQLReportingPeriodDAO.getInstance();
+    private final SQLROEDAO roeDAO = SQLROEDAO.getInstance();
+    private final SQLSGDAO sgDAO = SQLSGDAO.getInstance();
+
     public static DAOFactory getInstance() {
         return instance;
+    }
+
+    private DAOFactory() {
     }
 
     public SQLUserDAO getUserDAO() {

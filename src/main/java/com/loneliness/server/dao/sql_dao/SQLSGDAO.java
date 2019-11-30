@@ -23,7 +23,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
     public String add(SG note) {
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
-            sql="INSERT roe (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
+            sql="INSERT "+tableName+" (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
                     "ROE,EBIT,рентабельность_продаж,RONA,FL) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
@@ -81,7 +81,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
 
     @Override
     public SG receive(SG note) {
-        sql= "SELECT * FROM "+tableName+" WHERE id_ROE = " + note.getSGId() + ";";
+        sql= "SELECT * FROM "+tableName+" WHERE id_SG = " + note.getSGId() + ";";
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
@@ -96,7 +96,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
 
     @Override
     public String delete(SG note) {
-        sql="DELETE FROM "+tableName+" WHERE id_ROE = " + note.getSGId() + ";";
+        sql="DELETE FROM "+tableName+" WHERE id_SG = " + note.getSGId() + ";";
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             if(connection.createStatement().executeUpdate(sql) == 1) {

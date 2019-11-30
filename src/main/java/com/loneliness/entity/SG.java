@@ -25,6 +25,8 @@ public class SG implements Serializable {
     @NotNull(message = "SG")
     private BigDecimal SG;
 
+    private ROE roe;
+
     public int getSGId() {
         return SGId;
     }
@@ -95,6 +97,14 @@ public class SG implements Serializable {
 
     public void setSG(BigDecimal SG) {
         this.SG = SG;
+    }
+
+    public com.loneliness.entity.ROE getRoe() {
+        return roe;
+    }
+
+    public void setRoe(com.loneliness.entity.ROE roe) {
+        this.roe = roe;
     }
 
     @Override
