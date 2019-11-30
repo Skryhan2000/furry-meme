@@ -120,10 +120,23 @@ public class InitialDataRequest implements IDAO<InitialData,String, Map<Integer,
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
-    public BigDecimal findCreditInPeriod(InitialData note) throws DAOException {
+    public BigDecimal findPreviousEquity(InitialData note) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("FIND_PREVIOUS_EQUITY");
         transmission.setInitialData(note);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (BigDecimal) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+    public BigDecimal findCreditInPeriod(int note) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("FIND_PREVIOUS_EQUITY");
+        transmission.setId(note);
         try {
             Client.getOutObject().writeObject(transmission);
             return (BigDecimal) Client.getInObject().readObject();

@@ -1,8 +1,9 @@
-package com.loneliness.client.service;
+package com.loneliness.client.service.service_impl;
 
 import com.loneliness.client.dao.server_request.CalculateIndexRequest;
 import com.loneliness.client.dao.DAOException;
 import com.loneliness.client.dao.FactoryDAO;
+import com.loneliness.client.service.ServiceException;
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
 
@@ -77,12 +78,4 @@ public class CalculateIndexService {
         }
     }
 
-    public DifferentialIndicators calculateAllDifferentialIndicators(Index data) throws ServiceException {
-        try {
-            return request.calculateAllDifferentialIndicators(data);
-        } catch (DAOException e) {
-            throw new ServiceException(e.getCause(),e.getMessage());
-        }
-
-    }
 }

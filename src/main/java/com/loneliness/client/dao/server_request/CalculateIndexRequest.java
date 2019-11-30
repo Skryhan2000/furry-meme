@@ -116,18 +116,4 @@ public class CalculateIndexRequest  {
         }
     }
 
-    public DifferentialIndicators calculateAllDifferentialIndicators(Index data) throws DAOException {
-        transmission = new Transmission();
-        transmission.setCommand("CALCULATE_ALL_DIFFERENTIAL_INDICATORS");
-        transmission.setIndex(data);
-        try {
-            Client.getOutObject().writeObject(transmission);
-            return (DifferentialIndicators) Client.getInObject().readObject();
-        } catch (IOException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
-            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
-        }
-
-    }
 }
