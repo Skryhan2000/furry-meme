@@ -32,20 +32,17 @@
                <items>
                   <Menu mnemonicParsing="false" text="Быстрый расчёт">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#calculateProfitability" text="Рентабельность продаж" />
-                        <MenuItem mnemonicParsing="false" onAction="#calculateRONA" text="Рентабельность RONA" />
-                        <MenuItem mnemonicParsing="false" onAction="#calculateROE" text="Рентабельность собственного капитала ROE" />
-                        <MenuItem mnemonicParsing="false" onAction="#calculateSG" text="Показатель экономического роста компании SG" />
-                        <MenuItem mnemonicParsing="false" onAction="#calculateWACC" text="Средневзвешенная стоимость капитала WACC" />
+                        <MenuItem mnemonicParsing="false"  text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#calculateSG" text="SG" />
                         <MenuItem mnemonicParsing="false" onAction="#calculateAllInDetail" text="Подробный расчёт" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Добавить данные">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Отчётные периоды" />
-                        <MenuItem mnemonicParsing="false" onAction="#addDifferentialIndicators" text="ROE" />
-                        <MenuItem mnemonicParsing="false" onAction="#updateDifferentialIndicators" text="SG" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteDifferentialIndicators" text="Дивиденты" />
+                        <MenuItem mnemonicParsing="false" text="ROE" />
+                        <MenuItem mnemonicParsing="false" text="SG" />
+                        <MenuItem mnemonicParsing="false" text="Дивиденты" />
                         <MenuItem mnemonicParsing="false" text="Исходные данные" />
                         <MenuItem mnemonicParsing="false" text="Кредиты" />
                      </items>

@@ -2,9 +2,8 @@ package com.loneliness.client.dao.server_request;
 
 import com.loneliness.client.dao.DAOException;
 import com.loneliness.client.launcher.Client;
-import com.loneliness.entity.DifferentialIndicators;
-import com.loneliness.entity.Index;
-import com.loneliness.entity.Transmission;
+import com.loneliness.client.service.ServiceException;
+import com.loneliness.entity.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -87,10 +86,10 @@ public class CalculateIndexRequest  {
         }
     }
 
-    public BigDecimal calculateSG(Index data) throws DAOException {
+    public BigDecimal calculateSG(SG data) throws DAOException {
         transmission = new Transmission();
         transmission.setCommand("CALCULATE_SG");
-        transmission.setIndex(data);
+        transmission.setSg(data);
         try {
             Client.getOutObject().writeObject(transmission);
             return (BigDecimal) Client.getInObject().readObject();
@@ -109,6 +108,19 @@ public class CalculateIndexRequest  {
         try {
             Client.getOutObject().writeObject(transmission);
             return (BigDecimal) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+    public ROE CalculateAllROEData(ROE data) throws  DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("CALCULATE_ALL_ROE_DATA");
+        transmission.setRoe(data);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (ROE) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {

@@ -96,6 +96,19 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         }
         return note;
     }
+    public ROE receive(int note) {
+        sql= "SELECT * FROM roe WHERE id_ROE = " + note + ";";
+        try {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            if( resultSet.next()){
+                return getDataFromResultSet(resultSet);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return new ROE();
+    }
 
     @Override
     public String delete(ROE note) {

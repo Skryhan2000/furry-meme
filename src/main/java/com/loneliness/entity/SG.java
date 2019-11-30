@@ -11,7 +11,7 @@ public class SG implements Serializable {
     @Positive(message = "Id исходных данных должно быть положительным")
     private int initialDataId;
     @NotNull(message = "Задайте ROE")
-    private BigDecimal ROE;
+    private int roeId;
     @Positive(message = "Id компании должно быть положительным")
     private int companyId;
     @Positive(message = "Id кредита должно быть положительным")
@@ -43,12 +43,12 @@ public class SG implements Serializable {
         this.initialDataId = initialDataId;
     }
 
-    public BigDecimal getROE() {
-        return ROE;
+    public int getRoeId() {
+        return roeId;
     }
 
-    public void setROE(BigDecimal ROE) {
-        this.ROE = ROE;
+    public void setRoeId(int roeId) {
+        this.roeId = roeId;
     }
 
     public int getCompanyId() {
@@ -117,7 +117,7 @@ public class SG implements Serializable {
                 companyId == sg.companyId &&
                 creditId == sg.creditId &&
                 dividendID == sg.dividendID &&
-                ROE.equals(sg.ROE) &&
+                roeId==sg.roeId&&
                 reinvestmentProfit.equals(sg.reinvestmentProfit) &&
                 reinvestmentRatio.equals(sg.reinvestmentRatio) &&
                 SG.equals(sg.SG);
@@ -125,7 +125,7 @@ public class SG implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(SGId, initialDataId, ROE, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
+        return Objects.hash(SGId, initialDataId, roeId, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class SG implements Serializable {
         return "SG{" +
                 "SGId=" + SGId +
                 ", sourceDataId=" + initialDataId +
-                ", ROE=" + ROE +
+                ", ROE=" + roeId +
                 ", companyId=" + companyId +
                 ", creditId=" + creditId +
                 ", dividendID=" + dividendID +

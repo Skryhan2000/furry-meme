@@ -24,6 +24,8 @@ public class Company implements Serializable {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

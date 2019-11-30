@@ -6,6 +6,8 @@ import com.loneliness.client.dao.FactoryDAO;
 import com.loneliness.client.service.ServiceException;
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
+import com.loneliness.entity.ROE;
+import com.loneliness.entity.SG;
 
 
 import java.math.BigDecimal;
@@ -61,7 +63,7 @@ public class CalculateIndexService {
         }
     }
 
-    public BigDecimal calculateSG(Index data) throws ServiceException {
+    public BigDecimal calculateSG(SG data) throws ServiceException {
         try {
             return request.calculateSG(data);
         } catch (DAOException e) {
@@ -73,6 +75,14 @@ public class CalculateIndexService {
     public BigDecimal calculateWACC(Index data) throws ServiceException {
         try {
             return request.calculateWACC(data);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getCause(),e.getMessage());
+        }
+    }
+
+    public ROE CalculateAllROEData(ROE data) throws ServiceException {
+        try {
+            return request.CalculateAllROEData(data);
         } catch (DAOException e) {
             throw new ServiceException(e.getCause(),e.getMessage());
         }

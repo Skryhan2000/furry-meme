@@ -1,6 +1,7 @@
 package com.loneliness.server.servise.service_impl;
 
 import com.loneliness.entity.*;
+import com.loneliness.server.dao.sql_dao.SQLROEDAO;
 import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
 import com.loneliness.server.servise.ServiceException;
 
@@ -62,9 +63,9 @@ public class BusinessServiceImpl {
 
     public BigDecimal calculateSG(SG data) throws ServiceException {
         try {
-
-            return ((calculateRONA(data.getRoe()).multiply(calculateFL(data.getRoe()))).multiply(T).multiply(data.getRoe().getInitialData().getPBIT().
-                    divide(data.getRoe().getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()).
+            ROE roe= SQLROEDAO.getInstance().receive(data.getRoeId());
+            return ((calculateRONA(roe).multiply(calculateFL(roe))).multiply(T).multiply(roe.getInitialData().getPBIT().
+                    divide(roe.getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()).
                     divide(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()),scale,roundingMode));
         } catch (ServiceException e) {
             throw new ServiceException(e.getMessage(), e.getCause());

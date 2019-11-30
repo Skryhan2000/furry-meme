@@ -16,15 +16,15 @@ public class ROE implements Serializable {
     private int creditId;
     @Positive(message = "Id дивиданда должно быть положительным")
     private int dividendID;
-    @NotNull(message = "Задайте ROE")
+    //@NotNull(message = "Задайте ROE")
     private BigDecimal ROE;
     @NotNull(message = "Задайте EBIT")
     private BigDecimal EBIT;
-    @NotNull(message = "Задайте рентабельность продаж")
+    //@NotNull(message = "Задайте рентабельность продаж")
     private BigDecimal profR;
-    @NotNull(message = "Задайте RONA")
+    //@NotNull(message = "Задайте RONA")
     private BigDecimal RONA;
-    @NotNull(message = "Задайте Fl")
+    //@NotNull(message = "Задайте Fl")
     private BigDecimal FL;
 
     private InitialData initialData;

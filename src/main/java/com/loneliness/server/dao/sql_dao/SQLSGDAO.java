@@ -24,13 +24,13 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT "+tableName+" (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
-                    "ROE,EBIT,рентабельность_продаж,RONA,FL) " +
+                    "id_ROE,рентабельность_продаж,RONA,FL) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
                     note.getInitialDataId()+"', '"+
                     note.getCreditId()+"', '"+
                     note.getDividendID()+"', '"+
-                    note.getROE()+"', '"+
+                    note.getRoeId()+"', '"+
                     note.getReinvestmentProfit().toString()+"', '"+
                     note.getReinvestmentRatio().toString()+"', '"+
                     note.getSG().toString()+
@@ -57,7 +57,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 "id_исходных_данных='" + note.getInitialDataId()+ "'," +
                 "id_кредита='" + note.getCreditId()+ "'," +
                 "id_дивиденда='" + note.getDividendID()+ "'," +
-                "id_ROE='" + note.getROE()+ "'," +
+                "id_ROE='" + note.getRoeId()+ "'," +
                 "реинвестиционная_прибыль='" + note.getReinvestmentProfit().toString()+ "'," +
                 "Коэффициент_реинвестирования='" + note.getReinvestmentRatio().toString()+ "'," +
                 "SG='" + note.getSG().toString()+  "' " +
@@ -130,7 +130,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         sg.setInitialDataId(resultSet.getInt("id_исходных_данных"));
         sg.setCreditId(resultSet.getInt("id_кредита"));
         sg.setDividendID(resultSet.getInt("id_дивиденда"));
-        sg.setROE(resultSet.getBigDecimal("ROE"));
+        sg.setRoeId(resultSet.getInt("id_ROE"));
         sg.setReinvestmentProfit(resultSet.getBigDecimal("реинвестиционная_прибыль"));
         sg.setReinvestmentRatio(resultSet.getBigDecimal("Коэффициент_реинвестирования"));
         sg.setSG(resultSet.getBigDecimal("SG"));
