@@ -53,9 +53,11 @@ public class ReportingPeriodService implements DataService<ReportingPeriod,Strin
     public BigDecimal findPreviousEquity(InitialData initialData){
         return dao.findPreviousEquity(initialData);
     }
+
     public BigDecimal findFutureEquity(InitialData initialData){
         return dao.findPreviousEquity(initialData);
     }
+
     public BigDecimal findCreditInPeriod(int id){
         return dao.findCreditInPeriod(id);
     }

@@ -2,7 +2,7 @@ package com.loneliness.client.service;
 
 import com.loneliness.client.dao.DAOException;
 import com.loneliness.client.dao.FactoryDAO;
-import com.loneliness.client.dao.UserRequest;
+import com.loneliness.client.dao.server_request.UserRequest;
 import com.loneliness.entity.UserData;
 
 import java.util.Map;

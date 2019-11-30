@@ -16,6 +16,15 @@ public class Transmission implements Serializable {
     private ReportingPeriod reportingPeriod;
     private ROE roe;
     private SG sg;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Index getIndex() {
         return index;

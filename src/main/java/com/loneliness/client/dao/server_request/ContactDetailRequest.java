@@ -1,21 +1,27 @@
-package com.loneliness.client.dao;
+package com.loneliness.client.dao.server_request;
 
+import com.loneliness.client.dao.DAOException;
+import com.loneliness.client.dao.IDAO;
 import com.loneliness.client.launcher.Client;
-import com.loneliness.entity.DifferentialIndicators;
+import com.loneliness.entity.ContactDetail;
 import com.loneliness.entity.Transmission;
-import com.loneliness.entity.UserData;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicators,String, Map<Integer,DifferentialIndicators>>{
+public class ContactDetailRequest implements IDAO<ContactDetail,String, Map<Integer,ContactDetail>> {
+    private static final ContactDetailRequest instance=new ContactDetailRequest();
+    private ContactDetailRequest(){}
+    public static ContactDetailRequest getInstance() {
+        return instance;
+    }
     private Transmission transmission;
+
     @Override
-    public String add(DifferentialIndicators note) throws DAOException {
+    public String add(ContactDetail note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand(" CREATE_DIFFERENTIAL_INDICATORS");
-        transmission.setDifferentialIndicators(note);
+        transmission.setCommand("CREATE_CONTACT_DETAIL");
+        transmission.setContactDetail(note);
         try {
             Client.getOutObject().writeObject(transmission);
             return (String) Client.getInObject().readObject();
@@ -27,10 +33,10 @@ public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicator
     }
 
     @Override
-    public String update(DifferentialIndicators note) throws DAOException {
+    public String update(ContactDetail note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("UPDATE_DIFFERENTIAL_INDICATORS");
-        transmission.setDifferentialIndicators(note);
+        transmission.setCommand("UPDATE_CONTACT_DETAIL");
+        transmission.setContactDetail(note);
         try {
             Client.getOutObject().writeObject(transmission);
             return (String) Client.getInObject().readObject();
@@ -42,13 +48,13 @@ public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicator
     }
 
     @Override
-    public DifferentialIndicators receive(DifferentialIndicators note) throws DAOException {
+    public ContactDetail receive(ContactDetail note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("RECEIVE_DIFFERENTIAL_INDICATORS");
-        transmission.setDifferentialIndicators(note);
+        transmission.setCommand("RECEIVE_CONTACT_DETAIL");
+        transmission.setContactDetail(note);
         try {
             Client.getOutObject().writeObject(transmission);
-            return (DifferentialIndicators) Client.getInObject().readObject();
+            return (ContactDetail) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
@@ -57,10 +63,10 @@ public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicator
     }
 
     @Override
-    public String delete(DifferentialIndicators note) throws DAOException {
+    public String delete(ContactDetail note) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("DELETE_DIFFERENTIAL_INDICATORS");
-        transmission.setDifferentialIndicators(note);
+        transmission.setCommand("DELETE_CONTACT_DETAIL");
+        transmission.setContactDetail(note);
         try {
             Client.getOutObject().writeObject(transmission);
             return (String) Client.getInObject().readObject();
@@ -72,12 +78,12 @@ public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicator
     }
 
     @Override
-    public Map<Integer, DifferentialIndicators> receiveAll() throws DAOException {
+    public Map<Integer, ContactDetail> receiveAll() throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("RECEIVE_ALL_DIFFERENTIAL_INDICATORS");
+        transmission.setCommand("RECEIVE_ALL_CONTACT_DETAIL");
         try {
             Client.getOutObject().writeObject(transmission);
-            return (ConcurrentHashMap<Integer, DifferentialIndicators>) Client.getInObject().readObject();
+            return (Map<Integer, ContactDetail>) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
@@ -86,13 +92,13 @@ public class DifferentialIndicatorsRequest implements IDAO<DifferentialIndicator
     }
 
     @Override
-    public Map<Integer, DifferentialIndicators> receiveAllInLimit(int left, int right) throws DAOException {
-            transmission = new Transmission();
-            transmission.setBounds(new int[]{left, right});
-            transmission.setCommand("RECEIVE_ALL_DIFFERENTIAL_INDICATORS_IN_LIMIT");
-            try {
+    public Map<Integer, ContactDetail> receiveAllInLimit(int left, int right) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("RECEIVE_ALL_CONTACT_DETAIL");
+        transmission.setBounds(new int[]{left,right});
+        try {
             Client.getOutObject().writeObject(transmission);
-            return (Map<Integer, DifferentialIndicators>) Client.getInObject().readObject();
+            return (Map<Integer, ContactDetail>) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {

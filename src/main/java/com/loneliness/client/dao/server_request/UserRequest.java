@@ -1,5 +1,7 @@
-package com.loneliness.client.dao;
+package com.loneliness.client.dao.server_request;
 
+import com.loneliness.client.dao.DAOException;
+import com.loneliness.client.dao.IDAO;
 import com.loneliness.client.launcher.Client;
 import com.loneliness.entity.Transmission;
 import com.loneliness.entity.UserData;

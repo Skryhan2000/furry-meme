@@ -1,15 +1,12 @@
 package com.loneliness.client.service;
 
-import com.loneliness.client.dao.CalculateIndexRequest;
+import com.loneliness.client.dao.server_request.CalculateIndexRequest;
 import com.loneliness.client.dao.DAOException;
 import com.loneliness.client.dao.FactoryDAO;
-import com.loneliness.client.launcher.Client;
 import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
-import com.loneliness.entity.Transmission;
 
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 public class CalculateIndexService {

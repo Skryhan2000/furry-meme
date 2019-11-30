@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 public class FindPreviousEquity implements Command<InitialData, BigDecimal> {
     @Override
     public BigDecimal execute(InitialData request) {
-        return ServiceFactory.getInstance().getReportingPeriodService().findFutureEquity(request);
+        return ServiceFactory.getInstance().getReportingPeriodService().findPreviousEquity(request);
     }
 }
