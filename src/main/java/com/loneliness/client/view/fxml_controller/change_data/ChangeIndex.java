@@ -81,22 +81,23 @@ public class ChangeIndex {
 
     public boolean isInputValid() {
         Set<ConstraintViolation<Object>> errors = null;
-        try {
-
-            errors = (Set<ConstraintViolation<Object>>)
-                    CommandProvider.getCommandProvider().getCommand(CommandName.
-                            DIFFERENTIAL_INDICATORS_VALIDATION).execute(index);
-            if (errors.size() == 0) {
-                return true;
-            } else {
-                FilledAlert.getInstance().showAlert("Валидация заказа", "Ошибка", errors, dialogStage, "ERROR");
-                return false;
-            }
-        } catch (ControllerException e) {
-            FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
-                    e.getMessage(), dialogStage, "ERROR");
-            return false;
-        }
+//        try {
+//
+//            errors = (Set<ConstraintViolation<Object>>)
+//                    CommandProvider.getCommandProvider().getCommand(CommandName.
+//                            DIFFERENTIAL_INDICATORS_VALIDATION).execute(index);
+//            if (errors.size() == 0) {
+//                return true;
+//            } else {
+//                FilledAlert.getInstance().showAlert("Валидация заказа", "Ошибка", errors, dialogStage, "ERROR");
+//                return false;
+//            }
+//        } catch (ControllerException e) {
+//            FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
+//                    e.getMessage(), dialogStage, "ERROR");
+//            return false;
+//        }
+        return false;
     }
 
     @FXML
@@ -132,25 +133,25 @@ public class ChangeIndex {
     @FXML
     public void finishWork() {
         if (isInputValid()) {
-            try {
-                String answer = "";
-                switch (action) {
-                    case "create":
-                        answer = (String) CommandProvider.getCommandProvider().getCommand(CommandName.
-                                CREATE_DIFFERENTIAL_INDICATORS).execute(index);
-                        break;
-                    case "update":
-                        answer = (String) CommandProvider.getCommandProvider().getCommand(CommandName.
-                                UPDATE_DIFFERENTIAL_INDICATORS).execute(index);
-                        break;
-                }
-                if (FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных")) {
-                    goBack();
-                }
-            } catch (ControllerException e) {
-                FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
-                        e.getMessage(), dialogStage, "ERROR");
-            }
+//            try {
+//                String answer = "";
+//                switch (action) {
+////                    case "create":
+////                        answer = (String) CommandProvider.getCommandProvider().getCommand(CommandName.
+////                                CREATE_DIFFERENTIAL_INDICATORS).execute(index);
+////                        break;
+////                    case "update":
+////                        answer = (String) CommandProvider.getCommandProvider().getCommand(CommandName.
+////                                UPDATE_DIFFERENTIAL_INDICATORS).execute(index);
+////                        break;
+//                }
+//                if (FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных")) {
+//                    goBack();
+//                }
+//            } catch (ControllerException e) {
+//                FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
+//                        e.getMessage(), dialogStage, "ERROR");
+//            }
         }
     }
     private String getQuarter() {
