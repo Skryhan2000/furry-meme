@@ -31,18 +31,58 @@ public class ClientWorkingThread implements Runnable{
             Server.getQuantity().decrementAndGet();
         }
     }
+
     @Override
     public void run() {
         Transmission transmission;
         Object response;
+        CommandProvider provider=CommandProvider.getCommandProvider();
         try {
             while (true) {
                 transmission = (Transmission) inObject.readObject();
                 if (transmission.getUserData() != null) {
-                    response = CommandProvider.getCommandProvider().getCommand(CommandName.valueOf(transmission.getCommand())).
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission.getUserData());
-                } else {
-                    response = CommandProvider.getCommandProvider().getCommand(CommandName.valueOf(transmission.getCommand())).
+                } else if(transmission.getBounds()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getBounds());
+                }else if(transmission.getCompany()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getCompany());
+                }
+                else if(transmission.getContactDetail()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getContactDetail());
+                }
+                else if(transmission.getCredit()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getCredit());
+                }
+                else if(transmission.getDividend()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getDividend());
+                }
+                else if(transmission.getInitialData()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getInitialData());
+                }
+                else if(transmission.getQuarter()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getQuarter());
+                }
+                else if(transmission.getReportingPeriod()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getReportingPeriod());
+                }
+                else if(transmission.getRoe()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getRoe());
+                }
+                else if(transmission.getSg()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getSg());
+                }else {
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission);
                 }
                 outObject.writeObject(response);
@@ -50,8 +90,14 @@ public class ClientWorkingThread implements Runnable{
             }
 
 
-
-        } catch (ClassNotFoundException | IOException | ControllerException e) {
+        }catch (ClassCastException ex){
+            System.out.println("неверный запрос");
+            try {
+                outObject.writeObject(new Object());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (ClassNotFoundException | IOException | ControllerException e) {
             killOneClient();
             // e.printStackTrace();
         }
