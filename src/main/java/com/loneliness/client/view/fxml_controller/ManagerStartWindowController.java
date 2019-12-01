@@ -8,9 +8,7 @@ import com.loneliness.client.view.fxml_controller.change_data.*;
 import com.loneliness.client.view.fxml_controller.search_data.FindWindow;
 import com.loneliness.client.view.fxml_controller.search_data.SearchByIDAndYear;
 import com.loneliness.entity.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,8 +26,6 @@ public class ManagerStartWindowController {
         private Stage dialogStage;
         @FXML
         private AnchorPane mainPane;
-        @FXML
-        private Scene centerScene;
 
         public static void setCompany(Company company) {
                 ManagerStartWindowController.company = company;
@@ -61,12 +57,6 @@ public class ManagerStartWindowController {
 
 
         @FXML
-        void calculateAllInDetail(ActionEvent event) {
-
-        }
-
-
-        @FXML
         void calculateSG() {
                 try {
                         if (roe == null) {
@@ -78,7 +68,6 @@ public class ManagerStartWindowController {
                         dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
                                 getChangeSg(), "Изменение данных");
                         ChangeSG changeSg = WorkWithFXMLLoader.getInstance().getLoader().getController();
-                        sg.setCompanyId(company.getCompanyId());
                         changeSg.setDialogStage(dialogStage, "CREATE", sg);
                         mainPane.getChildren().add(WorkWithFXMLLoader.getInstance().getPane());
                 } catch (ViewException e) {
@@ -94,7 +83,6 @@ public class ManagerStartWindowController {
                         dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
                                 getChangeRoe(), "Изменение данных");
                         ChangeRoe changeRoe = WorkWithFXMLLoader.getInstance().getLoader().getController();
-                        roe.setCompanyId(company.getCompanyId());
                         changeRoe.setDialogStage(dialogStage, "CREATE", roe);
                         mainPane.getChildren().add(WorkWithFXMLLoader.getInstance().getPane());
                 } catch (ViewException e) {
@@ -127,7 +115,6 @@ public class ManagerStartWindowController {
                                 getChangeReportingPeriod(), "Добавление данных");
 
                         ChangeReportingPeriod changeReportingPeriod = loader.getLoader().getController();
-                        reportingPeriod.setCompanyId(company.getCompanyId());
                         changeReportingPeriod.setDialogStage(dialogStage, "CREATE", reportingPeriod);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -141,7 +128,6 @@ public class ManagerStartWindowController {
                 try {
                         dialogStage = loader.createStage(pathManager.getChangeRoe(), "Добавление данных");
                         ChangeRoe changeRoe = loader.getLoader().getController();
-                        roe.setCompanyId(company.getCompanyId());
                         changeRoe.setDialogStage(dialogStage, "CREATE", roe);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -155,7 +141,6 @@ public class ManagerStartWindowController {
                 try {
                         dialogStage = loader.createStage(pathManager.getChangeSg(), "Добавление данных");
                         ChangeSG changeSG = loader.getLoader().getController();
-                        sg.setCompanyId(company.getCompanyId());
                         changeSG.setDialogStage(dialogStage, "CREATE", sg);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -169,7 +154,6 @@ public class ManagerStartWindowController {
                 try {
                         dialogStage = loader.createStage(pathManager.getChangeDividend(), "Добавление данных");
                         ChangeDividend changeDividend = loader.getLoader().getController();
-                        dividend.setCompanyId(company.getCompanyId());
                         changeDividend.setDialogStage(dialogStage, "CREATE", dividend);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -183,7 +167,6 @@ public class ManagerStartWindowController {
                 try {
                         dialogStage = loader.createStage(pathManager.getChangeInitialData(), "Добавление данных");
                         ChangeInitialData controller = loader.getLoader().getController();
-                        initialData.setCompanyId(company.getCompanyId());
                         controller.setDialogStage(dialogStage, "CREATE", initialData);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -197,7 +180,6 @@ public class ManagerStartWindowController {
                 try {
                         dialogStage = loader.createStage(pathManager.getChangeCredit(), "Добавление данных");
                         ChangeCredit controller = loader.getLoader().getController();
-                        credit.setCompanyId(company.getCompanyId());
                         controller.setDialogStage(dialogStage, "CREATE", credit);
                         mainPane.getChildren().add(loader.getPane());
                 } catch (ViewException e) {
@@ -206,6 +188,98 @@ public class ManagerStartWindowController {
                                 this.dialogStage, "ERROR");
                 }
         }
+        @FXML
+        private void saveRoe(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Сохранение данных");
+                        ChangeRoe controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", roe);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveSG(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeSg(), "Сохранение данных");
+                        ChangeSG controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", sg);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveReportingPeriod(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeReportingPeriod(), "Сохранение данных");
+                        ChangeReportingPeriod controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", reportingPeriod);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveROE(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Сохранение данных");
+                        ChangeRoe controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", roe);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveDividend(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeDividend(), "Сохранение данных");
+                        ChangeDividend controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", dividend);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveInitialData(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeInitialData(), "Сохранение данных");
+                        ChangeInitialData controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", initialData);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void saveCredit(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeCredit(), "Сохранение данных");
+                        ChangeCredit controller = loader.getLoader().getController();
+                        controller.setDialogStage(dialogStage, "ADD", credit);
+                        mainPane.getChildren().add(loader.getPane());
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Добавление данных",
+                                "Добавление невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+
         @FXML
         private void analysisROE(){
                 analysis("ANALYSIS_ROE");

@@ -30,7 +30,6 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#calculateRoe" text="ROE" />
                         <MenuItem mnemonicParsing="false" onAction="#calculateSG" text="SG" />
-                        <MenuItem mnemonicParsing="false" onAction="#calculateAllInDetail" text="Подробный расчёт" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Добавить данные">
@@ -44,14 +43,27 @@
                      </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Сохранить" />
+                  <Menu mnemonicParsing="false" text="Сохранить">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#saveRoe" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveSG" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveReportingPeriod" text="Отчётные периоды" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveROE" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveSG" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveDividend" text="Дивиденты" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveInitialData" text="Исходные данные" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveCredit" text="Кредиты" />
+                    </items>
+                  </Menu>
                   <MenuItem mnemonicParsing="false" text="Загрузить" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="График">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Гр 1" />
-                  <MenuItem mnemonicParsing="false" text="ГР 2" />
+                  <MenuItem mnemonicParsing="false" onAction="#RONAChart" text="RONA" />
+                  <MenuItem mnemonicParsing="false" onAction="#FlChart" text="FL" />
+                  <MenuItem mnemonicParsing="false" onAction="#ROEChart" text="ROE" />
+                  <MenuItem mnemonicParsing="false" onAction="#profitabilityChart" text="Рентабельность" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Анализ">
