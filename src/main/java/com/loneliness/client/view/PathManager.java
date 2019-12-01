@@ -25,5 +25,7 @@ public class PathManager {
     public String getChangeUser(){return "/ChangeUser.fxml";}
     public String getFindWindow(){return "/FindWindow.fxml";}
     public String getAnalysisROE(){return "/AnalysisROE.fxml";}
+    public String getROEChart(){return "/ROEChart.fxml";}
+    public String getSearchByIDAndYear(){return "/SearchByIDAndYear.fxml";}
 
 }

@@ -1,6 +1,9 @@
 package com.loneliness.server.servise.service_impl;
 
-import com.loneliness.entity.*;
+import com.loneliness.entity.InitialData;
+import com.loneliness.entity.ROE;
+import com.loneliness.entity.SG;
+import com.loneliness.server.dao.sql_dao.SQLInitialDataDAO;
 import com.loneliness.server.dao.sql_dao.SQLROEDAO;
 import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
 import com.loneliness.server.servise.ServiceException;
@@ -14,9 +17,9 @@ public class BusinessServiceImpl {
     private final static BigDecimal T=new BigDecimal(0.35);
 
 
-    public BigDecimal calculateProfitability(ROE data) throws ServiceException {//рентабельность продаж
+    public BigDecimal calculateProfitability(InitialData data) throws ServiceException {//рентабельность продаж
         try {
-            return (data.getInitialData().getPBIT().divide(data.getInitialData().getSales(), scale, roundingMode)).
+            return (data.getPBIT().divide(data.getSales(), scale, roundingMode)).
                     multiply(new BigDecimal(100)).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
@@ -24,9 +27,9 @@ public class BusinessServiceImpl {
     }
 
 
-    public BigDecimal calculateNetAssetTurnover(ROE data) throws ServiceException { //оборачиваемость чистых активов
+    public BigDecimal calculateNetAssetTurnover(InitialData data) throws ServiceException { //оборачиваемость чистых активов
         try {
-        return data.getInitialData().getSales().divide(data.getInitialData().getAssets(),
+        return data.getSales().divide(data.getAssets(),
                 scale,RoundingMode.HALF_DOWN).setScale(scale, roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
@@ -36,7 +39,8 @@ public class BusinessServiceImpl {
 
     public BigDecimal calculateRONA(ROE data) throws ServiceException {
         try {
-            return calculateProfitability(data).multiply(calculateNetAssetTurnover(data)).setScale(scale, roundingMode);
+            InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
+            return calculateProfitability(initialData).multiply(calculateNetAssetTurnover(initialData)).setScale(scale, roundingMode);
         }
         catch (NullPointerException | ServiceException e){
             throw new ServiceException(e.getMessage(),e.getCause());
@@ -84,11 +88,9 @@ public class BusinessServiceImpl {
 
     }
     public ROE calculateAllROEData(ROE note) throws ServiceException {
-        calculateProfitability(note);
-        calculateNetAssetTurnover(note);
-        calculateRONA(note);
-        calculateROE(note);
-        calculateFL(note);
+        note.setRONA(calculateRONA(note));
+        note.setROE(calculateROE(note));
+        note.setFL(calculateFL(note));
         return note;
     }
 

@@ -1,6 +1,8 @@
 package com.loneliness.server.dao.sql_dao;
 
+import com.loneliness.entity.Quarter;
 import com.loneliness.entity.ROE;
+import com.loneliness.entity.ReportingPeriod;
 import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
@@ -146,6 +148,29 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
                 "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.roe.id_исходных_данных\n" +
                 "where id_отчетного_периода="+id+";";
         return receiveData(sql).values().iterator().next();
+    }
+
+    public Map<Quarter, ROE> findRoeByReportingPeriodYear(ReportingPeriod reportingPeriod){
+        sql = "SELECT * FROM `furry-meme`.roe "+
+        "inner join `furry-meme`.исходные_данные "+
+        "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.roe.id_исходных_данных"+
+        "inner join `furry-meme`.отчётные_периоды"+
+        "on `furry-meme`.исходные_данные.id_отчетного_периода=`furry-meme`.отчётные_периоды.id_отчетного_периода"+
+        "where год="+reportingPeriod.getYear()+" and company_id="+reportingPeriod.getCompanyId()+";";
+        ResultSet resultSet;
+        ConcurrentHashMap<Quarter, ROE> data=new ConcurrentHashMap<>();
+        ROE roe;
+        try {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            resultSet=connection.createStatement().executeQuery(sql);
+            while (resultSet.next()){
+                roe=getDataFromResultSet(resultSet);
+                data.put(Quarter.valueOf(resultSet.getString("квартал")),roe);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     private ROE getDataFromResultSet(ResultSet resultSet) throws SQLException {

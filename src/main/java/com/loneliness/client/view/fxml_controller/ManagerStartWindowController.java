@@ -6,6 +6,7 @@ import com.loneliness.client.view.ViewException;
 import com.loneliness.client.view.WorkWithFXMLLoader;
 import com.loneliness.client.view.fxml_controller.change_data.*;
 import com.loneliness.client.view.fxml_controller.search_data.FindWindow;
+import com.loneliness.client.view.fxml_controller.search_data.SearchByIDAndYear;
 import com.loneliness.entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -233,6 +234,45 @@ public class ManagerStartWindowController {
                        FilledAlert.getInstance().showAlert("Поиск данных",
                                "Поиск невозможен", e.getMessage(),
                                this.dialogStage, "ERROR");
+                }
+
+        }
+
+        @FXML
+        private void FlChart(){
+                String chart="FL";
+                createChart(chart);
+        }
+        @FXML
+        private void ROEChart(){
+                String chart="ROE";
+                createChart(chart);
+        }
+        @FXML
+        private void RONAChart(){
+                String chart="RONA";
+                createChart(chart);
+        }
+        @FXML
+        private void profitabilityChart(){
+                String chart="PROFITABILITY";
+                createChart(chart);
+        }
+
+
+
+        private void createChart(String chart){
+                Stage dialogStage = null;
+                try {
+                        dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
+                                getSearchByIDAndYear(), "График данных");
+                        SearchByIDAndYear controller = WorkWithFXMLLoader.getInstance().getLoader().getController();
+                        controller.setData(chart);
+                        dialogStage.show();
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Поиск данных",
+                                "Поиск невозможен", e.getMessage(),
+                                this.dialogStage, "ERROR");
                 }
 
         }

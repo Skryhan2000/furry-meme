@@ -1,6 +1,8 @@
 package com.loneliness.server.servise.service_impl;
 
+import com.loneliness.entity.Quarter;
 import com.loneliness.entity.ROE;
+import com.loneliness.entity.ReportingPeriod;
 import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLROEDAO;
 import com.loneliness.server.servise.DataService;
@@ -52,5 +54,8 @@ public class ROEService implements DataService<ROE,String, Map<Integer,ROE>> {
 
     public ROE findRoeByReportingPeriodID(int id){
         return dao.findRoeByReportingPeriodID(id);
+    }
+    public Map<Quarter, ROE> findRoeByReportingPeriodYear(ReportingPeriod note){
+        return dao.findRoeByReportingPeriodYear(note);
     }
 }

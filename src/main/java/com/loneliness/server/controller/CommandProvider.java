@@ -104,6 +104,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ROE,new ReceiveROE());
         repository.put(CommandName.UPDATE_ROE,new UpdateROE());
         repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_ID,new FindRoeByReportingPeriodID());
+        repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_YEAR,new FindRoeByReportingPeriodYear());
 
 
         repository.put(CommandName.CREATE_SG,new CreateSG());

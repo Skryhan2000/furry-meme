@@ -5,7 +5,9 @@ import com.loneliness.client.dao.FactoryDAO;
 import com.loneliness.client.dao.server_request.ROERequest;
 import com.loneliness.client.service.CRUDService;
 import com.loneliness.client.service.ServiceException;
+import com.loneliness.entity.Quarter;
 import com.loneliness.entity.ROE;
+import com.loneliness.entity.ReportingPeriod;
 
 import java.util.Map;
 
@@ -73,6 +75,13 @@ public class ROEService implements CRUDService<ROE,String, Map<Integer,ROE>> {
     public ROE findRoeByReportingPeriodId(int id) throws ServiceException {
         try {
             return dao.findRoeByReportingPeriodId(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getCause(),e.getMessage());
+        }
+    }
+    public Map<Quarter, ROE> findRoeByReportingPeriodYear(ReportingPeriod note) throws ServiceException {
+        try {
+            return dao.findRoeByReportingPeriodYear(note);
         } catch (DAOException e) {
             throw new ServiceException(e.getCause(),e.getMessage());
         }

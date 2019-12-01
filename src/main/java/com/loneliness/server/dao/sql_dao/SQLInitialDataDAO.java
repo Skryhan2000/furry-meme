@@ -1,13 +1,10 @@
 package com.loneliness.server.dao.sql_dao;
 
 import com.loneliness.entity.InitialData;
-import com.loneliness.entity.Quarter;
-import com.loneliness.entity.ReportingPeriod;
 import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,6 +108,21 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
             e.printStackTrace();
         }
         return note;
+    }
+    public InitialData receive(int note) {
+        ResultSet resultSet;
+        String sql;
+        sql= "SELECT * FROM исходные_данные WHERE id_исходные_данные = " + note + ";";
+        try {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            resultSet =connection.createStatement().executeQuery(sql);
+            if( resultSet.next()){
+                return getDataFromResultSet(resultSet);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return new InitialData();
     }
 
     @Override

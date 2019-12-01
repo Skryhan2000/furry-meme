@@ -99,6 +99,7 @@ public class CommandProvider {
         repository.put(CommandName.UPDATE_ROE,new UpdateROE());
         repository.put(CommandName.ROE_VALIDATION,new ROEValidation());
         repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_ID,new FindRoeByReportingPeriodId());
+        repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_YEAR,new FindRoeByReportingPeriodYear());
 
 
         repository.put(CommandName.CREATE_SG,new CreateSG());
