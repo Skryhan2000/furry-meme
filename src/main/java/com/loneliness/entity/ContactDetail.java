@@ -17,6 +17,7 @@ public class ContactDetail implements Serializable {
     @Positive(message = "Задайте положительный id компании ")
     private int companyId;
 
+
     public int getContactDetailId() {
         return contactDetailId;
     }

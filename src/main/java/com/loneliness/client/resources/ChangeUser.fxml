@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeIndex">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeUser">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane layoutX="50.0" layoutY="42.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+            <GridPane layoutX="10.0" layoutY="8.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,16 +30,16 @@
                </rowConstraints>
                <children>
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин" />
-                  <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
-                  <TextField fx:id="EField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="E2Field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="loginField" GridPane.columnIndex="1" />
+                  <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Пароль" GridPane.rowIndex="1" />
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="email" GridPane.rowIndex="2" />
                   <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="403.0" text="Права доступа" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <items>
-                        <RadioMenuItem mnemonicParsing="false" text="Админ" />
-                        <RadioMenuItem mnemonicParsing="false" text="Менеджер" />
-                        <RadioMenuItem mnemonicParsing="false" text="Не заданы" />
+                        <RadioMenuItem fx:id="admin" mnemonicParsing="false" text="Админ" />
+                        <RadioMenuItem fx:id="manager" mnemonicParsing="false" text="Менеджер" />
+                        <RadioMenuItem fx:id="noType" mnemonicParsing="false" text="Не заданы" />
                      </items>
                   </MenuButton>
                </children>

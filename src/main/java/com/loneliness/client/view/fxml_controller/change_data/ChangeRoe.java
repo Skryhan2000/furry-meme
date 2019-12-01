@@ -57,6 +57,29 @@ public class ChangeRoe {
         this.dialogStage = dialogStage;
         this.action = action;
         this.roe=roe;
+        Set<ConstraintViolation<Object>> errors = null;
+        try {
+            errors = (Set<ConstraintViolation<Object>>)commandProvider.
+                    getCommand(CommandName.ROE_VALIDATION).execute(roe);
+            if (errors.size() == 0) {
+                setData(roe);
+            }
+        } catch (ControllerException e) {
+
+        }
+
+    }
+
+    private void setData(ROE roe){
+        companyIdField.setText(String.valueOf(roe.getCompanyId()));
+        initialDataIDField.setText(String.valueOf(roe.getInitialDataId()));
+        creditIDField.setText(String.valueOf(roe.getCreditId()));
+        dividendIDField.setText(String.valueOf(roe.getDividendID()));
+        EBITField.setText(roe.getEBIT().toString());
+        roeField.setText(roe.getROE().toString());
+        profitabilityField.setText(roe.getProfR().toString());
+        RonaField.setText(roe.getRONA().toString());
+        FlField.setText(roe.getFL().toString());
     }
 
     @FXML
@@ -64,6 +87,7 @@ public class ChangeRoe {
         if(isValid()){
             try {
                 roe=(ROE)commandProvider.getCommand(CommandName.CALCULATE_ALL_ROE_DATA).execute(roe);
+
                 roeField.setText(roe.getROE().toString());
                 profitabilityField.setText(roe.getProfR().toString());
                 RonaField.setText(roe.getRONA().toString());
@@ -83,6 +107,7 @@ public class ChangeRoe {
                 String answer = "";
                 switch (action) {
                     case "CREATE":
+                        ManagerStartWindowController.setRoe(roe);
                         break;
                     case "UPDATE":
                         answer = (String) commandProvider.getCommand(CommandName.UPDATE_ROE).execute(roe);
@@ -91,7 +116,7 @@ public class ChangeRoe {
                         answer = (String) commandProvider.getCommand(CommandName.CREATE_ROE).execute(roe);
                         break;
                 }
-                ManagerStartWindowController.setRoe(roe);
+
                 FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
             } catch (ControllerException e) {
                 FilledAlert.getInstance().showAlert("Подсчет данных",

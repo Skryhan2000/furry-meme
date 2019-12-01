@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeIndex">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeContactData">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,12 +30,12 @@
                <children>
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
-                  <TextField fx:id="EField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="E1Field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="email" GridPane.rowIndex="1" />
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="номер телефона" GridPane.rowIndex="2" />
                   <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="инфо" GridPane.rowIndex="3" />
-                  <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="info" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

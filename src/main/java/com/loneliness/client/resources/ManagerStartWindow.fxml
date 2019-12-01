@@ -32,19 +32,19 @@
                <items>
                   <Menu mnemonicParsing="false" text="Быстрый расчёт">
                      <items>
-                        <MenuItem mnemonicParsing="false"  text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#calculateRoe" text="ROE" />
                         <MenuItem mnemonicParsing="false" onAction="#calculateSG" text="SG" />
                         <MenuItem mnemonicParsing="false" onAction="#calculateAllInDetail" text="Подробный расчёт" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Добавить данные">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Отчётные периоды" />
-                        <MenuItem mnemonicParsing="false" text="ROE" />
-                        <MenuItem mnemonicParsing="false" text="SG" />
-                        <MenuItem mnemonicParsing="false" text="Дивиденты" />
-                        <MenuItem mnemonicParsing="false" text="Исходные данные" />
-                        <MenuItem mnemonicParsing="false" text="Кредиты" />
+                        <MenuItem mnemonicParsing="false" onAction="#addReportingPeriod" text="Отчётные периоды" />
+                        <MenuItem mnemonicParsing="false" onAction="#addROE" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#addSG" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#addDividend" text="Дивиденты" />
+                        <MenuItem mnemonicParsing="false" onAction="#addInitialData" text="Исходные данные" />
+                        <MenuItem mnemonicParsing="false" onAction="#addCredit" text="Кредиты" />
                      </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />

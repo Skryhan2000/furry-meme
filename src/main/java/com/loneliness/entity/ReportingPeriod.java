@@ -1,11 +1,16 @@
 package com.loneliness.entity;
 
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class ReportingPeriod {
     private int reportingPeriodId;
+    @Positive(message = "Год дожен быть положитнльным")
     private int year;
+    @NotNull(message = "Должен быть задан квартал")
     private Quarter quarter;
+    @Positive(message = "id компании дожен быть положитнльным")
     private int companyId;
 
     public int getReportingPeriodId() {

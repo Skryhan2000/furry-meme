@@ -25,7 +25,12 @@ public class Company implements Serializable {
         this.companyName = companyName;
     }
 
-
+    public boolean isNull(){
+        if(companyId<0){
+            return true;
+        }
+        else return companyName == null || companyName.length() == 0;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

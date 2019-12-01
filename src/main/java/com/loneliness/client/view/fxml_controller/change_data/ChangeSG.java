@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.validation.ConstraintViolation;
+import java.math.BigDecimal;
 import java.util.Set;
 
 public class ChangeSG {
@@ -71,6 +72,7 @@ public class ChangeSG {
                 String answer = "";
                 switch (action) {
                     case "CREATE":
+                        ManagerStartWindowController.setSg(sg);
                         break;
                     case "UPDATE":
                         answer = (String) commandProvider.getCommand(CommandName.UPDATE_ROE).execute(sg);
@@ -79,7 +81,7 @@ public class ChangeSG {
                         answer = (String) commandProvider.getCommand(CommandName.CREATE_ROE).execute(sg);
                         break;
                 }
-                ManagerStartWindowController.setSg(sg);
+
                 FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
             } catch (ControllerException e) {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
@@ -97,22 +99,43 @@ public class ChangeSG {
     public void setDialogStage(Stage dialogStage, String action, SG sg) {
         this.dialogStage = dialogStage;
         this.action = action;
-        this.sg=sg;
+        this.sg = sg;
+        Set<ConstraintViolation<Object>> errors = null;
+        try {
+            errors = (Set<ConstraintViolation<Object>>)commandProvider.
+                    getCommand(CommandName.SG_VALIDATION).execute(sg);
+            if (errors.size() == 0) {
+                setData(sg);
+            }
+        } catch (ControllerException e) {
+            e.printStackTrace();
+        }
+
     }
 
+    private void setData(SG sg){
+        companyIdField.setText(String.valueOf(sg.getCompanyId()));
+        initialDataIdField.setText(String.valueOf(sg.getInitialDataId()));
+        creditIdField.setText(String.valueOf(sg.getCreditId()));
+        dividendIDField.setText(String.valueOf(sg.getDividendID()));
+        roeIdField.setText(String.valueOf(sg.getRoeId()));
+        reinvestmentProfitField.setText(sg.getReinvestmentProfit().toString());
+        reinvestmentRatioField.setText(sg.getReinvestmentRatio().toString());
+        sgField.setText(sg.getSG().toString());
+    }
     private boolean isValid(){
         try {
             SG sg=new SG();
             sg.setSGId(this.sg.getSGId());
             sg.setCompanyId(Integer.parseInt(companyIdField.getText()));
-            sg.setCompanyId(Integer.parseInt(initialDataIdField.getText()));
-            sg.setCompanyId(Integer.parseInt(creditIdField.getText()));
-            sg.setCompanyId(Integer.parseInt(dividendIDField.getText()));
-            sg.setCompanyId(Integer.parseInt(roeIdField.getText()));
-            sg.setCompanyId(Integer.parseInt(reinvestmentProfitField.getText()));
-            sg.setCompanyId(Integer.parseInt(reinvestmentRatioField.getText()));
+            sg.setInitialDataId(Integer.parseInt(initialDataIdField.getText()));
+            sg.setCreditId(Integer.parseInt(creditIdField.getText()));
+            sg.setDividendID(Integer.parseInt(dividendIDField.getText()));
+            sg.setRoeId(Integer.parseInt(roeIdField.getText()));
+            sg.setReinvestmentProfit(new BigDecimal(reinvestmentProfitField.getText()));
+            sg.setReinvestmentRatio(new BigDecimal(reinvestmentRatioField.getText()));
             Set<ConstraintViolation<Object>> errors = (Set<ConstraintViolation<Object>>)commandProvider.
-                    getCommand(CommandName.ROE_VALIDATION).execute(sg);
+                    getCommand(CommandName.SG_VALIDATION).execute(sg);
             if (errors.size() == 0) {
                 this.sg=sg;
                 return true;
