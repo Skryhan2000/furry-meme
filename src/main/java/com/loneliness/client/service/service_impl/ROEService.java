@@ -70,5 +70,12 @@ public class ROEService implements CRUDService<ROE,String, Map<Integer,ROE>> {
             throw new ServiceException(e.getCause(),e.getMessage());
         }
     }
+    public ROE findRoeByReportingPeriodId(int id) throws ServiceException {
+        try {
+            return dao.findRoeByReportingPeriodId(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getCause(),e.getMessage());
+        }
+    }
 
 }

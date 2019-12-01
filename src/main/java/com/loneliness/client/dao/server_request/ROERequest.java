@@ -106,5 +106,18 @@ public class ROERequest implements IDAO<ROE,String, Map<Integer,ROE>> {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
+    public ROE findRoeByReportingPeriodId(int id) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("FIND_ROE_BY_REPORTING_PERIOD_ID");
+        transmission.setId(id);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (ROE) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
 
 }

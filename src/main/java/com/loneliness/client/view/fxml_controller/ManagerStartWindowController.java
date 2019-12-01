@@ -5,16 +5,13 @@ import com.loneliness.client.view.PathManager;
 import com.loneliness.client.view.ViewException;
 import com.loneliness.client.view.WorkWithFXMLLoader;
 import com.loneliness.client.view.fxml_controller.change_data.*;
-import com.loneliness.client.view.fxml_controller.search_data.SearchByDateAndNameOrIdController;
+import com.loneliness.client.view.fxml_controller.search_data.FindWindow;
 import com.loneliness.entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class ManagerStartWindowController {
         private PathManager pathManager=PathManager.getInstance();
@@ -208,5 +205,35 @@ public class ManagerStartWindowController {
                                 this.dialogStage, "ERROR");
                 }
         }
+        @FXML
+        private void analysisROE(){
+                analysis("ANALYSIS_ROE");
+        }
 
+        @FXML
+        private void analysisSG(){
+                analysis("ANALYSIS_SG");
+        }
+
+        private void analysis(String action){
+                try {
+                        Stage dialogStage = loader.createStage(PathManager.getInstance().getFindWindow(), "Поиск данных");
+                        FindWindow controller = loader.getLoader().getController();
+                        switch (action) {
+                                case "ANALYSIS_ROE":
+                                        controller.setDialogStage(dialogStage, "ANALYSIS_ROE");
+                                        break;
+                                case "ANALYSIS_SG":
+                                        controller.setDialogStage(dialogStage, "ANALYSIS_SG");
+                                        break;
+                        }
+                        dialogStage.showAndWait();
+                }
+               catch (ViewException e) {
+                       FilledAlert.getInstance().showAlert("Поиск данных",
+                               "Поиск невозможен", e.getMessage(),
+                               this.dialogStage, "ERROR");
+                }
+
+        }
 }

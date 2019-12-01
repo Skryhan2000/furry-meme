@@ -105,4 +105,8 @@ public class ChangeCompany {
         }
         return false;
     }
+    @FXML
+    private void analysisROE(){
+
+    }
 }

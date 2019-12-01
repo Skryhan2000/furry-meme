@@ -8,17 +8,17 @@ import java.util.Objects;
 
 public class ROE implements Serializable {
     private int ROEId;
-    @Positive(message = "Id компании должно быть положительным")
+    @Positive(message = "Id компании должно быть положительным ")
     private int companyId;
-    @Positive(message = "Id исходных данных должно быть положительным")
+    @Positive(message = "Id исходных данных должно быть положительным ")
     private int initialDataId;
-    @Positive(message = "Id кредита должно быть положительным")
+    @Positive(message = "Id кредита должно быть положительным ")
     private int creditId;
-    @Positive(message = "Id дивиданда должно быть положительным")
+    @Positive(message = "Id дивиданда должно быть положительным ")
     private int dividendID;
     //@NotNull(message = "Задайте ROE")
     private BigDecimal ROE;
-    @NotNull(message = "Задайте EBIT")
+    @NotNull(message = "Задайте оперативную прибыль ")
     private BigDecimal EBIT;
     //@NotNull(message = "Задайте рентабельность продаж")
     private BigDecimal profR;

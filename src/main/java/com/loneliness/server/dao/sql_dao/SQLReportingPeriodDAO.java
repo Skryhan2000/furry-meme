@@ -1,6 +1,5 @@
 package com.loneliness.server.dao.sql_dao;
 
-import com.loneliness.entity.Dividend;
 import com.loneliness.entity.InitialData;
 import com.loneliness.entity.Quarter;
 import com.loneliness.entity.ReportingPeriod;

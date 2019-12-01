@@ -139,6 +139,15 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         sql="SELECT * FROM roe LIMIT "+left+" , "+right+" ;";
         return receiveData(sql);
     }
+
+    public ROE findRoeByReportingPeriodID(int id){
+        sql = "SELECT * FROM `furry-meme`.roe \n" +
+                "inner join `furry-meme`.исходные_данные\n" +
+                "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.roe.id_исходных_данных\n" +
+                "where id_отчетного_периода="+id+";";
+        return receiveData(sql).values().iterator().next();
+    }
+
     private ROE getDataFromResultSet(ResultSet resultSet) throws SQLException {
         ROE roe  = new ROE ();
         roe.setROEId(resultSet.getInt("id_ROE"));
@@ -169,4 +178,5 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         }
         return data;
     }
+
 }

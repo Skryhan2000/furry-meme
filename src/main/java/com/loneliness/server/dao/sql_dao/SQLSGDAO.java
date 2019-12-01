@@ -123,6 +123,15 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         sql="SELECT * FROM "+tableName+" LIMIT "+left+" , "+right+" ;";
         return receiveData(sql);
     }
+
+    public SG findSGByReportingPeriodID(int id){
+        sql = "SELECT * FROM `furry-meme`.sg \n" +
+                "inner join `furry-meme`.исходные_данные\n " +
+                "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.sg.id_исходных_данных\n" +
+                "where id_отчетного_периода="+id+";";
+        return receiveData(sql).values().iterator().next();
+    }
+
     private SG getDataFromResultSet(ResultSet resultSet) throws SQLException {
         SG sg  = new SG ();
         sg.setSGId(resultSet.getInt("id_SG"));

@@ -23,5 +23,7 @@ public class PathManager {
     public String getChangeInitialData(){return "/ChangeInitialData.fxml";}
     public String getChangeReportingPeriod(){return "/ChangeReportingPeriod.fxml";}
     public String getChangeUser(){return "/ChangeUser.fxml";}
+    public String getFindWindow(){return "/FindWindow.fxml";}
+    public String getAnalysisROE(){return "/AnalysisROE.fxml";}
 
 }

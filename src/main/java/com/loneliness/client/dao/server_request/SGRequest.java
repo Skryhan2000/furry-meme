@@ -26,7 +26,7 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (String) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException  |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
@@ -41,7 +41,7 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (String) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException  |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
@@ -56,7 +56,7 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (SG) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException  |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
@@ -71,7 +71,7 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (String) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException  |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
@@ -86,7 +86,7 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (Map<Integer, SG>) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException  |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
@@ -101,9 +101,22 @@ public class SGRequest implements IDAO<SG,String, Map<Integer,SG>> {
             return (Map<Integer, SG>) Client.getInObject().readObject();
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException |ClassCastException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
         }
     }
 
+    public SG findSGByReportingPeriodID(int note) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("FIND_SG_BY_REPORTING_PERIOD_ID");
+        transmission.setId(note);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (SG) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException  |ClassCastException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
 }

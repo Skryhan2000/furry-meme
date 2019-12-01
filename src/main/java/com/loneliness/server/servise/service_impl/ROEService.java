@@ -49,4 +49,8 @@ public class ROEService implements DataService<ROE,String, Map<Integer,ROE>> {
     public Map<Integer, ROE> receiveAllInLimit(int left, int right) {
         return dao.receiveAllInLimit(left, right);
     }
+
+    public ROE findRoeByReportingPeriodID(int id){
+        return dao.findRoeByReportingPeriodID(id);
+    }
 }

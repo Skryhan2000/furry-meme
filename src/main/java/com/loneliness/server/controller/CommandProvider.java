@@ -12,7 +12,6 @@ import com.loneliness.server.controller.command_implements.roe.*;
 import com.loneliness.server.controller.command_implements.sg.*;
 import com.loneliness.server.controller.command_implements.user.*;
 
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -104,6 +103,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ALL_ROE_IN_LIMIT,new ReceiveAllROEInLimit());
         repository.put(CommandName.RECEIVE_ROE,new ReceiveROE());
         repository.put(CommandName.UPDATE_ROE,new UpdateROE());
+        repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_ID,new FindRoeByReportingPeriodID());
 
 
         repository.put(CommandName.CREATE_SG,new CreateSG());
@@ -112,6 +112,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ALL_SG_IN_LIMIT,new ReceiveAllSGInLimit());
         repository.put(CommandName.RECEIVE_SG,new ReceiveSG());
         repository.put(CommandName.UPDATE_SG,new UpdateSG());
+        repository.put(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID,new FindSGByReportingPeriodID());
 
     }
     public Map<CommandName, Command> getRepository() {

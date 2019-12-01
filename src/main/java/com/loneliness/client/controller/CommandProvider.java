@@ -1,6 +1,7 @@
 package com.loneliness.client.controller;
 
-import com.loneliness.client.controller.command_impl.calculate.*;
+import com.loneliness.client.controller.command_impl.calculate.CalculateAllROEData;
+import com.loneliness.client.controller.command_impl.calculate.CalculateSG;
 import com.loneliness.client.controller.command_impl.company.*;
 import com.loneliness.client.controller.command_impl.contact_detail.*;
 import com.loneliness.client.controller.command_impl.credit.*;
@@ -10,8 +11,8 @@ import com.loneliness.client.controller.command_impl.reporting_period.*;
 import com.loneliness.client.controller.command_impl.roe.*;
 import com.loneliness.client.controller.command_impl.sg.*;
 import com.loneliness.client.controller.command_impl.user.*;
-import com.loneliness.client.controller.command_impl.validation_command.*;
-
+import com.loneliness.client.controller.command_impl.validation_command.IndexValidation;
+import com.loneliness.client.controller.command_impl.validation_command.UserDataValidation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,6 +98,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ROE,new ReceiveROE());
         repository.put(CommandName.UPDATE_ROE,new UpdateROE());
         repository.put(CommandName.ROE_VALIDATION,new ROEValidation());
+        repository.put(CommandName.FIND_ROE_BY_REPORTING_PERIOD_ID,new FindRoeByReportingPeriodId());
 
 
         repository.put(CommandName.CREATE_SG,new CreateSG());
@@ -106,6 +108,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_SG,new ReceiveSG());
         repository.put(CommandName.UPDATE_SG,new UpdateSG());
         repository.put(CommandName.SG_VALIDATION,new SGValidation());
+        repository.put(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID,new FindSGByReportingPeriodID());
 
         repository.put(CommandName.INDEX_VALIDATION,new IndexValidation());
 

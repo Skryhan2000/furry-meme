@@ -50,4 +50,8 @@ public class SGService implements DataService<SG,String, Map<Integer,SG>> {
     public Map<Integer, SG> receiveAllInLimit(int left, int right) {
         return dao.receiveAllInLimit(left, right);
     }
+
+    public SG findSGByReportingPeriodID(int id){
+        return dao.findSGByReportingPeriodID(id);
+    }
 }
