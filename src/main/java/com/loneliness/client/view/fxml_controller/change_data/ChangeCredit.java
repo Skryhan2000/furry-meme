@@ -1,32 +1,23 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
 import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
 import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
 import com.loneliness.entity.Credit;
-import com.loneliness.entity.Dividend;
+import com.loneliness.entity.Entity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ChangeCredit {
-    @FXML
-    private Stage dialogStage;
-
-    private String action;
-
+public class ChangeCredit  extends ChangeData{
     private Credit credit;
-
-    private CommandProvider commandProvider=CommandProvider.getCommandProvider();
 
     @FXML
     private TextField companyIdField;
@@ -56,7 +47,7 @@ public class ChangeCredit {
                 setData(credit);
             }
         } catch (ControllerException e) {
-
+            logger.catching(e);
         }
 
     }
@@ -91,13 +82,9 @@ public class ChangeCredit {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
+                logger.catching(e);
             }
         }
-    }
-
-    @FXML
-    void goBack(ActionEvent event) {
-    dialogStage.close();
     }
 
     private boolean isValid(){
@@ -125,11 +112,38 @@ public class ChangeCredit {
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",
                     this.dialogStage, "ERROR");
-
+            logger.catching(e);
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
                     e.getMessage(), dialogStage, "ERROR");
+            logger.catching(e);
         }
         return false;
     }
+    @FXML
+    private void delete(){
+        String answer = null;
+        if(credit!=null) {
+            try {
+                answer = (String) commandProvider.getCommand(CommandName.DELETE_CREDIT).execute(credit);
+                FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+            } catch (ControllerException e) {
+                FilledAlert.getInstance().showAlert("Подсчет данных",
+                        "Ошибка", e.getMessage(),
+                        this.dialogStage, "ERROR");
+                logger.catching(e);
+            }
+        }
+    }
+    @Override
+    public void setData(Entity entity) {
+        if(entity!=null) {
+            Credit credit = (Credit) entity;
+            this.credit = credit;
+            setData(credit);
+            deleteButton.setDisable(false);
+            deleteButton.setVisible(true);
+        }
+    }
+
 }

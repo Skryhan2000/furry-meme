@@ -1,4 +1,4 @@
-package com.loneliness.client.controller.command_impl.validation_command;
+package com.loneliness.client.controller.command_impl.user;
 
 import com.loneliness.client.controller.Command;
 import com.loneliness.client.controller.ControllerException;

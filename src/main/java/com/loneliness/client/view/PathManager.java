@@ -28,5 +28,6 @@ public class PathManager {
     public String getROEChart(){return "/ROEChart.fxml";}
     public String getSearchByIDAndYear(){return "/SearchByIDAndYear.fxml";}
     public String getSearchByID(){return "/SearchByID.fxml";}
+    public String getWacc(){return "/Wacc.fxml";}
 
 }

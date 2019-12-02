@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class DifferentialIndicators implements Serializable {
+public class DifferentialIndicators implements Serializable{
     private int id;
     @NotNull(message = "Задайте id компании ")
     private int companyID;

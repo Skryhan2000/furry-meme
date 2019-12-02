@@ -1,12 +1,11 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
 import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
 import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
 import com.loneliness.entity.Dividend;
-import com.loneliness.entity.InitialData;
+import com.loneliness.entity.Entity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -16,15 +15,9 @@ import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ChangeDividend {
-    @FXML
-    private Stage dialogStage;
-
-    private String action;
+public class ChangeDividend extends ChangeData {
 
     private Dividend dividend;
-
-    private CommandProvider commandProvider=CommandProvider.getCommandProvider();
 
     @FXML
     private TextField companyIdField;
@@ -60,13 +53,9 @@ public class ChangeDividend {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
+                logger.catching(e);
             }
         }
-    }
-
-    @FXML
-    void goBack(ActionEvent event) {
-        dialogStage.close();
     }
 
     public void setDialogStage(Stage dialogStage, String action,  Dividend dividend) {
@@ -82,7 +71,7 @@ public class ChangeDividend {
 
             }
         } catch (ControllerException e) {
-
+            logger.catching(e);
         }
 
 
@@ -117,12 +106,37 @@ public class ChangeDividend {
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",
                     this.dialogStage, "ERROR");
-
+            logger.catching(e);
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
                     e.getMessage(), dialogStage, "ERROR");
+            logger.catching(e);
         }
         return false;
     }
-
+    @FXML
+    private void delete(){
+        String answer = null;
+        if(dividend!=null) {
+            try {
+                answer = (String) commandProvider.getCommand(CommandName.DELETE_DIVIDEND).execute(dividend);
+                FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+            } catch (ControllerException e) {
+                FilledAlert.getInstance().showAlert("Подсчет данных",
+                        "Ошибка", e.getMessage(),
+                        this.dialogStage, "ERROR");
+                logger.catching(e);
+            }
+        }
+    }
+    @Override
+    public void setData(Entity entity) {
+        if(entity!=null) {
+            Dividend dividend = (Dividend) entity;
+            this.dividend = dividend;
+            setData(dividend);
+            deleteButton.setDisable(false);
+            deleteButton.setVisible(true);
+        }
+    }
 }

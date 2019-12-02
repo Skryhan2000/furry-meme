@@ -1,13 +1,30 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Company implements Serializable {
+public class Company implements Serializable ,Entity{
     private int companyId;
     @NotNull(message = "Задайте имя компании")
     private String companyName;
+
+    transient SimpleIntegerProperty companyIDProperty;
+
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(companyName);
+    }
 
     public int getCompanyId() {
         return companyId;

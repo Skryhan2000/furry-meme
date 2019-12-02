@@ -1,13 +1,9 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
 import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
-import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
-import com.loneliness.entity.Company;
-import com.loneliness.entity.Quarter;
-import com.loneliness.entity.ReportingPeriod;
+import com.loneliness.entity.Entity;
 import com.loneliness.entity.UserData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,15 +15,9 @@ import javafx.stage.Stage;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class ChangeUser {
-    @FXML
-    private Stage dialogStage;
-
-    private String action;
+public class ChangeUser extends ChangeData{
 
     private UserData userData;
-
-    private CommandProvider commandProvider = CommandProvider.getCommandProvider();
 
     private ToggleGroup type;
 
@@ -50,10 +40,12 @@ public class ChangeUser {
     private RadioMenuItem noType;
 
     @FXML
-    void initialize() {
+    protected void initialize() {
         admin.setToggleGroup(type);
         manager.setToggleGroup(type);
         noType.setToggleGroup(type);
+        deleteButton.setDisable(true);
+        deleteButton.setVisible(false);
     }
 
     public void setDialogStage(Stage dialogStage, String action, UserData userData) {
@@ -91,14 +83,11 @@ public class ChangeUser {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
+                logger.catching(e);
             }
         }
     }
 
-    @FXML
-    void goBack(ActionEvent event) {
-        dialogStage.close();
-    }
 
     private boolean isValid() {
         try {
@@ -123,10 +112,12 @@ public class ChangeUser {
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",
                     this.dialogStage, "ERROR");
+            logger.catching(e);
 
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
                     e.getMessage(), dialogStage, "ERROR");
+            logger.catching(e);
         }
         return false;
     }
@@ -149,6 +140,31 @@ public class ChangeUser {
                 break;
             default:
                 noType.setSelected(true);
+        }
+    }
+    @FXML
+    private void delete(){
+        String answer = null;
+        if(userData!=null) {
+            try {
+                answer = (String) commandProvider.getCommand(CommandName.DELETE_USER).execute(userData);
+                FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+            } catch (ControllerException e) {
+                FilledAlert.getInstance().showAlert("Подсчет данных",
+                        "Ошибка", e.getMessage(),
+                        this.dialogStage, "ERROR");
+                logger.catching(e);
+            }
+        }
+    }
+    @Override
+    public void setData(Entity entity) {
+        if(entity!=null) {
+            UserData userData = (UserData) entity;
+            this.userData = userData;
+            setData(userData);
+            deleteButton.setDisable(false);
+            deleteButton.setVisible(true);
         }
     }
 }

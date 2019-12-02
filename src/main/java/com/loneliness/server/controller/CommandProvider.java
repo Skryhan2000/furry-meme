@@ -36,6 +36,7 @@ public class CommandProvider {
         repository.put(CommandName.CALCULATE_WACC,new CalculateWACC());
         repository.put(CommandName.CALCULATE_SG,new CalculateSG());
         repository.put(CommandName.CALCULATE_ALL_ROE_DATA,new CalculateAllROEData());
+        repository.put(CommandName.GET_STATE, new GetState());
 
 
         repository.put(CommandName.CREATE_DIFFERENTIAL_INDICATORS, new CreateDifferentialIndicators());

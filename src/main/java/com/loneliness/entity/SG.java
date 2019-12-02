@@ -1,12 +1,17 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class SG implements Serializable {
+public class SG implements Serializable ,Entity{
     private int SGId;
     @Positive(message = "Id исходных данных должно быть положительным")
     private int initialDataId;
@@ -25,7 +30,15 @@ public class SG implements Serializable {
     @NotNull(message = "SG")
     private BigDecimal SG;
 
-    private ROE roe;
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(String.valueOf(initialDataId));
+    }
 
     public int getSGId() {
         return SGId;
@@ -99,13 +112,6 @@ public class SG implements Serializable {
         this.SG = SG;
     }
 
-    public com.loneliness.entity.ROE getRoe() {
-        return roe;
-    }
-
-    public void setRoe(com.loneliness.entity.ROE roe) {
-        this.roe = roe;
-    }
 
     @Override
     public boolean equals(Object o) {

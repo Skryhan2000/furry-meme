@@ -7,7 +7,6 @@ import com.loneliness.server.controller.CommandProvider;
 import com.loneliness.server.controller.ControllerException;
 import com.loneliness.server.launcher.Server;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -91,12 +90,7 @@ public class ClientWorkingThread implements Runnable{
 
 
         }catch (ClassCastException ex){
-            System.out.println("неверный запрос");
-            try {
-                outObject.writeObject(new Object());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ex.printStackTrace();
         }catch (ClassNotFoundException | IOException | ControllerException e) {
             killOneClient();
             // e.printStackTrace();

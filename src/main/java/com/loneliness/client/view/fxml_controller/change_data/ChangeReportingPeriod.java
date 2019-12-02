@@ -1,12 +1,11 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
 import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
 import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
+import com.loneliness.entity.Entity;
 import com.loneliness.entity.Quarter;
-import com.loneliness.entity.ROE;
 import com.loneliness.entity.ReportingPeriod;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioMenuItem;
@@ -15,18 +14,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import javax.validation.ConstraintViolation;
-import java.math.BigDecimal;
 import java.util.Set;
 
-public class ChangeReportingPeriod {
+public class ChangeReportingPeriod extends ChangeData{
     private ToggleGroup quarter;
     @FXML
     private TextField companyIdField;
-
-    @FXML
-    private Stage dialogStage;
-
-    private String action;
 
     private ReportingPeriod period;
 
@@ -45,14 +38,16 @@ public class ChangeReportingPeriod {
     @FXML
     private RadioMenuItem Q4;
 
-    private CommandProvider commandProvider=CommandProvider.getCommandProvider();
     @FXML
-    void initialize() {
+    protected void initialize() {
         Q1.setToggleGroup(quarter);
         Q2.setToggleGroup(quarter);
         Q3.setToggleGroup(quarter);
         Q4.setToggleGroup(quarter);
+        deleteButton.setDisable(true);
+        deleteButton.setVisible(false);
     }
+
     public void setDialogStage(Stage dialogStage, String action, ReportingPeriod period)  {
         this.dialogStage = dialogStage;
         this.action = action;
@@ -65,7 +60,7 @@ public class ChangeReportingPeriod {
                 setData(period);
             }
         } catch (ControllerException e) {
-
+            logger.catching(e);
 
         }
 
@@ -98,10 +93,11 @@ public class ChangeReportingPeriod {
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",
                     this.dialogStage, "ERROR");
-
+            logger.catching(e);
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
                     e.getMessage(), dialogStage, "ERROR");
+            logger.catching(e);
         }
         return false;
     }
@@ -153,8 +149,33 @@ public class ChangeReportingPeriod {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
+                logger.catching(e);
             }
         }
     }
-    @FXML private void goBack(){dialogStage.close();}
+    @FXML
+    private void delete(){
+        String answer = null;
+        if(period!=null) {
+            try {
+                answer = (String) commandProvider.getCommand(CommandName.DELETE_REPORTING_PERIOD).execute(period);
+                FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+            } catch (ControllerException e) {
+                FilledAlert.getInstance().showAlert("Подсчет данных",
+                        "Ошибка", e.getMessage(),
+                        this.dialogStage, "ERROR");
+                logger.catching(e);
+            }
+        }
+    }
+    @Override
+    public void setData(Entity entity) {
+        if(entity!=null) {
+            ReportingPeriod reportingPeriod = (ReportingPeriod) entity;
+            this.period = reportingPeriod;
+            setData(reportingPeriod);
+            deleteButton.setDisable(false);
+            deleteButton.setVisible(true);
+        }
+    }
 }

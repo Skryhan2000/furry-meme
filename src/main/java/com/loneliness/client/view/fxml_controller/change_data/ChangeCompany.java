@@ -1,12 +1,11 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
 import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
 import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
 import com.loneliness.entity.Company;
-import javafx.event.ActionEvent;
+import com.loneliness.entity.Entity;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,15 +13,9 @@ import javafx.stage.Stage;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class ChangeCompany {
-    @FXML
-    private Stage dialogStage;
-
-    private String action;
+public class ChangeCompany extends ChangeData {
 
     private Company company;
-
-    private CommandProvider commandProvider = CommandProvider.getCommandProvider();
 
     @FXML
     private TextField companyNameField;
@@ -37,19 +30,16 @@ public class ChangeCompany {
                     getCommand(CommandName.COMPANY_VALIDATION).execute(company);
             if (errors.size() == 0){
                 setData(company);
+                logger.info("валидация COMPANY успешна");
             }
         } catch (ControllerException e) {
-
+            logger.catching(e);
         }
 
     }
 
-    private void setData(Company company) {
-        companyNameField.setText(company.getCompanyName());
-
-    }
     @FXML
-    void finishWork(ActionEvent event) {
+    void finishWork() {
         if (isValid()) {
             try {
                 String answer = "";
@@ -70,14 +60,11 @@ public class ChangeCompany {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
+                logger.catching(e);
             }
         }
     }
 
-    @FXML
-    void goBack(ActionEvent event) {
-        dialogStage.close();
-    }
     private boolean isValid() {
         try {
             Company company = new Company();
@@ -98,15 +85,40 @@ public class ChangeCompany {
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",
                     this.dialogStage, "ERROR");
-
+            logger.catching(e);
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Сбой программы", "Целостность нарушена",
                     e.getMessage(), dialogStage, "ERROR");
+            logger.catching(e);
         }
         return false;
     }
-    @FXML
-    private void analysisROE(){
 
+    @Override
+    public void setData(Entity entity) {
+            if(entity!=null) {
+                Company company=(Company)entity;
+                this.company = company;
+                companyNameField.setText(company.getCompanyName());
+                deleteButton.setDisable(false);
+                deleteButton.setVisible(true);
+            }
+    }
+
+    @FXML
+    private void delete(){
+        String answer = null;
+        if(company!=null) {
+            try {
+                answer = (String) commandProvider.getCommand(CommandName.DELETE_COMPANY).execute(company);
+                FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+            } catch (ControllerException e) {
+                FilledAlert.getInstance().showAlert("Подсчет данных",
+                        "Ошибка", e.getMessage(),
+                        this.dialogStage, "ERROR");
+                logger.catching(e);
+            }
+        }
     }
 }
+

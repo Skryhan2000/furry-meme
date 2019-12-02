@@ -30,6 +30,7 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#calculateRoe" text="ROE" />
                         <MenuItem mnemonicParsing="false" onAction="#calculateSG" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#getState" text="WACC" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Добавить данные">

@@ -50,7 +50,8 @@ public class BusinessServiceImpl {
 
     public BigDecimal calculateFL(ROE data) throws ServiceException {
         try {
-        return (data.getInitialData().getCredit().add(data.getInitialData().getEquity())).divide(data.getInitialData().getEquity(),scale,roundingMode);
+            InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
+        return (initialData.getCredit().add(initialData.getEquity())).divide(initialData.getEquity(),scale,roundingMode);
         }catch (ArithmeticException | NullPointerException e){
             throw new ServiceException(e.getMessage(),e.getCause());
         }
@@ -68,7 +69,8 @@ public class BusinessServiceImpl {
     public BigDecimal calculateSG(SG data) throws ServiceException {
         try {
             ROE roe= SQLROEDAO.getInstance().receive(data.getRoeId());
-            return ((calculateRONA(roe).multiply(calculateFL(roe))).multiply(T).multiply(roe.getInitialData().getPBIT().
+            InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
+            return ((calculateRONA(roe).multiply(calculateFL(roe))).multiply(T).multiply(initialData.getPBIT().
                     divide(roe.getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()).
                     divide(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()),scale,roundingMode));
         } catch (ServiceException e) {
@@ -92,6 +94,22 @@ public class BusinessServiceImpl {
         note.setROE(calculateROE(note));
         note.setFL(calculateFL(note));
         return note;
+    }
+
+    public String state(ROE data){
+        InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
+        try {
+            int res=calculateWACC(initialData).multiply(new BigDecimal("1").min(T)).compareTo(calculateRONA(data));
+            if(res<0){
+                return "ХОРОШО";
+            }
+            else if(res>0){
+                return "ПЛОХО";
+            }
+            else return "НОРМ";
+        } catch (ServiceException e) {
+            return "ПЛОХО";
+        }
     }
 
 

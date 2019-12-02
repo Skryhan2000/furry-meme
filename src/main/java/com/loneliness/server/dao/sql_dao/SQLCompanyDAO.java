@@ -117,7 +117,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         ConcurrentHashMap<Integer,Company> data=new ConcurrentHashMap<>();
         String sql;
         Company company;
-        sql = "SELECT * FROM users ;";
+        sql = "SELECT * FROM компании ;";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             resultSet=connection.createStatement().executeQuery(sql);
@@ -137,7 +137,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         ConcurrentHashMap<Integer,Company> data=new ConcurrentHashMap<>();
         String sql;
         Company company;
-        sql = "SELECT * FROM users Users LIMIT "+left+" , "+right+" ;";
+        sql = "SELECT * FROM компании LIMIT "+left+" , "+right+" ;";
         try {
             Connection connection=DataBaseConnection.getInstance().getConnection();
             resultSet=connection.createStatement().executeQuery(sql);

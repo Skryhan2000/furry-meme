@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeUser">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
@@ -51,6 +42,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <buttons>
             <Button mnemonicParsing="false" onAction="#finishWork" text="Готово" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#delete" text="Удалить" />
             <Button mnemonicParsing="false" onAction="#goBack" text="Отмена" />
          </buttons>
          <BorderPane.margin>

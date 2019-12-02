@@ -1,12 +1,17 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Dividend implements Serializable {
+public class Dividend implements Serializable,Entity {
     private int dividendId;
     @Positive(message = "id компании должно быть положительным ")
     private int companyId;
@@ -16,6 +21,16 @@ public class Dividend implements Serializable {
     private String recipient;
     @Positive(message = "id отчётного периода должно быть положительным ")
     private int reportingPeriodId;
+
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(recipient);
+    }
 
     public int getDividendId() {
         return dividendId;

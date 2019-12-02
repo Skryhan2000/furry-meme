@@ -135,4 +135,18 @@ public class ROERequest implements IDAO<ROE,String, Map<Integer,ROE>> {
         }
     }
 
+    public String getState(ROE note) throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("GET_STATE");
+        transmission.setRoe(note);
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (String) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+
 }

@@ -2,6 +2,8 @@ package com.loneliness.client.controller;
 
 import com.loneliness.client.controller.command_impl.calculate.CalculateAllROEData;
 import com.loneliness.client.controller.command_impl.calculate.CalculateSG;
+import com.loneliness.client.controller.command_impl.calculate.GetState;
+import com.loneliness.client.controller.command_impl.calculate.IndexValidation;
 import com.loneliness.client.controller.command_impl.company.*;
 import com.loneliness.client.controller.command_impl.contact_detail.*;
 import com.loneliness.client.controller.command_impl.credit.*;
@@ -11,8 +13,6 @@ import com.loneliness.client.controller.command_impl.reporting_period.*;
 import com.loneliness.client.controller.command_impl.roe.*;
 import com.loneliness.client.controller.command_impl.sg.*;
 import com.loneliness.client.controller.command_impl.user.*;
-import com.loneliness.client.controller.command_impl.validation_command.IndexValidation;
-import com.loneliness.client.controller.command_impl.validation_command.UserDataValidation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +32,7 @@ public class CommandProvider {
 
         repository.put(CommandName.CALCULATE_ALL_ROE_DATA,new CalculateAllROEData());
         repository.put(CommandName.CALCULATE_SG,new CalculateSG());
+        repository.put(CommandName.GET_STATE,new GetState());
 
 
         repository.put(CommandName.CREATE_COMPANY,new CreateCompany());

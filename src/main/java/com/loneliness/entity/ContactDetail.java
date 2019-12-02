@@ -1,12 +1,17 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ContactDetail implements Serializable {
+public class ContactDetail implements Serializable,Entity {
     private int contactDetailId;
     @NotNull(message = "Задайте email ")
     @Email(message = "Задайте валидный email")
@@ -17,6 +22,15 @@ public class ContactDetail implements Serializable {
     @Positive(message = "Задайте положительный id компании ")
     private int companyId;
 
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(email);
+    }
 
     public int getContactDetailId() {
         return contactDetailId;
