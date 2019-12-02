@@ -27,5 +27,6 @@ public class PathManager {
     public String getAnalysisROE(){return "/AnalysisROE.fxml";}
     public String getROEChart(){return "/ROEChart.fxml";}
     public String getSearchByIDAndYear(){return "/SearchByIDAndYear.fxml";}
+    public String getSearchByID(){return "/SearchByID.fxml";}
 
 }

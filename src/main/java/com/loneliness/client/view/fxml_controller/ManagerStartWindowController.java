@@ -1,11 +1,15 @@
 package com.loneliness.client.view.fxml_controller;
 
+import com.loneliness.client.controller.CommandName;
+import com.loneliness.client.controller.CommandProvider;
+import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.view.FilledAlert;
 import com.loneliness.client.view.PathManager;
 import com.loneliness.client.view.ViewException;
 import com.loneliness.client.view.WorkWithFXMLLoader;
 import com.loneliness.client.view.fxml_controller.change_data.*;
 import com.loneliness.client.view.fxml_controller.search_data.FindWindow;
+import com.loneliness.client.view.fxml_controller.search_data.SearchByID;
 import com.loneliness.client.view.fxml_controller.search_data.SearchByIDAndYear;
 import com.loneliness.entity.*;
 import javafx.fxml.FXML;
@@ -281,6 +285,149 @@ public class ManagerStartWindowController {
         }
 
         @FXML
+        private void loadCredit(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeCredit(), "Изменение данных");
+                        ChangeCredit controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                credit.setCreditId(id);
+                                credit = (Credit) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_CREDIT).execute(credit);
+                                controller.setDialogStage(dialogStage, "UPDATE", credit);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadInitialData(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeInitialData(), "Изменение данных");
+                        ChangeInitialData controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                initialData.setInitialDataId(id);
+                                initialData = (InitialData) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(initialData);
+                                controller.setDialogStage(dialogStage, "UPDATE", initialData);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadDividend(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeDividend(), "Изменение данных");
+                        ChangeDividend controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                dividend.setDividendId(id);
+                                dividend = (Dividend) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_DIVIDEND).execute(dividend);
+                                controller.setDialogStage(dialogStage, "UPDATE", dividend);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadROE(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
+                        ChangeRoe controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                roe.setROEId(id);
+                                roe = (ROE) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ROE).execute(roe);
+                                controller.setDialogStage(dialogStage, "UPDATE", roe);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadReportingPeriod(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeReportingPeriod(), "Изменение данных");
+                        ChangeReportingPeriod controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                reportingPeriod.setReportingPeriodId(id);
+                                reportingPeriod = (ReportingPeriod) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_REPORTING_PERIOD).execute(reportingPeriod);
+                                controller.setDialogStage(dialogStage, "UPDATE", reportingPeriod);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadSG(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeSg(), "Изменение данных");
+                        ChangeSG controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                sg.setSGId(id);
+                                sg = (SG) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_SG).execute(sg);
+                                controller.setDialogStage(dialogStage, "UPDATE", sg);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        @FXML
+        private void loadRoe(){
+                try {
+                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
+                        ChangeRoe controller = loader.getLoader().getController();
+                        int id=getID();
+                        if(id>0) {
+                                roe.setROEId(id);
+                                roe = (ROE) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ROE).execute(roe);
+                                controller.setDialogStage(dialogStage, "UPDATE", roe);
+                                mainPane.getChildren().add(loader.getPane());
+                        }
+                } catch (ViewException |ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Изменение данных",
+                                "Изменение невозможно", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+        }
+        private int getID(){
+                try {
+                        dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
+                                getSearchByID(), "Загрузка данных");
+                        SearchByID controller = WorkWithFXMLLoader.getInstance().getLoader().getController();
+                        controller.setData(dialogStage);
+                        dialogStage.showAndWait();
+                        return controller.getId();
+                } catch (ViewException e) {
+                        FilledAlert.getInstance().showAlert("Поиск данных",
+                                "Поиск невозможен", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                }
+               return -1;
+        }
+
+
+        @FXML
         private void analysisROE(){
                 analysis("ANALYSIS_ROE");
         }
@@ -341,7 +488,7 @@ public class ManagerStartWindowController {
                         dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
                                 getSearchByIDAndYear(), "График данных");
                         SearchByIDAndYear controller = WorkWithFXMLLoader.getInstance().getLoader().getController();
-                        controller.setData(chart);
+                        controller.setData(chart,dialogStage);
                         dialogStage.show();
                 } catch (ViewException e) {
                         FilledAlert.getInstance().showAlert("Поиск данных",

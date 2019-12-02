@@ -31,9 +31,9 @@ public class SearchByIDAndYear {
 
     private String title;
 
-    public void setData(String action){
+    public void setData(String action,Stage dialogStage){
         this.action=action;
-        this.title=title;
+        this.dialogStage=dialogStage;
     }
     @FXML
     void finishWork() {

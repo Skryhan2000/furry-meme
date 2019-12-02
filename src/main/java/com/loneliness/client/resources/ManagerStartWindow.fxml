@@ -49,13 +49,22 @@
                         <MenuItem mnemonicParsing="false" onAction="#saveSG" text="SG" />
                         <MenuItem mnemonicParsing="false" onAction="#saveReportingPeriod" text="Отчётные периоды" />
                         <MenuItem mnemonicParsing="false" onAction="#saveROE" text="ROE" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveSG" text="SG" />
                         <MenuItem mnemonicParsing="false" onAction="#saveDividend" text="Дивиденты" />
                         <MenuItem mnemonicParsing="false" onAction="#saveInitialData" text="Исходные данные" />
                         <MenuItem mnemonicParsing="false" onAction="#saveCredit" text="Кредиты" />
                     </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" text="Загрузить" />
+                  <Menu mnemonicParsing="false" text="Загрузить">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#loadRoe" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadSG" text="SG" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadReportingPeriod" text="Отчётные периоды" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadROE" text="ROE" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadDividend" text="Дивиденты" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadInitialData" text="Исходные данные" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadCredit" text="Кредиты" />
+                    </items>
+                  </Menu>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="График">
