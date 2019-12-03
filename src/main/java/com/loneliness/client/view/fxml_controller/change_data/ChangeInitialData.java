@@ -151,6 +151,25 @@ public class ChangeInitialData extends ChangeData{
             setData(initialData);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (initialData != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_INITIAL_DATA).execute(initialData);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
         }
     }
 }

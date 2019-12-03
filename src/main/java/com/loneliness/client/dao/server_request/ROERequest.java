@@ -97,7 +97,7 @@ public class ROERequest implements IDAO<ROE,String, Map<Integer,ROE>> {
     @Override
     public Map<Integer, ROE> receiveAllInLimit(int left, int right) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("RECEIVE_ALL_ROE");
+        transmission.setCommand("RECEIVE_ALL_ROE_IN_LIMIT");
         transmission.setBounds(new int[]{left,right});
         try {
             Client.getOutObject().writeObject(transmission);

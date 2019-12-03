@@ -138,7 +138,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         sg.setCompanyId(resultSet.getInt("id_компании"));
         sg.setInitialDataId(resultSet.getInt("id_исходных_данных"));
         sg.setCreditId(resultSet.getInt("id_кредита"));
-        sg.setDividendID(resultSet.getInt("id_дивиденда"));
+        sg.setDividendID(resultSet.getInt("id_диведента"));
         sg.setRoeId(resultSet.getInt("id_ROE"));
         sg.setReinvestmentProfit(resultSet.getBigDecimal("реинвестиционная_прибыль"));
         sg.setReinvestmentRatio(resultSet.getBigDecimal("Коэффициент_реинвестирования"));

@@ -27,7 +27,7 @@ public class SG implements Serializable ,Entity{
     private BigDecimal reinvestmentProfit;
     @NotNull(message = "Задайте Коэффициент реинвестирования")
     private BigDecimal reinvestmentRatio;
-    @NotNull(message = "SG")
+    //@NotNull(message = "SG")
     private BigDecimal SG;
 
     @Override

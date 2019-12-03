@@ -48,7 +48,7 @@ public class ChangeSG extends ChangeData{
     void calculate() {
         if(isValid()){
             try {
-                sg=(SG)commandProvider.getCommand(CommandName.CALCULATE_SG).execute(sg);
+                sg.setSG((BigDecimal)commandProvider.getCommand(CommandName.CALCULATE_SG).execute(sg));
                 sgField.setText(sg.getSG().toString());
             } catch (ControllerException e) {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
@@ -170,6 +170,25 @@ public class ChangeSG extends ChangeData{
             setData(sg);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (sg != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_SG).execute(sg);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
         }
     }
 }

@@ -19,7 +19,8 @@ public class ChangeUser extends ChangeData{
 
     private UserData userData;
 
-    private ToggleGroup type;
+    @FXML
+    private ToggleGroup type=new ToggleGroup();
 
     @FXML
     private TextField loginField;
@@ -46,6 +47,8 @@ public class ChangeUser extends ChangeData{
         noType.setToggleGroup(type);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        addButton.setDisable(true);
+        addButton.setVisible(false);
     }
 
     public void setDialogStage(Stage dialogStage, String action, UserData userData) {
@@ -165,6 +168,25 @@ public class ChangeUser extends ChangeData{
             setData(userData);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (userData != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_USER).execute(userData);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
         }
     }
 }

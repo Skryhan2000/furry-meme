@@ -137,6 +137,25 @@ public class ChangeDividend extends ChangeData {
             setData(dividend);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (dividend != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_DIVIDEND).execute(dividend);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
         }
     }
 }

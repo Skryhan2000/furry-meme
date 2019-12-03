@@ -143,7 +143,25 @@ public class ChangeCredit  extends ChangeData{
             setData(credit);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
         }
     }
-
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (credit != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_CREDIT).execute(credit);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
+        }
+    }
 }

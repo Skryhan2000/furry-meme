@@ -20,6 +20,8 @@ public abstract class ChangeData implements SetData {
     protected void initialize(){
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        addButton.setDisable(true);
+        addButton.setVisible(false);
     }
     @FXML
     void goBack(ActionEvent event) {
@@ -29,4 +31,6 @@ public abstract class ChangeData implements SetData {
         this.dialogStage = dialogStage;
         this.action = action;
     }
+    @FXML
+    protected Button addButton;
 }

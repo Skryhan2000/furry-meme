@@ -93,6 +93,8 @@ public class BusinessServiceImpl {
         note.setRONA(calculateRONA(note));
         note.setROE(calculateROE(note));
         note.setFL(calculateFL(note));
+        InitialData initialData= SQLInitialDataDAO.getInstance().receive(note.getInitialDataId());
+        note.setProfR(calculateProfitability(initialData));
         return note;
     }
 

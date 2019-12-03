@@ -51,6 +51,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#add" text="Добавить" />
           <Button mnemonicParsing="false" onAction="#finishWork" text="Готово" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#delete" text="Удалить" />
             <Button mnemonicParsing="false" onMouseClicked="#calculate" text="Расчёт" />

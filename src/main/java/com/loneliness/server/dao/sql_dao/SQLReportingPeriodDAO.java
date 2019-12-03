@@ -25,7 +25,7 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
     private ReportingPeriod getDataFromResultSet(ResultSet resultSet) throws SQLException {
         ReportingPeriod reportingPeriod  = new ReportingPeriod ();
         reportingPeriod.setReportingPeriodId(resultSet.getInt("id_отчетного_периода"));
-        reportingPeriod.setCompanyId(resultSet.getInt("id_компании"));
+        reportingPeriod.setCompanyId(resultSet.getInt("company_id"));
         reportingPeriod.setYear(resultSet.getInt("год"));
         reportingPeriod.setQuarter(Quarter.valueOf(resultSet.getString("квартал")));
         return reportingPeriod;
@@ -36,7 +36,7 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
         String sql;
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
-            sql="INSERT отчётные_периоды (id_компании , год , квартал) " +
+            sql="INSERT отчётные_периоды (company_id , год , квартал) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
                     note.getYear()+"', '"+
@@ -61,7 +61,7 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
     public String update(ReportingPeriod note) {
         String sql;
         sql = "UPDATE отчётные_периоды SET " +
-                "id_компании='" + note.getCompanyId() + "'," +
+                "company_id='" + note.getCompanyId() + "'," +
                 "год='" + note.getYear()+ "'," +
                 "квартал='" + note.getQuarter().toString()+  "' " +
                 "WHERE id_отчетного_периода=" + note.getReportingPeriodId() + ";";
@@ -173,16 +173,16 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
                 "on `furry-meme`.отчётные_периоды.id_отчетного_периода=`furry-meme`.исходные_данные.id_отчетного_периода where company_id="+note.getCompanyId()+" ";
         switch (period.getQuarter()) {
             case Q1:
-                sql += "AND год = " + (period.getYear() - 1) + " ;";
+                sql += "AND год = " + (period.getYear() - 1) + " and квартал='"+Quarter.Q4+"' ;";
                 break;
             case Q2:
-                sql += "AND год = " + Quarter.Q1 + " ;";
+                sql += "AND квартал = '" + Quarter.Q1 + "' AND  год = " + period.getYear()+" ;";
                 break;
             case Q3:
-                sql += "AND год = " + Quarter.Q2 + " ;";
+                sql += "AND квартал = '" + Quarter.Q2 + "' AND  год = " + period.getYear()+" ;";
                 break;
             case Q4:
-                sql += "AND год = " + Quarter.Q3 + " ;";
+                sql += "AND квартал = '" + Quarter.Q3 + "' AND  год = " + period.getYear()+" ;";
                 break;
         }
         try {
@@ -207,16 +207,16 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
                 "on `furry-meme`.отчётные_периоды.id_отчетного_периода=`furry-meme`.исходные_данные.id_отчетного_периода where company_id="+id+" ";
         switch (period.getQuarter()) {
             case Q1:
-                sql += "AND год = " + Quarter.Q2 + " ;";
+                sql += "AND квартал = '" + Quarter.Q2 + "' AND  год = " + period.getYear()+" ;";
                 break;
             case Q2:
-                sql += "AND год = " + Quarter.Q3 + " ;";
+                sql += "AND квартал = '" + Quarter.Q3 + "' AND  год = " + period.getYear()+" ;";
                 break;
             case Q3:
-                sql += "AND год = " + Quarter.Q4 + " ;";
+                sql += "AND квартал = '" + Quarter.Q4 + "' AND  год = " + period.getYear()+" ;";
                 break;
             case Q4:
-                sql += "AND год = " + (period.getYear() + 1) + " ;";
+                sql += "AND год = " + (period.getYear() + 1) + " and квартал='"+Quarter.Q1+"' ;";
                 break;
         }
         try {

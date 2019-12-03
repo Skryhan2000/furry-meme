@@ -17,7 +17,8 @@ import javax.validation.ConstraintViolation;
 import java.util.Set;
 
 public class ChangeReportingPeriod extends ChangeData{
-    private ToggleGroup quarter;
+    @FXML
+    private ToggleGroup quarter=new ToggleGroup();
     @FXML
     private TextField companyIdField;
 
@@ -46,6 +47,8 @@ public class ChangeReportingPeriod extends ChangeData{
         Q4.setToggleGroup(quarter);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        addButton.setDisable(true);
+        addButton.setVisible(false);
     }
 
     public void setDialogStage(Stage dialogStage, String action, ReportingPeriod period)  {
@@ -176,6 +179,25 @@ public class ChangeReportingPeriod extends ChangeData{
             setData(reportingPeriod);
             deleteButton.setDisable(false);
             deleteButton.setVisible(true);
+            addButton.setDisable(false);
+            addButton.setVisible(true);
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (period != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_REPORTING_PERIOD).execute(period);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
+            }
         }
     }
 }

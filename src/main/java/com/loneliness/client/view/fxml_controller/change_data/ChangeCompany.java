@@ -102,6 +102,8 @@ public class ChangeCompany extends ChangeData {
                 companyNameField.setText(company.getCompanyName());
                 deleteButton.setDisable(false);
                 deleteButton.setVisible(true);
+                addButton.setDisable(false);
+                addButton.setVisible(true);
             }
     }
 
@@ -113,10 +115,27 @@ public class ChangeCompany extends ChangeData {
                 answer = (String) commandProvider.getCommand(CommandName.DELETE_COMPANY).execute(company);
                 FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
             } catch (ControllerException e) {
-                FilledAlert.getInstance().showAlert("Подсчет данных",
+                FilledAlert.getInstance().showAlert("Обновления данных",
                         "Ошибка", e.getMessage(),
                         this.dialogStage, "ERROR");
                 logger.catching(e);
+            }
+        }
+    }
+    @FXML
+    private void add(){
+        if(isValid()) {
+            String answer = null;
+            if (company != null) {
+                try {
+                    answer = (String) commandProvider.getCommand(CommandName.CREATE_COMPANY).execute(company);
+                    FilledAlert.getInstance().showAnswer(answer, dialogStage, "Обновления данных");
+                } catch (ControllerException e) {
+                    FilledAlert.getInstance().showAlert("Обновления данных",
+                            "Ошибка", e.getMessage(),
+                            this.dialogStage, "ERROR");
+                    logger.catching(e);
+                }
             }
         }
     }

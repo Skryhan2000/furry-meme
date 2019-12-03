@@ -81,7 +81,7 @@ public class ReportingPeriodRequest implements IDAO<ReportingPeriod,String, Map<
     @Override
     public Map<Integer, ReportingPeriod> receiveAll() throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("DELETE_REPORTING_PERIOD");
+        transmission.setCommand("RECEIVE_ALL_REPORTING_PERIOD");
         try {
             Client.getOutObject().writeObject(transmission);
             return (Map<Integer, ReportingPeriod>) Client.getInObject().readObject();
@@ -95,7 +95,7 @@ public class ReportingPeriodRequest implements IDAO<ReportingPeriod,String, Map<
     @Override
     public Map<Integer, ReportingPeriod> receiveAllInLimit(int left, int right) throws DAOException {
         transmission = new Transmission();
-        transmission.setCommand("DELETE_REPORTING_PERIOD");
+        transmission.setCommand("RECEIVE_ALL_REPORTING_PERIOD_IN_LIMIT");
         transmission.setBounds(new int[]{left,right});
         try {
             Client.getOutObject().writeObject(transmission);
