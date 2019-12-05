@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="QuarterReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98bbb0c5-90b4-432f-8375-b3faba252502">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Tahoma" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Tahoma" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Tahoma" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12" pdfFontName="Tahoma"/>
+	<queryString language="SQL">
+		<![CDATA[select * from roe;]]>
+	</queryString>
+	<field name="id_ROE" class="java.lang.Integer"/>
+	<field name="id_компании" class="java.lang.Integer"/>
+	<field name="id_исходных_данных" class="java.lang.Integer"/>
+	<field name="id_кредита" class="java.lang.Integer"/>
+	<field name="ROE" class="java.math.BigDecimal"/>
+	<field name="EBIT" class="java.math.BigDecimal"/>
+	<field name="рентабельность_продаж" class="java.math.BigDecimal"/>
+	<field name="RONA" class="java.math.BigDecimal"/>
+	<field name="FL" class="java.math.BigDecimal"/>
+	<field name="id_дивиденда" class="java.lang.Integer"/>
+	<variable name="id_ROE" class="java.lang.Integer"/>
+	<variable name="id_исходных_данных" class="java.lang.Integer"/>
+	<variable name="id_дивиденда" class="java.lang.Integer"/>
+	<variable name="ROE" class="java.math.BigDecimal"/>
+	<variable name="рентабельность_продаж" class="java.math.BigDecimal"/>
+	<variable name="RONA" class="java.math.BigDecimal"/>
+	<variable name="FL" class="java.math.BigDecimal"/>
+	<variable name="id_кредита" class="java.lang.Integer"/>
+	<variable name="id_отчётного_периода" class="java.lang.Integer"/>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="3229a519-2d3e-4ecd-bbc3-150e40cc0682"/>
+				<imageExpression><![CDATA["leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="2aab4d72-065e-4aba-b88c-0a03a208b259"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true" pdfEncoding="Cp1251" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Статистика ROE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="89" y="46" width="174" height="22" uuid="4f2cb4bd-287e-4bb9-b695-657242179929"/>
+				<text><![CDATA[made by furry-meme]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="64">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="c4800390-18da-47af-84ca-fc4a8f00b4bf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="1" width="59" height="39" uuid="a02a6055-5dc4-4594-ac9c-4731cfd8d6ba"/>
+				<text><![CDATA[id roe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="1" width="75" height="39" uuid="0f12d120-2993-4ae1-b974-874109b33c38"/>
+				<text><![CDATA[id компании]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="1" width="63" height="39" uuid="fddbff98-6f2f-4f55-8369-5b9ef0b4474b"/>
+				<text><![CDATA[id исходных данных]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="1" width="51" height="40" uuid="ee04fe66-c8e5-44b3-81b3-d8849949c97e"/>
+				<text><![CDATA[id кредита]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="0" width="44" height="40" uuid="a381277f-a3fa-4404-be4b-2993350ca229"/>
+				<text><![CDATA[ROE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="0" width="48" height="39" uuid="c127d217-7e8d-4f56-b29a-64150c3b2ddf"/>
+				<text><![CDATA[EBIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="2" width="78" height="39" uuid="1c970912-8692-4203-a65c-3bfdd954f2cb"/>
+				<text><![CDATA[рентабельность продаж]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="1" width="44" height="40" uuid="d9f0704f-940e-4a4f-a44c-2ee95581fec7"/>
+				<text><![CDATA[RONA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="1" width="40" height="39" uuid="eb39d843-48d5-4680-a730-df84da904896"/>
+				<text><![CDATA[FL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="1" width="51" height="40" uuid="59baffe2-acf0-46a9-aa5b-a818fd93ada3"/>
+				<text><![CDATA[id дивидента]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="40" width="59" height="20" uuid="9225225c-b687-48cf-9aa8-da24ffeb08f5"/>
+				<textFieldExpression><![CDATA[$F{id_ROE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="40" width="75" height="20" uuid="8bb79652-5c59-4423-acfe-30cd5601d0c1"/>
+				<textFieldExpression><![CDATA[$F{id_компании}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="40" width="63" height="20" uuid="307fd44f-447f-4e69-b774-94756c5bef40"/>
+				<textFieldExpression><![CDATA[$F{id_исходных_данных}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="40" width="51" height="20" uuid="e6e89e5d-e241-46dd-8d10-de06deacb437"/>
+				<textFieldExpression><![CDATA[$F{id_кредита}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="40" width="51" height="20" uuid="c8f34bc8-0bb5-4c82-85d1-9e746ef615ad"/>
+				<textFieldExpression><![CDATA[$F{id_дивиденда}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="41" width="44" height="20" uuid="287181ab-5f71-425a-bd5e-fd75e9f2c422"/>
+				<textFieldExpression><![CDATA[$F{ROE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="40" width="44" height="20" uuid="f02b5e14-6220-4d16-8ac2-7abfdfe4606c"/>
+				<textFieldExpression><![CDATA[$F{EBIT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="40" width="78" height="20" uuid="7c18d751-5b35-4522-98c6-09feb4bfec68"/>
+				<textFieldExpression><![CDATA[$F{рентабельность_продаж}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="41" width="44" height="20" uuid="40f42075-6fe5-4c9e-9336-972bfa66b2f0"/>
+				<textFieldExpression><![CDATA[$F{RONA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="513" y="41" width="40" height="20" uuid="07107bc7-bfbe-446a-8cb6-d128da755333"/>
+				<textFieldExpression><![CDATA[$F{FL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="e72f9ed1-5c5c-4a88-b8ed-810828080072"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="50dbfaa6-6cbd-4f3c-a2cb-d46c1dc6f8dd"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="d4be6ec4-ded4-432f-b60f-238e80493242"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

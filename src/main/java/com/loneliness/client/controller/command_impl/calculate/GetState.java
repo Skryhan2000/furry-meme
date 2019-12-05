@@ -10,7 +10,7 @@ public class GetState implements Command<ROE,String> {
     @Override
     public String execute(ROE request) throws ControllerException {
         try {
-            return FactoryService.getInstance().getRoeService().create(request);
+            return FactoryService.getInstance().getRoeService().getState(request);
         } catch (ServiceException e) {
             throw new ControllerException(e.getCause(), e.getMessage());
         }
