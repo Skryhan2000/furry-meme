@@ -24,13 +24,13 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         try {
             Connection connection= DataBaseConnection.getInstance().getConnection();
             sql="INSERT "+tableName+" (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
-                    "ROE,EBIT,рентабельность_продаж,RONA,FL) " +
+                    "id_ROE,рентабельность_продаж,RONA,FL) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
                     note.getInitialDataId()+"', '"+
                     note.getCreditId()+"', '"+
                     note.getDividendID()+"', '"+
-                    note.getROE()+"', '"+
+                    note.getRoeId()+"', '"+
                     note.getReinvestmentProfit().toString()+"', '"+
                     note.getReinvestmentRatio().toString()+"', '"+
                     note.getSG().toString()+
@@ -57,7 +57,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 "id_исходных_данных='" + note.getInitialDataId()+ "'," +
                 "id_кредита='" + note.getCreditId()+ "'," +
                 "id_дивиденда='" + note.getDividendID()+ "'," +
-                "id_ROE='" + note.getROE()+ "'," +
+                "id_ROE='" + note.getRoeId()+ "'," +
                 "реинвестиционная_прибыль='" + note.getReinvestmentProfit().toString()+ "'," +
                 "Коэффициент_реинвестирования='" + note.getReinvestmentRatio().toString()+ "'," +
                 "SG='" + note.getSG().toString()+  "' " +
@@ -123,14 +123,26 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         sql="SELECT * FROM "+tableName+" LIMIT "+left+" , "+right+" ;";
         return receiveData(sql);
     }
+
+    public SG findSGByReportingPeriodID(int id){
+        sql = "SELECT * FROM `furry-meme`.sg \n" +
+                "inner join `furry-meme`.исходные_данные\n " +
+                "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.sg.id_исходных_данных\n" +
+                "where id_отчетного_периода="+id+";";
+        Map<Integer, SG> data=receiveData(sql);
+        if(data.values().iterator().hasNext())
+            return receiveData(sql).values().iterator().next();
+        else return new SG();
+    }
+
     private SG getDataFromResultSet(ResultSet resultSet) throws SQLException {
         SG sg  = new SG ();
         sg.setSGId(resultSet.getInt("id_SG"));
         sg.setCompanyId(resultSet.getInt("id_компании"));
         sg.setInitialDataId(resultSet.getInt("id_исходных_данных"));
         sg.setCreditId(resultSet.getInt("id_кредита"));
-        sg.setDividendID(resultSet.getInt("id_дивиденда"));
-        sg.setROE(resultSet.getBigDecimal("ROE"));
+        sg.setDividendID(resultSet.getInt("id_диведента"));
+        sg.setRoeId(resultSet.getInt("id_ROE"));
         sg.setReinvestmentProfit(resultSet.getBigDecimal("реинвестиционная_прибыль"));
         sg.setReinvestmentRatio(resultSet.getBigDecimal("Коэффициент_реинвестирования"));
         sg.setSG(resultSet.getBigDecimal("SG"));

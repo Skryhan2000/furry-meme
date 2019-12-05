@@ -2,8 +2,11 @@ package com.loneliness.server.servise;
 
 import com.loneliness.server.servise.service_impl.*;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class ServiceFactory {
-    private static final ServiceFactory instance=new ServiceFactory();
+    private static final ReentrantLock locker = new ReentrantLock();
+    private static ServiceFactory instance;
     private final UserDataService userService=new UserDataService();
     private final BusinessServiceImpl businessService=new BusinessServiceImpl();
     private final DifferentialIndicatorsDataService differentialIndicatorsDataService= new DifferentialIndicatorsDataService();
@@ -18,6 +21,13 @@ public class ServiceFactory {
     private ServiceFactory(){}
 
     public static ServiceFactory getInstance() {
+        if(instance==null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new ServiceFactory();
+            }
+            locker.unlock();
+        }
         return instance;
     }
 
@@ -64,4 +74,5 @@ public class ServiceFactory {
     public SGService getSgService() {
         return sgService;
     }
+
 }

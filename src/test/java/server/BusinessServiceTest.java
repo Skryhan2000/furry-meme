@@ -52,7 +52,7 @@ public class BusinessServiceTest {
     }
 
     @Test
-    public void calculateValidNetAssetTurnover() throws ControllerException {
+    public void calculateValidNetAssetTurnover() throws ControllerException  {
         BigDecimal expectedResult = new BigDecimal("0.44");
         Assert.assertEquals(expectedResult, commandProvider.getCommand(CommandName.CALCULATE_NET_ASSET_TURNOVER).
                 execute(validIndex));

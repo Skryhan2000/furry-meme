@@ -6,13 +6,11 @@ import com.loneliness.client.service.FactoryService;
 import com.loneliness.client.service.ServiceException;
 import com.loneliness.entity.UserData;
 
-
-
 import java.util.Map;
 
-public class ReceiveAllUsers implements Command<Void, Map<Integer, UserData>> {
+public class ReceiveAllUsers implements Command<Object, Map<Integer, UserData>> {
     @Override
-    public Map<Integer, UserData> execute(Void request) throws ControllerException {
+    public Map<Integer, UserData> execute(Object request) throws ControllerException {
         try {
             return FactoryService.getInstance().getUserService().receiveAllElem();
         } catch (ServiceException e) {

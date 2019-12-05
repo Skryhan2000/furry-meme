@@ -1,12 +1,17 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UserData implements Serializable {
+public class UserData implements Serializable ,Entity{
     public enum Type{
         ADMIN,MANAGER, NO_TYPE;
     }
@@ -21,6 +26,16 @@ public class UserData implements Serializable {
     @NotNull(message = "Должен быть задан email")
     @Email(message = "Email должен быть действительным")
     private String email;
+
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(id);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(email);
+    }
 
     public int getId() {
         return id;

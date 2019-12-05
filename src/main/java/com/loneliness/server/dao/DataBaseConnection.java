@@ -6,19 +6,21 @@ import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DataBaseConnection {
     private static DataBaseConnection instance ;
     private Properties properties;
     private String url;
+    private static final ReentrantLock locker = new ReentrantLock();
     private ComboPooledDataSource comboPooledDataSource;
     public static DataBaseConnection getInstance() throws PropertyVetoException {
         if(instance==null){
-            synchronized (DataBaseConnection.class){
+            locker.lock();
                 if(instance==null){
                     instance=new DataBaseConnection();
                 }
-            }
+            locker.unlock();
         }
         return instance;
     }
@@ -37,6 +39,9 @@ public class DataBaseConnection {
     }
 
     public Connection getConnection() throws SQLException {
-        return comboPooledDataSource.getConnection();
+        locker.lock();
+        Connection connection=comboPooledDataSource.getConnection();
+        locker.unlock();
+        return connection;
     }
 }

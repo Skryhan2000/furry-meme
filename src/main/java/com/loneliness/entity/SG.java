@@ -1,17 +1,22 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class SG implements Serializable {
+public class SG implements Serializable ,Entity{
     private int SGId;
     @Positive(message = "Id исходных данных должно быть положительным")
     private int initialDataId;
     @NotNull(message = "Задайте ROE")
-    private BigDecimal ROE;
+    private int roeId;
     @Positive(message = "Id компании должно быть положительным")
     private int companyId;
     @Positive(message = "Id кредита должно быть положительным")
@@ -22,10 +27,18 @@ public class SG implements Serializable {
     private BigDecimal reinvestmentProfit;
     @NotNull(message = "Задайте Коэффициент реинвестирования")
     private BigDecimal reinvestmentRatio;
-    @NotNull(message = "SG")
+    //@NotNull(message = "SG")
     private BigDecimal SG;
 
-    private ROE roe;
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(String.valueOf(initialDataId));
+    }
 
     public int getSGId() {
         return SGId;
@@ -43,12 +56,12 @@ public class SG implements Serializable {
         this.initialDataId = initialDataId;
     }
 
-    public BigDecimal getROE() {
-        return ROE;
+    public int getRoeId() {
+        return roeId;
     }
 
-    public void setROE(BigDecimal ROE) {
-        this.ROE = ROE;
+    public void setRoeId(int roeId) {
+        this.roeId = roeId;
     }
 
     public int getCompanyId() {
@@ -99,13 +112,6 @@ public class SG implements Serializable {
         this.SG = SG;
     }
 
-    public com.loneliness.entity.ROE getRoe() {
-        return roe;
-    }
-
-    public void setRoe(com.loneliness.entity.ROE roe) {
-        this.roe = roe;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -117,7 +123,7 @@ public class SG implements Serializable {
                 companyId == sg.companyId &&
                 creditId == sg.creditId &&
                 dividendID == sg.dividendID &&
-                ROE.equals(sg.ROE) &&
+                roeId==sg.roeId&&
                 reinvestmentProfit.equals(sg.reinvestmentProfit) &&
                 reinvestmentRatio.equals(sg.reinvestmentRatio) &&
                 SG.equals(sg.SG);
@@ -125,7 +131,7 @@ public class SG implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(SGId, initialDataId, ROE, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
+        return Objects.hash(SGId, initialDataId, roeId, companyId, creditId, dividendID, reinvestmentProfit, reinvestmentRatio, SG);
     }
 
     @Override
@@ -133,7 +139,7 @@ public class SG implements Serializable {
         return "SG{" +
                 "SGId=" + SGId +
                 ", sourceDataId=" + initialDataId +
-                ", ROE=" + ROE +
+                ", ROE=" + roeId +
                 ", companyId=" + companyId +
                 ", creditId=" + creditId +
                 ", dividendID=" + dividendID +

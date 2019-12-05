@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.loneliness.client.view.fxml_controller.AdminStartWindow"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.AdminStartWindow">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Данные">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#update" text="Обновить" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithCompany" text="Компании" />
+              <MenuItem mnemonicParsing="false" onAction="#workWithContactData" text="Контактные данные" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithCredit" text="Кредиты" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithDividend" text="Дивиденты" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithInitialData" text="Начальные данные" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithReportingPeriod" text="Отчётные периоды" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithRoe" text="ROE" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithSg" text="SG" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithUserData" text="Пользователя" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <SplitPane dividerPositions="0.2993311036789298" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <items>
+                  <TableView fx:id="dataTable" prefHeight="373.0" prefWidth="211.0">
+                    <columns>
+                      <TableColumn fx:id="id" prefWidth="75.0" text="C1" />
+                      <TableColumn fx:id="value" prefWidth="75.0" text="C2" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <AnchorPane fx:id="editPane" />
+               </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -1,5 +1,10 @@
 package com.loneliness.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
@@ -8,7 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Credit implements Serializable {
+public class Credit implements Serializable ,Entity{
     private int creditId;
     @Positive(message = "Задайте положительный id компании ")
     private int companyId;
@@ -23,6 +28,17 @@ public class Credit implements Serializable {
     private LocalDate payDate;
     @NotNull(message = "Задайте кредитную ставка банка")
     private BigDecimal R;
+
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(loanTotal.toString());
+    }
 
     public int getCreditId() {
         return creditId;

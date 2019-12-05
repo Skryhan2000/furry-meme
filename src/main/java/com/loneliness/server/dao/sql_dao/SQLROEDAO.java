@@ -1,6 +1,8 @@
 package com.loneliness.server.dao.sql_dao;
 
+import com.loneliness.entity.Quarter;
 import com.loneliness.entity.ROE;
+import com.loneliness.entity.ReportingPeriod;
 import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
@@ -96,6 +98,19 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         }
         return note;
     }
+    public ROE receive(int note) {
+        sql= "SELECT * FROM roe WHERE id_ROE = " + note + ";";
+        try {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            if( resultSet.next()){
+                return getDataFromResultSet(resultSet);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return new ROE();
+    }
 
     @Override
     public String delete(ROE note) {
@@ -126,6 +141,41 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         sql="SELECT * FROM roe LIMIT "+left+" , "+right+" ;";
         return receiveData(sql);
     }
+
+    public ROE findRoeByReportingPeriodID(int id){
+        sql = "SELECT * FROM `furry-meme`.roe \n" +
+                "inner join `furry-meme`.исходные_данные\n" +
+                "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.roe.id_исходных_данных\n" +
+                "where id_отчетного_периода="+id+";";
+        Map<Integer, ROE> data=receiveData(sql);
+        if(data.values().iterator().hasNext())
+        return receiveData(sql).values().iterator().next();
+        else return new ROE();
+    }
+
+    public Map<Quarter, ROE> findRoeByReportingPeriodYear(ReportingPeriod reportingPeriod){
+        sql = "SELECT * FROM roe \n"+
+        "inner join исходные_данные \n"+
+        "on исходные_данные.id_исходные_данные=roe.id_исходных_данных\n"+
+        "inner join отчётные_периоды\n"+
+        "on исходные_данные.id_отчетного_периода=отчётные_периоды.id_отчетного_периода\n"+
+        "where год="+reportingPeriod.getYear()+" and company_id="+reportingPeriod.getCompanyId()+";";
+        ResultSet resultSet;
+        ConcurrentHashMap<Quarter, ROE> data=new ConcurrentHashMap<>();
+        ROE roe;
+        try {
+            Connection connection= DataBaseConnection.getInstance().getConnection();
+            resultSet=connection.createStatement().executeQuery(sql);
+            while (resultSet.next()){
+                roe=getDataFromResultSet(resultSet);
+                data.put(Quarter.valueOf(resultSet.getString("квартал")),roe);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     private ROE getDataFromResultSet(ResultSet resultSet) throws SQLException {
         ROE roe  = new ROE ();
         roe.setROEId(resultSet.getInt("id_ROE"));
@@ -156,4 +206,5 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         }
         return data;
     }
+
 }

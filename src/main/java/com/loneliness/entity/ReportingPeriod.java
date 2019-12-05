@@ -1,12 +1,33 @@
 package com.loneliness.entity;
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-public class ReportingPeriod {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.io.Serializable;
+
+public class ReportingPeriod implements Serializable,Entity {
     private int reportingPeriodId;
+    @Positive(message = "Год дожен быть положитнльным")
     private int year;
+    @NotNull(message = "Должен быть задан квартал")
     private Quarter quarter;
+    @Positive(message = "id компании дожен быть положитнльным")
     private int companyId;
+
+    @Override
+    public IntegerProperty getIntegerId() {
+        return new SimpleIntegerProperty(companyId);
+    }
+
+    @Override
+    public StringProperty getStringValue() {
+        return new SimpleStringProperty(String.valueOf(year));
+    }
 
     public int getReportingPeriodId() {
         return reportingPeriodId;

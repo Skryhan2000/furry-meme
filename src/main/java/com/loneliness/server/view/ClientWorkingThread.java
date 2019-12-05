@@ -7,7 +7,6 @@ import com.loneliness.server.controller.CommandProvider;
 import com.loneliness.server.controller.ControllerException;
 import com.loneliness.server.launcher.Server;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 
 public class ClientWorkingThread implements Runnable{
+
     private ArrayBlockingQueue<ClientWorkingThread> serverList;
     private ObjectOutputStream outObject;
     private ObjectInputStream inObject;
@@ -81,6 +81,10 @@ public class ClientWorkingThread implements Runnable{
                 else if(transmission.getSg()!=null){
                     response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission.getSg());
+                }
+                else if(transmission.getId()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getId());
                 }else {
                     response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission);
@@ -91,12 +95,7 @@ public class ClientWorkingThread implements Runnable{
 
 
         }catch (ClassCastException ex){
-            System.out.println("неверный запрос");
-            try {
-                outObject.writeObject(new Object());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ex.printStackTrace();
         }catch (ClassNotFoundException | IOException | ControllerException e) {
             killOneClient();
             // e.printStackTrace();
@@ -107,7 +106,7 @@ public class ClientWorkingThread implements Runnable{
         try {
             inObject.close();
             outObject.close();
-            userSocket.close();
+            //userSocket.close();
             System.out.println("Количество людей на сервере "+( Server.getQuantity().decrementAndGet()));
             for (ClientWorkingThread clientsList  : serverList) {
                 if (clientsList.equals(this))

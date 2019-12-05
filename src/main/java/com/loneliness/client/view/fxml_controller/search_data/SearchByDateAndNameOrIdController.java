@@ -1,11 +1,13 @@
 package com.loneliness.client.view.fxml_controller.search_data;
 
 import com.loneliness.client.view.FilledAlert;
-import com.loneliness.entity.DifferentialIndicators;
 import com.loneliness.entity.Index;
 import com.loneliness.entity.Quarter;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -76,7 +78,7 @@ SearchByDateAndNameOrIdController {
     @FXML
     private void finishWork() {
         if (isValid()) {
-            // TODO: 24.11.2019 вызов команды поиска, запись данных в локальный DifferentialIndicators
+
         }
     }
 
