@@ -59,7 +59,7 @@ public class FindWindow {
                         finish=true;
                         break;
                     case "ANALYSIS_SG":
-                        dialogStage = loader.createStage(pathManager.getAnalysisROE(), "Сравнение данных");
+                        dialogStage = loader.createStage(pathManager.getAnalysisSG(), "Сравнение данных");
                         SG leftSG = (SG) commandProvider.getCommand(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID).execute(Integer.parseInt(leftID.getText()));
                         SG rightSG = (SG) commandProvider.getCommand(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID).execute(Integer.parseInt(rightID.getText()));
                         AnalysisSG sgController = loader.getLoader().getController();

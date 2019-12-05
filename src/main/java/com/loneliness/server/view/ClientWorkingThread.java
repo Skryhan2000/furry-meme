@@ -15,6 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 
 public class ClientWorkingThread implements Runnable{
+
     private ArrayBlockingQueue<ClientWorkingThread> serverList;
     private ObjectOutputStream outObject;
     private ObjectInputStream inObject;
@@ -80,6 +81,10 @@ public class ClientWorkingThread implements Runnable{
                 else if(transmission.getSg()!=null){
                     response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission.getSg());
+                }
+                else if(transmission.getId()!=null){
+                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                            execute(transmission.getId());
                 }else {
                     response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
                             execute(transmission);
@@ -101,7 +106,7 @@ public class ClientWorkingThread implements Runnable{
         try {
             inObject.close();
             outObject.close();
-            userSocket.close();
+            //userSocket.close();
             System.out.println("Количество людей на сервере "+( Server.getQuantity().decrementAndGet()));
             for (ClientWorkingThread clientsList  : serverList) {
                 if (clientsList.equals(this))

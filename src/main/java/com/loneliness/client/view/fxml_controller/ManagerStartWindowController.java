@@ -16,8 +16,11 @@ import com.loneliness.entity.*;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ManagerStartWindowController {
+        protected final Logger logger = LogManager.getLogger();
         private PathManager pathManager = PathManager.getInstance();
         private WorkWithFXMLLoader loader = WorkWithFXMLLoader.getInstance();
         private static Company company;
@@ -79,6 +82,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Подсчёт данных",
                                 "Подсчёт невозможен", "Что то пошло не так",
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -94,6 +98,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Подсчёт данных",
                                 "Подсчёт невозможен", "Что то пошло не так",
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -126,6 +131,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -140,6 +146,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -154,6 +161,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -168,6 +176,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -182,6 +191,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -196,6 +206,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -210,6 +221,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -224,6 +236,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -238,6 +251,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -252,6 +266,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -266,6 +281,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -280,6 +296,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -294,6 +311,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Добавление данных",
                                 "Добавление невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -313,35 +331,40 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadInitialData() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeInitialData(), "Изменение данных");
-                        ChangeInitialData controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeInitialData(), "Изменение данных");
+                                ChangeInitialData controller = loader.getLoader().getController();
                                 initialData.setInitialDataId(id);
                                 initialData = (InitialData) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(initialData);
                                 controller.setDialogStage(dialogStage, "UPDATE", initialData);
                                 mainPane.getChildren().add(loader.getPane());
+
                         }
                 } catch (ViewException | ControllerException e) {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadDividend() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeDividend(), "Изменение данных");
-                        ChangeDividend controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeDividend(), "Изменение данных");
+                                ChangeDividend controller = loader.getLoader().getController();
                                 dividend.setDividendId(id);
                                 dividend = (Dividend) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_DIVIDEND).execute(dividend);
                                 controller.setDialogStage(dialogStage, "UPDATE", dividend);
@@ -351,16 +374,18 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadROE() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
-                        ChangeRoe controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
+                                ChangeRoe controller = loader.getLoader().getController();
                                 roe.setROEId(id);
                                 roe = (ROE) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ROE).execute(roe);
                                 controller.setDialogStage(dialogStage, "UPDATE", roe);
@@ -370,16 +395,18 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadReportingPeriod() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeReportingPeriod(), "Изменение данных");
-                        ChangeReportingPeriod controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeReportingPeriod(), "Изменение данных");
+                                ChangeReportingPeriod controller = loader.getLoader().getController();
                                 reportingPeriod.setReportingPeriodId(id);
                                 reportingPeriod = (ReportingPeriod) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_REPORTING_PERIOD).execute(reportingPeriod);
                                 controller.setDialogStage(dialogStage, "UPDATE", reportingPeriod);
@@ -389,16 +416,18 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadSG() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeSg(), "Изменение данных");
-                        ChangeSG controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeSg(), "Изменение данных");
+                                ChangeSG controller = loader.getLoader().getController();
                                 sg.setSGId(id);
                                 sg = (SG) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_SG).execute(sg);
                                 controller.setDialogStage(dialogStage, "UPDATE", sg);
@@ -408,16 +437,18 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
         @FXML
         private void loadRoe() {
                 try {
-                        dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
-                        ChangeRoe controller = loader.getLoader().getController();
+
                         int id = getID();
                         if (id > 0) {
+                                dialogStage = loader.createStage(pathManager.getChangeRoe(), "Изменение данных");
+                                ChangeRoe controller = loader.getLoader().getController();
                                 roe.setROEId(id);
                                 roe = (ROE) CommandProvider.getCommandProvider().getCommand(CommandName.RECEIVE_ROE).execute(roe);
                                 controller.setDialogStage(dialogStage, "UPDATE", roe);
@@ -427,6 +458,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Изменение данных",
                                 "Изменение невозможно", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -442,6 +474,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Поиск данных",
                                 "Поиск невозможен", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
                 return -1;
         }
@@ -460,7 +493,10 @@ public class ManagerStartWindowController {
                                 mainPane.getChildren().add(WorkWithFXMLLoader.getInstance().getPane());
                         }
                 } catch (ViewException | ControllerException e) {
-                        e.printStackTrace();
+                        FilledAlert.getInstance().showAlert("Поиск данных",
+                                "Поиск невозможен", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
         }
 
@@ -492,6 +528,7 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Поиск данных",
                                 "Поиск невозможен", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
 
         }
@@ -533,7 +570,22 @@ public class ManagerStartWindowController {
                         FilledAlert.getInstance().showAlert("Поиск данных",
                                 "Поиск невозможен", e.getMessage(),
                                 this.dialogStage, "ERROR");
+                        logger.catching(e);
                 }
 
+        }
+        @FXML
+        private void createRoeReport(){
+                try {
+                        String answer=(String)CommandProvider.getCommandProvider().getCommand(CommandName.CREATE_REPORT).execute(Report.ROE);
+                        FilledAlert.getInstance().showAlert("Создание отчёта",
+                                "Успех ", answer,
+                                this.dialogStage, "INFORMATION");
+                } catch (ControllerException e) {
+                        FilledAlert.getInstance().showAlert("Создание отчёта",
+                                "Ошибка ", e.getMessage(),
+                                this.dialogStage, "ERROR");
+                        logger.catching(e);
+                }
         }
 }

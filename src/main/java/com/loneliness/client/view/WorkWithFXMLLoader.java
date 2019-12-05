@@ -6,11 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class WorkWithFXMLLoader {
     private static final WorkWithFXMLLoader instance=new WorkWithFXMLLoader();
+    private final Logger logger = LogManager.getLogger();
     private volatile static  FXMLLoader loader = new FXMLLoader();
     private volatile BorderPane page;
     private WorkWithFXMLLoader(){}
@@ -32,7 +35,7 @@ public class WorkWithFXMLLoader {
             dialogStage.setScene(scene);
             return dialogStage;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.catching(e);
             throw new ViewException("Нарушена целостность программы",e.getMessage());
         }
     }

@@ -2,8 +2,11 @@ package com.loneliness.client.service;
 
 import com.loneliness.client.service.service_impl.*;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class FactoryService {
-    private static final FactoryService instance=new FactoryService();
+    private static final ReentrantLock locker = new ReentrantLock();
+    private static FactoryService instance;
     private final UserService userService=new UserService();
     private final CalculateIndexService calculateIndexRequest = CalculateIndexService.getInstance();
     private final CompanyService companyService=CompanyService.getInstance();
@@ -14,9 +17,17 @@ public class FactoryService {
     private final ReportingPeriodService reportingPeriodService=ReportingPeriodService.getInstance();
     private final ROEService roeService=ROEService.getInstance();
     private final SGService sgService=SGService.getInstance();
+    private final ReportService reportService=ReportService.getInstance();
     private FactoryService(){}
 
     public static FactoryService getInstance() {
+        if(instance==null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new FactoryService();
+            }
+            locker.unlock();
+        }
         return instance;
     }
 
@@ -58,5 +69,9 @@ public class FactoryService {
 
     public UserService getUserService() {
         return userService;
+    }
+
+    public ReportService getReportService() {
+        return reportService;
     }
 }

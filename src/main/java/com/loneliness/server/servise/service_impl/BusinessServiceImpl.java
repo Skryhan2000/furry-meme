@@ -3,6 +3,7 @@ package com.loneliness.server.servise.service_impl;
 import com.loneliness.entity.InitialData;
 import com.loneliness.entity.ROE;
 import com.loneliness.entity.SG;
+import com.loneliness.server.dao.DAOFactory;
 import com.loneliness.server.dao.sql_dao.SQLInitialDataDAO;
 import com.loneliness.server.dao.sql_dao.SQLROEDAO;
 import com.loneliness.server.dao.sql_dao.SQLReportingPeriodDAO;
@@ -99,6 +100,7 @@ public class BusinessServiceImpl {
     }
 
     public String state(ROE data){
+        data= DAOFactory.getInstance().getRoeDAO().receive(data);
         InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
         try {
             int res=calculateWACC(initialData).multiply(new BigDecimal("1").min(T)).compareTo(calculateRONA(data));

@@ -9,6 +9,7 @@ import com.loneliness.client.controller.command_impl.contact_detail.*;
 import com.loneliness.client.controller.command_impl.credit.*;
 import com.loneliness.client.controller.command_impl.dividend.*;
 import com.loneliness.client.controller.command_impl.initial_data.*;
+import com.loneliness.client.controller.command_impl.report.CreateReport;
 import com.loneliness.client.controller.command_impl.reporting_period.*;
 import com.loneliness.client.controller.command_impl.roe.*;
 import com.loneliness.client.controller.command_impl.sg.*;
@@ -113,6 +114,8 @@ public class CommandProvider {
         repository.put(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID,new FindSGByReportingPeriodID());
 
         repository.put(CommandName.INDEX_VALIDATION,new IndexValidation());
+
+        repository.put(CommandName.CREATE_REPORT,new CreateReport());
 
     }
     public Map<CommandName, Command> getRepository() {

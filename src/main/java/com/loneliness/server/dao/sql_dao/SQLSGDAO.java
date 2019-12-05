@@ -129,7 +129,10 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 "inner join `furry-meme`.исходные_данные\n " +
                 "on `furry-meme`.исходные_данные.id_исходные_данные=`furry-meme`.sg.id_исходных_данных\n" +
                 "where id_отчетного_периода="+id+";";
-        return receiveData(sql).values().iterator().next();
+        Map<Integer, SG> data=receiveData(sql);
+        if(data.values().iterator().hasNext())
+            return receiveData(sql).values().iterator().next();
+        else return new SG();
     }
 
     private SG getDataFromResultSet(ResultSet resultSet) throws SQLException {

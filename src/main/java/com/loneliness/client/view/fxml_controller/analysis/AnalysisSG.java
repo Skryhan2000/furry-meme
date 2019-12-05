@@ -11,15 +11,19 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Set;
 
 public class AnalysisSG {
     private CommandProvider provider=CommandProvider.getCommandProvider();
-    private SG leftSg;
-    private SG rightSg;
-    private InitialData leftInitialData;
-    private InitialData rightInitialData;
+    private SG leftSg=new SG();
+    private SG rightSg=new SG();;
+    private InitialData leftInitialData=new InitialData();
+    private InitialData rightInitialData=new InitialData();
+    private ROE leftRoe=new ROE();
+    private ROE rightRoe=new ROE();
     @FXML
     private Stage dialogStage;
 
@@ -30,7 +34,7 @@ public class AnalysisSG {
     private Text leftEquityIncrease;
 
     @FXML
-    private Text leftROE;
+    private Text leftROEField;
 
     @FXML
     private Text leftReinvestmentProfit;
@@ -60,7 +64,7 @@ public class AnalysisSG {
     private Text rightEquityIncrease;
 
     @FXML
-    private Text rightROE;
+    private Text rightROEField;
 
     @FXML
     private Text rightReinvestmentProfit;
@@ -112,15 +116,19 @@ public class AnalysisSG {
 
     public void setLeftSg(SG leftSg) {
         this.leftSg = leftSg;
-        setLeftField(leftSg);
-        leftInitialData.setInitialDataId(leftSg.getInitialDataId());
+
         try {
-            leftInitialData=(InitialData)provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(leftInitialData);
-            leftPBIT.setText(leftInitialData.getPBIT().toString());
-            leftEquityBegin.setText((provider.getCommand(CommandName.FIND_PREVIOUS_EQUITY).execute(leftInitialData)).toString());
-            leftEquityEnd.setText((provider.getCommand(CommandName.FIND_FUTURE_EQUITY).execute(leftInitialData)).toString());
-            leftROE.setText(((ROE)(provider.getCommand(CommandName.RECEIVE_ROE).execute(leftSg.getRoeId()))).getROE().toString());
-            leftEquityIncrease.setText(calculateEquityIncrease(leftEquityBegin,leftEquityEnd));
+            if(((Set<ConstraintViolation<SG>>)provider.getCommand(CommandName.SG_VALIDATION).execute(leftSg)).size()==0) {
+                setLeftField(leftSg);
+                leftInitialData.setInitialDataId(leftSg.getInitialDataId());
+                leftInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(leftInitialData);
+                leftPBIT.setText(leftInitialData.getPBIT().toString());
+                leftEquityBegin.setText((provider.getCommand(CommandName.FIND_PREVIOUS_EQUITY).execute(leftInitialData)).toString());
+                leftEquityEnd.setText((provider.getCommand(CommandName.FIND_FUTURE_EQUITY).execute(leftInitialData)).toString());
+                leftRoe.setROEId(leftSg.getRoeId());
+                leftROEField.setText(((ROE) (provider.getCommand(CommandName.RECEIVE_ROE).execute(leftRoe))).getROE().toString());
+                leftEquityIncrease.setText(calculateEquityIncrease(leftEquityBegin, leftEquityEnd));
+            }
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Поиск данных",
                     "Поиск невозможен", e.getMessage(),
@@ -134,16 +142,20 @@ public class AnalysisSG {
 
     public void setRightSg(SG rightSg) {
         this.rightSg = rightSg;
-        setRightField(rightSg);
-        setLeftField(rightSg);
-        rightInitialData.setInitialDataId(rightSg.getInitialDataId());
+
         try {
-            rightInitialData=(InitialData)provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(rightInitialData);
-            rightPBIT.setText(rightInitialData.getPBIT().toString());
-            rightEquityBegin.setText((provider.getCommand(CommandName.FIND_PREVIOUS_EQUITY).execute(rightInitialData)).toString());
-            rightEquityEnd.setText((provider.getCommand(CommandName.FIND_FUTURE_EQUITY).execute(rightInitialData)).toString());
-            rightROE.setText(((ROE)(provider.getCommand(CommandName.RECEIVE_ROE).execute(rightSg.getRoeId()))).getROE().toString());
-            rightEquityIncrease.setText(calculateEquityIncrease(rightEquityBegin,rightEquityEnd));
+            if(((Set<ConstraintViolation<SG>>)provider.getCommand(CommandName.SG_VALIDATION).execute(rightSg)).size()==0) {
+                setRightField(rightSg);
+                setLeftField(rightSg);
+                rightInitialData.setInitialDataId(rightSg.getInitialDataId());
+                rightInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(rightInitialData);
+                rightPBIT.setText(rightInitialData.getPBIT().toString());
+                rightEquityBegin.setText((provider.getCommand(CommandName.FIND_PREVIOUS_EQUITY).execute(rightInitialData)).toString());
+                rightEquityEnd.setText((provider.getCommand(CommandName.FIND_FUTURE_EQUITY).execute(rightInitialData)).toString());
+                rightRoe.setROEId(rightSg.getRoeId());
+                rightROEField.setText(((ROE) (provider.getCommand(CommandName.RECEIVE_ROE).execute(rightRoe))).getROE().toString());
+                rightEquityIncrease.setText(calculateEquityIncrease(rightEquityBegin, rightEquityEnd));
+            }
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Поиск данных",
                     "Поиск невозможен", e.getMessage(),
@@ -181,7 +193,7 @@ public class AnalysisSG {
         deltaEquityBegin.setText(calculateDifference(leftEquityBegin,rightEquityBegin));
         deltaEquityEnd.setText(calculateDifference(leftEquityEnd,rightEquityEnd));
         deltaEquityIncrease.setText(calculateDifference(leftEquityIncrease,rightEquityIncrease));
-        deltaROE.setText(calculateDifference(leftROE,rightROE));
+        deltaROE.setText(calculateDifference(leftROEField, rightROEField));
         deltaReinvestmentProfit.setText(calculateDifference(leftReinvestmentProfit,rightReinvestmentProfit));
         deltaPBIT.setText(calculateDifference(leftPBIT,rightPBIT));
         deltaReinvestmentRatio.setText(calculateDifference(leftReinvestmentRatio,rightReinvestmentRatio));

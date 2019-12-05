@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ServiceFactory {
     private static final ReentrantLock locker = new ReentrantLock();
-    private static ServiceFactory instance=new ServiceFactory();
+    private static ServiceFactory instance;
     private final UserDataService userService=new UserDataService();
     private final BusinessServiceImpl businessService=new BusinessServiceImpl();
     private final DifferentialIndicatorsDataService differentialIndicatorsDataService= new DifferentialIndicatorsDataService();
@@ -21,11 +21,13 @@ public class ServiceFactory {
     private ServiceFactory(){}
 
     public static ServiceFactory getInstance() {
-        locker.lock();
-        if(instance==null){
-            instance=new ServiceFactory();
+        if(instance==null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new ServiceFactory();
+            }
+            locker.unlock();
         }
-        locker.unlock();
         return instance;
     }
 
@@ -72,4 +74,5 @@ public class ServiceFactory {
     public SGService getSgService() {
         return sgService;
     }
+
 }

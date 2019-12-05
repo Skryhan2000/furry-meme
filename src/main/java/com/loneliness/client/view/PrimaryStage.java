@@ -31,7 +31,7 @@ public class PrimaryStage {
 
     public void changeStage(Parent root){
         this.root=root;
-        scene = new Scene(root, 700, 500);
+        scene = new Scene(root, 800, 600);
         primaryStage.setTitle("furry-meme");
         primaryStage.setScene(scene);
         primaryStage.show();

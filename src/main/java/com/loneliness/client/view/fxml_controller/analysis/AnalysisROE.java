@@ -10,16 +10,18 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Set;
 
 public class AnalysisROE {
 
     private CommandProvider provider = CommandProvider.getCommandProvider();
     private ROE leftROE;
     private ROE rightROE;
-    private InitialData leftInitialData;
-    private InitialData rightInitialData;
+    private InitialData leftInitialData=new InitialData();
+    private InitialData rightInitialData=new InitialData();
     @FXML
     private Stage dialogStage;
 
@@ -115,15 +117,18 @@ public class AnalysisROE {
     public void setLeftROE(ROE leftROE) {
         this.leftROE = leftROE;
         try {
-            leftInitialData.setInitialDataId(leftROE.getInitialDataId());
-            leftInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(leftInitialData);
-            setLeftField(leftInitialData);
+            if(((Set<ConstraintViolation<ROE>>)provider.getCommand(CommandName.ROE_VALIDATION).execute(leftROE)).size()==0) {
+                leftInitialData.setInitialDataId(leftROE.getInitialDataId());
+                leftInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(leftInitialData);
+                setLeftField(leftInitialData);
+                setLeftField(leftROE);
+            }
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Поиск данных",
                     "Поиск невозможен", e.getMessage(),
                     this.dialogStage, "ERROR");
         }
-        setLeftField(leftROE);
+
     }
 
     public ROE getRightROE() {
@@ -133,15 +138,18 @@ public class AnalysisROE {
     public void setRightROE(ROE rightROE) {
         this.rightROE = rightROE;
         try {
-            rightInitialData.setInitialDataId(rightROE.getInitialDataId());
+            if (((Set<ConstraintViolation<ROE>>) provider.getCommand(CommandName.ROE_VALIDATION).execute(rightROE)).size() == 0){
+                rightInitialData.setInitialDataId(rightROE.getInitialDataId());
             rightInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(rightInitialData);
             setRightField(rightInitialData);
+            setRightField(rightROE);
+        }
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Поиск данных",
                     "Поиск невозможен", e.getMessage(),
                     this.dialogStage, "ERROR");
         }
-        setRightField(rightROE);
+
 
     }
 

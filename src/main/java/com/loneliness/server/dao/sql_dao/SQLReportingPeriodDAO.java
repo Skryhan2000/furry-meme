@@ -237,19 +237,19 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
         ReportingPeriod period=SQLReportingPeriodDAO.getInstance().receive(id);
 
         sql = "SELECT кредитная_ставка FROM `furry-meme`.кредиты \n" +
-                "where company_id="+period.getCompanyId()+" ";
+                "where id_компании="+period.getCompanyId()+" ";
         switch (period.getQuarter()) {
             case Q1:
-                sql += "AND дата_выплаты between '01.01."+period.getYear()+"', '01.03"+period.getYear()+"' ;";
+                sql += "AND дата_выплаты between '01.01."+period.getYear()+"' and '01.03."+period.getYear()+"' ;";
                 break;
             case Q2:
-                sql += "AND дата_выплаты between '01.04."+period.getYear()+"', '01.06"+period.getYear()+"' ;";
+                sql += "AND дата_выплаты between '01.04."+period.getYear()+"' and  '01.06."+period.getYear()+"' ;";
                 break;
             case Q3:
-                sql += "AND дата_выплаты between '01.07."+period.getYear()+"', '01.9"+period.getYear()+"' ;";
+                sql += "AND дата_выплаты between '01.07."+period.getYear()+"' and  '01.09."+period.getYear()+"' ;";
                 break;
             case Q4:
-                sql += "AND дата_выплаты between '01.10."+period.getYear()+"', '01.12"+period.getYear()+"' ;";
+                sql += "AND дата_выплаты between '01.10."+period.getYear()+"' and  '01.12."+period.getYear()+"' ;";
                 break;
         }
         try {

@@ -29,5 +29,5 @@ public class PathManager {
     public String getSearchByIDAndYear(){return "/SearchByIDAndYear.fxml";}
     public String getSearchByID(){return "/SearchByID.fxml";}
     public String getWacc(){return "/Wacc.fxml";}
-
+    public String getAnalysisSG(){return "/AnalysisSG.fxml";}
 }
