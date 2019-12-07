@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeCredit">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeCredit">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,16 +23,16 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
                   <TextField fx:id="loanPercentageField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="loanTotalField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="RField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="процент кредита" GridPane.rowIndex="1" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="сумма по кредиту" GridPane.rowIndex="2" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="кредитная ставка" GridPane.rowIndex="3" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="дата взятия" GridPane.rowIndex="4" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="дата выплаты" GridPane.rowIndex="5" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="процент кредита" GridPane.rowIndex="1" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="сумма по кредиту" GridPane.rowIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="кредитная ставка" GridPane.rowIndex="3" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="дата взятия" GridPane.rowIndex="4" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="дата выплаты" GridPane.rowIndex="5" />
                   <DatePicker fx:id="dateOfCollection" prefHeight="26.0" prefWidth="487.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <DatePicker fx:id="payDate" prefHeight="26.0" prefWidth="537.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
