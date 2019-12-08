@@ -1,9 +1,5 @@
 package com.loneliness.client.view.fxml_controller.change_data;
 
-import com.loneliness.client.controller.CommandName;
-import com.loneliness.client.controller.CommandProvider;
-import com.loneliness.client.controller.ControllerException;
-import com.loneliness.client.view.FilledAlert;
 import com.loneliness.entity.Index;
 import com.loneliness.entity.Quarter;
 import javafx.fxml.FXML;
@@ -21,6 +17,7 @@ public class ChangeIndex {
     @FXML private ToggleGroup quarterGroup;
     @FXML
     private Stage dialogStage;
+
     private Index index = new Index();
     @FXML
     private TextField companyIdField;

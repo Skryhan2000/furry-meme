@@ -18,7 +18,6 @@ public class ChangeContactData  extends ChangeData {
 
     private ContactDetail contactDetail;
 
-
     @FXML
     private TextField companyIdField;
 
@@ -40,6 +39,7 @@ public class ChangeContactData  extends ChangeData {
         try {
             errors = (Set<ConstraintViolation<Object>>) commandProvider.
                     getCommand(CommandName.CONTACT_DETAIL_VALIDATION).execute(contactDetail);
+            setAllIds();
             if (errors.size() == 0) {
                 setData(contactDetail);
             }
@@ -47,6 +47,10 @@ public class ChangeContactData  extends ChangeData {
             logger.catching(e);
         }
 
+    }
+
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
     }
 
     private void setData(ContactDetail contactDetail) {

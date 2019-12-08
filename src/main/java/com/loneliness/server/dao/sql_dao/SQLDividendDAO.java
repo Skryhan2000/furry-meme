@@ -31,8 +31,7 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
     @Override
     public String add(Dividend note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT дивиденты (id_компании , id_отчётного_периода , процент_дивидента, получатель) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
@@ -47,10 +46,10 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -64,8 +63,8 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
                 "процент_дивидента='" + note.getDividendPercentage() + "'," +
                 "получатель='" +note.getRecipient() + "' " +
                 "WHERE id_кредита=" + note.getDividendId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try(    Connection connection=DataBaseConnection.getInstance().getConnection()) {
+
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -73,10 +72,10 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
                 return "ERROR данные не могут быть обновлены";
             }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -86,14 +85,13 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
         ResultSet resultSet;
         String sql;
         sql= "SELECT * FROM дивиденты WHERE id_дивидент = " + note.getDividendId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet =connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -102,8 +100,7 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
     public String delete(Dividend note) {
         String sql;
         sql="DELETE FROM дивиденты WHERE id_дивидент = " + note.getDividendId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -112,7 +109,7 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -124,15 +121,14 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
         String sql;
         Dividend dividend;
         sql = "SELECT * FROM дивиденты ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 dividend=getDataFromResultSet(resultSet);
                 data.put(dividend.getDividendId(),dividend);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -144,15 +140,15 @@ public class SQLDividendDAO implements IDAO<Dividend,String, Map<Integer,Dividen
         String sql;
         Dividend dividend;
         sql = "SELECT * FROM дивиденты LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 dividend=getDataFromResultSet(resultSet);
                 data.put(dividend.getDividendId(),dividend);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

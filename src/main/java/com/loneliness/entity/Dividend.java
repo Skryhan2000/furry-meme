@@ -23,6 +23,11 @@ public class Dividend implements Serializable,Entity {
     private int reportingPeriodId;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(dividendId);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(companyId);
     }

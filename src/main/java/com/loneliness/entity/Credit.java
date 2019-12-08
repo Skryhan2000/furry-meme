@@ -30,6 +30,11 @@ public class Credit implements Serializable ,Entity{
     private BigDecimal R;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(creditId);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(companyId);
 

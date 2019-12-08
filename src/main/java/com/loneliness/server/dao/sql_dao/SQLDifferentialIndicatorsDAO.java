@@ -38,8 +38,7 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     @Override
     public String add(DifferentialIndicators note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT дифференциальные_показатели (имя_компании , квартал , отчетный_год , оборачиваемость_чистых_активов, " +
                     "рентабельность_продаж,RONA,ROE,SG,WACC) " +
                     "VALUES ( '"+
@@ -60,10 +59,10 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -82,8 +81,7 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
                 "SG='" + note.getSG().toString() + "'," +
                 "WACC='" +note.getId() + "' " +
                 "WHERE id_дифференциальных_показателей=" + note.getId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -91,10 +89,10 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
                 return "ERROR данные не могут быть обновлены";
             }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -105,14 +103,13 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
         String sql;
         sql = "SELECT * FROM дифференциальные_показатели WHERE id_дифференциальных_показателей = '" + note.getId() + "';";
 
-        try {
-            Connection connection = DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet = connection.createStatement().executeQuery(sql);
             if (resultSet.next()) {
                 return getDataFromResultSet(resultSet);
             } else return note;
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -121,8 +118,7 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
     public String delete(DifferentialIndicators note) {
         String sql;
         sql="DELETE FROM дифференциальные_показатели WHERE id_дифференциальных_показателей = '"+note.getId()+"';";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -131,7 +127,7 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -143,15 +139,14 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
         String sql;
         DifferentialIndicators differentialIndicators;
         sql = "SELECT * FROM дифференциальные_показатели ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 differentialIndicators=getDataFromResultSet(resultSet);
                 data.put(differentialIndicators.getId(),differentialIndicators);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -163,15 +158,14 @@ public class SQLDifferentialIndicatorsDAO implements IDAO<DifferentialIndicators
         String sql;
         DifferentialIndicators differentialIndicators;
         sql = "SELECT * FROM дифференциальные_показатели LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 differentialIndicators=getDataFromResultSet(resultSet);
                 data.put(differentialIndicators.getId(),differentialIndicators);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

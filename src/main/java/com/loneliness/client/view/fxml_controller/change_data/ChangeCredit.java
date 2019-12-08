@@ -43,6 +43,7 @@ public class ChangeCredit  extends ChangeData{
         try {
             errors = (Set<ConstraintViolation<Object>>)commandProvider.
                     getCommand(CommandName.CREDIT_VALIDATION).execute(credit);
+            setAllIds();
             if(errors.size() == 0){
                 setData(credit);
             }
@@ -50,6 +51,9 @@ public class ChangeCredit  extends ChangeData{
             logger.catching(e);
         }
 
+    }
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
     }
 
     private void setData(Credit credit){

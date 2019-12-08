@@ -5,7 +5,7 @@ import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
-import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,15 +33,14 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
     @Override
     public String add(Credit note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
-            sql="INSERT кредиты (id_компании , процент_кредита , сумма_по_кредиту, дата_взятия,кредитная_ставка,дата_выплаты,) " +
-                    "VALUES ( '"+
-                    note.getCompanyId()+"',' "+
-                    note.getLoanPercentage()+"', '"+
-                    note.getLoanTotal()+"', '"+
-                    note.getDateOfCollection().toString()+"', '"+
-                    note.getR()+"', '"+
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+            sql="INSERT кредиты \n(id_компании , процент_кредита ,\n сумма_по_кредиту, дата_взятия,\nкредитная_ставка,дата_выплаты) " +
+            "VALUES ( '"+
+                    note.getCompanyId()+"', \n'"+
+                    note.getLoanPercentage().setScale(3, RoundingMode.HALF_UP).toString()+"', \n'"+
+                    note.getLoanTotal().toString()+"', \n'"+
+                    note.getDateOfCollection().toString()+"', \n'"+
+                    note.getR().setScale(3, RoundingMode.HALF_UP).toString()+"', \n'"+
                     note.getPayDate().toString()+"' "+
                     ");";
             if(connection.prepareStatement(sql).executeUpdate()>=1){
@@ -51,10 +50,10 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -70,8 +69,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
                 "кредитная_ставка='" + note.getR()+"', '"+
                 "дата_выплаты='" +note.getPayDate() + "' " +
                 "WHERE id_кредита=" + note.getCreditId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -82,7 +80,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
             System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -92,14 +90,13 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
         ResultSet resultSet;
         String sql;
         sql= "SELECT * FROM кредиты WHERE id_кредита = " + note.getCreditId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet =connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -108,8 +105,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
     public String delete(Credit note) {
         String sql;
         sql="DELETE FROM кредиты WHERE id_кредита = " + note.getCreditId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -118,7 +114,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -138,7 +134,7 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
                 data.put(credit.getCreditId(),credit);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -150,15 +146,14 @@ public class SQLCreditDAO implements IDAO<Credit,String, Map<Integer,Credit>> {
         String sql;
         Credit credit;
         sql = "SELECT * FROM кредиты LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 credit=getDataFromResultSet(resultSet);
                 data.put(credit.getCreditId(),credit);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

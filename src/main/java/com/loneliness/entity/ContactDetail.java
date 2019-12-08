@@ -23,6 +23,11 @@ public class ContactDetail implements Serializable,Entity {
     private int companyId;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(contactDetailId);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(companyId);
     }

@@ -4,10 +4,8 @@ import com.loneliness.client.controller.Command;
 import com.loneliness.client.controller.ControllerException;
 import com.loneliness.client.service.FactoryService;
 import com.loneliness.client.service.ServiceException;
-import com.loneliness.entity.Index;
 import com.loneliness.entity.ROE;
 
-import java.math.BigDecimal;
 
 public class CalculateAllROEData implements Command<ROE, ROE> {
     @Override

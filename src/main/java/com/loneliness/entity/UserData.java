@@ -28,6 +28,11 @@ public class UserData implements Serializable ,Entity{
     private String email;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(id);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(id);
     }

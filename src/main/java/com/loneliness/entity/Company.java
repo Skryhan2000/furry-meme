@@ -14,6 +14,11 @@ public class Company implements Serializable ,Entity{
     @NotNull(message = "Задайте имя компании")
     private String companyName;
 
+    @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(companyId);
+    }
+
     transient SimpleIntegerProperty companyIDProperty;
 
     @Override

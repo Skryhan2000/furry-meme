@@ -19,11 +19,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
                   <TextField fx:id="yearField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="год" GridPane.rowIndex="1" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="квартал" GridPane.rowIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="год" GridPane.rowIndex="1" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="квартал" GridPane.rowIndex="2" />
                   <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="431.0" text="Возможные кварталы" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <items>
                         <RadioMenuItem fx:id="Q1" mnemonicParsing="false" text="Q1" />
@@ -32,6 +31,7 @@
                         <RadioMenuItem fx:id="Q4" mnemonicParsing="false" text="Q4" />
                      </items>
                   </MenuButton>
+                  <MenuButton fx:id="companyIds" mnemonicParsing="false" text="id компании" />
                </children>
             </GridPane>
          </children>

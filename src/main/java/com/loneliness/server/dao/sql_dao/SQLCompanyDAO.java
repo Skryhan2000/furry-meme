@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+
 public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>> {
     private static final SQLCompanyDAO instance=new SQLCompanyDAO();
     private SQLCompanyDAO(){}
@@ -29,8 +30,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     @Override
     public String add(Company note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try ( Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT компании (имя_компании) " +
                     "VALUES ( '"+
                     note.getCompanyName()+
@@ -42,10 +42,10 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -56,8 +56,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         sql = "UPDATE компании SET " +
                 "имя_компании='" + note.getCompanyName() + "' " +
                 "WHERE id_компании=" + note.getCompanyId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -65,10 +64,10 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
                 return "ERROR данные не могут быть обновлены";
             }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -80,14 +79,13 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         String sql;
         sql = "SELECT * FROM компании WHERE id_компании = '" + note.getCompanyId() + "';";
 
-        try {
-            Connection connection = DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet = connection.createStatement().executeQuery(sql);
             if (resultSet.next()) {
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -96,8 +94,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
     public String delete(Company note) {
         String sql;
         sql="DELETE FROM компании WHERE id_компании = '"+note.getCompanyId()+"';";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -106,7 +103,7 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -118,15 +115,14 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         String sql;
         Company company;
         sql = "SELECT * FROM компании ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 company=getDataFromResultSet(resultSet);
                 data.put(company.getCompanyId(),company);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -138,15 +134,14 @@ public class SQLCompanyDAO implements IDAO<Company,String, Map<Integer,Company>>
         String sql;
         Company company;
         sql = "SELECT * FROM компании LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 company=getDataFromResultSet(resultSet);
                 data.put(company.getCompanyId(),company);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
 

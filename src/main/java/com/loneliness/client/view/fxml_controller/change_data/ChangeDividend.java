@@ -68,13 +68,15 @@ public class ChangeDividend extends ChangeData {
                     getCommand(CommandName.DIVIDEND_VALIDATION).execute(dividend);
             if(errors.size() == 0){
                 setData(dividend);
-
+                setAllIds();
             }
         } catch (ControllerException e) {
             logger.catching(e);
         }
-
-
+    }
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setReportingPeriodIDs(reportingPeriodIDs,reportingPeriodIdField);
     }
     private void setData(Dividend dividend){
         companyIdField.setText(String.valueOf(dividend.getCompanyId()));

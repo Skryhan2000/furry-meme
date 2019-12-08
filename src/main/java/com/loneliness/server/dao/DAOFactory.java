@@ -1,5 +1,6 @@
 package com.loneliness.server.dao;
 
+
 import com.loneliness.server.dao.sql_dao.*;
 
 public class DAOFactory {

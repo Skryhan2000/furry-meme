@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeUser">
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeUser">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,12 +21,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин" />
                   <TextField fx:id="loginField" GridPane.columnIndex="1" />
                   <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Пароль" GridPane.rowIndex="1" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="email" GridPane.rowIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Пароль" GridPane.rowIndex="1" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="email" GridPane.rowIndex="2" />
                   <MenuButton mnemonicParsing="false" prefHeight="28.0" prefWidth="403.0" text="Права доступа" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <items>
                         <RadioMenuItem fx:id="admin" mnemonicParsing="false" text="Админ" />
