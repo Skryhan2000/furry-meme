@@ -8,8 +8,6 @@ import com.loneliness.client.view.PathManager;
 import com.loneliness.client.view.ViewException;
 import com.loneliness.client.view.WorkWithFXMLLoader;
 import com.loneliness.client.view.fxml_controller.change_data.*;
-import com.loneliness.entity.Company;
-import com.loneliness.entity.ContactDetail;
 import com.loneliness.entity.Entity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -105,31 +103,31 @@ public class AdminStartWindow {
 
             switch (dataType) {
                 case "CONTACT_DETAIL":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CONTACT_DETAIL).execute(new ContactDetail()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CONTACT_DETAIL).execute(new Object()));
                     break;
                 case "COMPANY":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_COMPANY).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_COMPANY).execute(new Object()));
                     break;
                 case "CREDIT":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CREDIT).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CREDIT).execute(new Object()));
                     break;
                 case "DIVIDEND":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_DIVIDEND).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_DIVIDEND).execute(new Object()));
                     break;
                 case "INITIAL_DATA":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_INITIAL_DATA).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_INITIAL_DATA).execute(new Object()));
                     break;
                 case "REPORTING_PERIOD":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_REPORTING_PERIOD).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_REPORTING_PERIOD).execute(new Object()));
                     break;
                 case "ROE":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_ROE).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_ROE).execute(new Object()));
                     break;
                 case "SG":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_SG).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_SG).execute(new Object()));
                     break;
                 case "USER_DATA":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_USERS).execute(new Company()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_USERS).execute(new Object()));
                     break;
             }
             dataTable.refresh();

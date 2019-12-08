@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeReportingPeriod">
+<?import javafx.scene.text.Text?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeReportingPeriod">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +19,6 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
                   <TextField fx:id="yearField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="год" GridPane.rowIndex="1" />
@@ -33,6 +31,7 @@
                         <RadioMenuItem fx:id="Q4" mnemonicParsing="false" text="Q4" />
                      </items>
                   </MenuButton>
+                  <MenuButton fx:id="companyIds" mnemonicParsing="false" text="id компании" />
                </children>
             </GridPane>
          </children>

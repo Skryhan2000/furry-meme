@@ -50,11 +50,16 @@ public class ChangeInitialData extends ChangeData{
                     getCommand(CommandName.INITIAL_DATA_VALIDATION).execute(initialData);
             if(errors.size() == 0){
                 setData(initialData);
+                setAllIds();
             }
         } catch (ControllerException e) {
             logger.catching(e);
         }
 
+    }
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setReportingPeriodIDs(reportingPeriodIDs,reportingDateIdField);
     }
     private void setData(InitialData initialData){
         companyIdField.setText(String.valueOf(initialData.getCompanyId()));
@@ -103,7 +108,7 @@ public class ChangeInitialData extends ChangeData{
     }
 
     @FXML
-    void finishWork(ActionEvent event) {
+    private void finishWork(ActionEvent event) {
         if (isValid()) {
             try {
                 String answer = "";

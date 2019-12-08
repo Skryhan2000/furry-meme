@@ -14,11 +14,14 @@ import javafx.stage.Stage;
 
 import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 public class ChangeSG extends ChangeData{
 
     private SG sg;
+
+
 
     @FXML
     private TextField companyIdField;
@@ -49,7 +52,7 @@ public class ChangeSG extends ChangeData{
         if(isValid()){
             try {
                 sg.setSG((BigDecimal)commandProvider.getCommand(CommandName.CALCULATE_SG).execute(sg));
-                sgField.setText(sg.getSG().toString());
+                sgField.setText(sg.getSG().setScale(4, RoundingMode.HALF_UP).toString());
             } catch (ControllerException e) {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
@@ -94,6 +97,7 @@ public class ChangeSG extends ChangeData{
         try {
             errors = (Set<ConstraintViolation<Object>>)commandProvider.
                     getCommand(CommandName.SG_VALIDATION).execute(sg);
+            setAllIds();
             if (errors.size() == 0) {
                 setData(sg);
             }
@@ -101,6 +105,14 @@ public class ChangeSG extends ChangeData{
             logger.catching(e);
         }
 
+    }
+
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setInitialDataIDs(initialDataIDs,initialDataIdField);
+        setCreditIDs(creditIDs,creditIdField);
+        setDividendIds(dividendIds,dividendIDField);
+        setIdROE(idROE,roeIdField);
     }
 
     private void setData(SG sg){

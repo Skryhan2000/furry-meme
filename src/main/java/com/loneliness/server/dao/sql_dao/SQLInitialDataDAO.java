@@ -36,8 +36,7 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
     @Override
     public String add(InitialData note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT исходные_данные (id_компании , id_отчетного_периода , выручка_от_реализации, активы," +
                     "собственный_капитал,чистая_прибыль,привлеченный_капитал) " +
                     "VALUES ( '"+
@@ -56,10 +55,10 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -76,8 +75,7 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
                 "чистая_прибыль='" + note.getPBIT() + "'," +
                 "привлеченный_капитал='" +note.getCredit() + "' " +
                 "WHERE id_исходные_данные=" + note.getInitialDataId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -88,7 +86,7 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
             System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -98,14 +96,13 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
         ResultSet resultSet;
         String sql;
         sql= "SELECT * FROM исходные_данные WHERE id_исходные_данные = " + note.getInitialDataId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet =connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -113,14 +110,13 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
         ResultSet resultSet;
         String sql;
         sql= "SELECT * FROM исходные_данные WHERE id_исходные_данные = " + note + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet =connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return new InitialData();
     }
@@ -129,8 +125,7 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
     public String delete(InitialData note) {
         String sql;
         sql="DELETE FROM исходные_данные WHERE id_исходные_данные = " + note.getInitialDataId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -139,7 +134,7 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -151,15 +146,14 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
         String sql;
         InitialData initialData;
         sql = "SELECT * FROM исходные_данные ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 initialData=getDataFromResultSet(resultSet);
                 data.put(initialData.getInitialDataId(),initialData);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -171,15 +165,14 @@ public class SQLInitialDataDAO implements IDAO<InitialData,String, Map<Integer,I
         String sql;
         InitialData initialData;
         sql = "SELECT * FROM исходные_данные LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 initialData=getDataFromResultSet(resultSet);
                 data.put(initialData.getInitialDataId(),initialData);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

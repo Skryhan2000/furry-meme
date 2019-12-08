@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeSG">
+<?import javafx.scene.text.Text?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeSG">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
          <children>
@@ -25,22 +24,22 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
                   <TextField fx:id="initialDataIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="creditIdField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="dividendIDField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="roeIdField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id исходных данных" GridPane.rowIndex="1" />
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id кредита" GridPane.rowIndex="2" />
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id дивиденда" GridPane.rowIndex="3" />
-                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="id ROE" GridPane.rowIndex="4" />
                   <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Реинвестиционная прибль" GridPane.rowIndex="5" />
                   <TextField fx:id="reinvestmentProfitField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Коэффициент реинвестирования" GridPane.rowIndex="6" />
                   <TextField fx:id="reinvestmentRatioField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="SG" GridPane.rowIndex="7" />
                   <Text fx:id="sgField" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Недостаточно данных для подсчёта или они невалидны" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <MenuButton fx:id="companyIds" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" text="id компании" />
+                  <MenuButton fx:id="initialDataIDs" mnemonicParsing="false" text="id исходных данных" GridPane.rowIndex="1" />
+                  <MenuButton fx:id="creditIDs" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="id кредита" GridPane.rowIndex="2" />
+                  <MenuButton fx:id="dividendIds" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="id дивиденда" GridPane.rowIndex="3" />
+                  <MenuButton fx:id="idROE" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="idROE" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>

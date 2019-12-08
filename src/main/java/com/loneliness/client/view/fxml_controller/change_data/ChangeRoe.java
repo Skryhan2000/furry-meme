@@ -7,6 +7,7 @@ import com.loneliness.client.view.fxml_controller.ManagerStartWindowController;
 import com.loneliness.entity.Entity;
 import com.loneliness.entity.ROE;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -19,6 +20,18 @@ import java.util.Set;
 public class ChangeRoe extends ChangeData{
 
     private ROE roe;
+
+    @FXML
+    private MenuButton companyIds;
+
+    @FXML
+    private MenuButton initialDataIDs;
+
+    @FXML
+    private MenuButton creditIDs;
+
+    @FXML
+    private MenuButton dividendIds;
 
     @FXML
     private TextField companyIdField;
@@ -55,6 +68,7 @@ public class ChangeRoe extends ChangeData{
         try {
             errors = (Set<ConstraintViolation<Object>>)commandProvider.
                     getCommand(CommandName.ROE_VALIDATION).execute(roe);
+            setAllIds();
             if (errors.size() == 0) {
                 setData(roe);
             }
@@ -62,6 +76,13 @@ public class ChangeRoe extends ChangeData{
             logger.catching(e);
         }
 
+    }
+
+    private void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setInitialDataIDs(initialDataIDs,initialDataIDField);
+        setCreditIDs(creditIDs,creditIDField);
+        setDividendIds(dividendIds,dividendIDField);
     }
 
     private void setData(ROE roe){

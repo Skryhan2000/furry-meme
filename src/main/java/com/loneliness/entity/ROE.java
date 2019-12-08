@@ -33,6 +33,11 @@ public class ROE implements Serializable,Entity {
     private BigDecimal FL;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(ROEId);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(companyId);
     }
