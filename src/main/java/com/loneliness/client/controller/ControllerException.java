@@ -21,7 +21,7 @@ public class ControllerException extends Throwable{
     }
 
     public ControllerException(Throwable cause, String clientMessage) {
-        super(cause);
+        super(clientMessage,cause);
         this.clientMessage = clientMessage;
     }
 

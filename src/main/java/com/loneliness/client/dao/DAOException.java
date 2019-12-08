@@ -13,7 +13,7 @@ public class DAOException extends Throwable{
     }
 
     public DAOException(Throwable cause,String userMessage) {
-        super(cause);
+        super(userMessage, cause);
         this.userMessage=userMessage;
     }
 }

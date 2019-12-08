@@ -1,9 +1,6 @@
 package com.loneliness.client.dao;
 
-import com.loneliness.client.dao.server_request.CalculateIndexRequest;
 import com.loneliness.client.dao.server_request.*;
-import com.loneliness.client.dao.server_request.SGRequest;
-import com.loneliness.client.dao.server_request.UserRequest;
 
 public class FactoryDAO {
     private static final FactoryDAO instance=new FactoryDAO();
@@ -17,6 +14,11 @@ public class FactoryDAO {
     private final CreditRequest creditRequest=CreditRequest.getInstance();
     private final ContactDetailRequest contactDetailRequest=ContactDetailRequest.getInstance();
     private final CompanyRequest companyRequest=CompanyRequest.getInstance();
+    private final CompanyRepresentativeRequest companyRepresentativeRequest=CompanyRepresentativeRequest.getInstance();
+
+    public CompanyRepresentativeRequest getCompanyRepresentativeRequest() {
+        return companyRepresentativeRequest;
+    }
 
     public static FactoryDAO getInstance() {
         return instance;

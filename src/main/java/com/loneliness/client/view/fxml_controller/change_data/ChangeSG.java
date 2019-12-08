@@ -21,8 +21,6 @@ public class ChangeSG extends ChangeData{
 
     private SG sg;
 
-
-
     @FXML
     private TextField companyIdField;
 
@@ -72,10 +70,10 @@ public class ChangeSG extends ChangeData{
                         ManagerStartWindowController.setSg(sg);
                         break;
                     case "UPDATE":
-                        answer = (String) commandProvider.getCommand(CommandName.UPDATE_ROE).execute(sg);
+                        answer = (String) commandProvider.getCommand(CommandName.UPDATE_SG).execute(sg);
                         break;
                     case "ADD":
-                        answer = (String) commandProvider.getCommand(CommandName.CREATE_ROE).execute(sg);
+                        answer = (String) commandProvider.getCommand(CommandName.CREATE_SG).execute(sg);
                         break;
                 }
 
@@ -107,7 +105,7 @@ public class ChangeSG extends ChangeData{
 
     }
 
-    private void setAllIds() throws ControllerException {
+    public void setAllIds() throws ControllerException {
         setCompanyIds(companyIds,companyIdField);
         setInitialDataIDs(initialDataIDs,initialDataIdField);
         setCreditIDs(creditIDs,creditIdField);
@@ -123,11 +121,13 @@ public class ChangeSG extends ChangeData{
         roeIdField.setText(String.valueOf(sg.getRoeId()));
         reinvestmentProfitField.setText(sg.getReinvestmentProfit().toString());
         reinvestmentRatioField.setText(sg.getReinvestmentRatio().toString());
+        if(sg.getSG()!=null)
         sgField.setText(sg.getSG().toString());
     }
     private boolean isValid(){
         try {
             SG sg=new SG();
+            if(this.sg!=null)
             sg.setSGId(this.sg.getSGId());
             sg.setCompanyId(Integer.parseInt(companyIdField.getText()));
             sg.setInitialDataId(Integer.parseInt(initialDataIdField.getText()));
@@ -185,6 +185,7 @@ public class ChangeSG extends ChangeData{
             addButton.setDisable(false);
             addButton.setVisible(true);
         }
+
     }
     @FXML
     private void add(){

@@ -78,7 +78,7 @@ public class ChangeRoe extends ChangeData{
 
     }
 
-    private void setAllIds() throws ControllerException {
+    public void setAllIds() throws ControllerException {
         setCompanyIds(companyIds,companyIdField);
         setInitialDataIDs(initialDataIDs,initialDataIDField);
         setCreditIDs(creditIDs,creditIDField);
@@ -146,6 +146,7 @@ public class ChangeRoe extends ChangeData{
     private boolean isValid(){
         try {
             ROE roe=new ROE();
+            if(this.roe!=null)
             roe.setROEId(this.roe.getROEId());
             roe.setCompanyId(Integer.parseInt(companyIdField.getText()));
             roe.setInitialDataId(Integer.parseInt(initialDataIDField.getText()));
@@ -162,6 +163,7 @@ public class ChangeRoe extends ChangeData{
                 return false;
             }
         }
+
         catch (NumberFormatException e){
             FilledAlert.getInstance().showAlert("Валидация данных",
                     "Не валидные данные", "В полях должны быть заданы числовые значения",

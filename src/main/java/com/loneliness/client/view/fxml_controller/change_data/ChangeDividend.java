@@ -74,7 +74,7 @@ public class ChangeDividend extends ChangeData {
             logger.catching(e);
         }
     }
-    private void setAllIds() throws ControllerException {
+    public void setAllIds() throws ControllerException {
         setCompanyIds(companyIds,companyIdField);
         setReportingPeriodIDs(reportingPeriodIDs,reportingPeriodIdField);
     }

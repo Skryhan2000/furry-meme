@@ -72,9 +72,9 @@ public class BusinessServiceImpl {
             ROE roe= SQLROEDAO.getInstance().receive(data.getRoeId());
             InitialData initialData= SQLInitialDataDAO.getInstance().receive(data.getInitialDataId());
             return ((calculateRONA(roe).multiply(calculateFL(roe))).multiply(T).multiply(initialData.getPBIT().
-                    divide(roe.getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()).
+                    divide(roe.getEBIT(),scale,roundingMode))).multiply(SQLReportingPeriodDAO.getInstance().findPreviousEquity(initialData).
                     divide(SQLReportingPeriodDAO.getInstance().findFutureEquity(data.getInitialDataId()),scale,roundingMode));
-        } catch (ServiceException e) {
+        } catch (ArithmeticException | NullPointerException|ServiceException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
 

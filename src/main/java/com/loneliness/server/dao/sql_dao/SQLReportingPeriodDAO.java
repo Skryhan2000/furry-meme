@@ -189,6 +189,39 @@ public class SQLReportingPeriodDAO implements IDAO<ReportingPeriod,String, Map<I
         }
         return data;
     }
+    public BigDecimal findFutureEquity(InitialData note){
+        ResultSet resultSet;
+        BigDecimal data=new BigDecimal(-1);
+        String sql;
+        ReportingPeriod period=SQLReportingPeriodDAO.getInstance().receive(note.getReportingDateId());
+
+        sql = "SELECT собственный_капитал FROM `furry-meme`.исходные_данные \n" +
+                "join `furry-meme`.отчётные_периоды \n" +
+                "on `furry-meme`.отчётные_периоды.id_отчетного_периода=`furry-meme`.исходные_данные.id_отчетного_периода where company_id="+note.getInitialDataId()+" ";
+        switch (period.getQuarter()) {
+            case Q1:
+                sql += "AND квартал = '" + Quarter.Q2 + "' AND  год = " + period.getYear()+" ;";
+                break;
+            case Q2:
+                sql += "AND квартал = '" + Quarter.Q3 + "' AND  год = " + period.getYear()+" ;";
+                break;
+            case Q3:
+                sql += "AND квартал = '" + Quarter.Q4 + "' AND  год = " + period.getYear()+" ;";
+                break;
+            case Q4:
+                sql += "AND год = " + (period.getYear() + 1) + " and квартал='"+Quarter.Q1+"' ;";
+                break;
+        }
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+            resultSet=connection.createStatement().executeQuery(sql);
+            while (resultSet.next()){
+                data=resultSet.getBigDecimal("собственный_капитал");
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            logger.catching(e);
+        }
+        return data;
+    }
     public BigDecimal findFutureEquity(int id){
         ResultSet resultSet;
         BigDecimal data=new BigDecimal(-1);

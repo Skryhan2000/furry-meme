@@ -18,6 +18,7 @@ public class FactoryService {
     private final ROEService roeService=ROEService.getInstance();
     private final SGService sgService=SGService.getInstance();
     private final ReportService reportService=ReportService.getInstance();
+    private final CompanyRepresentativeService companyRepresentativeService=CompanyRepresentativeService.getInstance();
     private FactoryService(){}
 
     public static FactoryService getInstance() {
@@ -73,5 +74,9 @@ public class FactoryService {
 
     public ReportService getReportService() {
         return reportService;
+    }
+
+    public CompanyRepresentativeService getCompanyRepresentativeService() {
+        return companyRepresentativeService;
     }
 }

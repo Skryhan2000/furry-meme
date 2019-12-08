@@ -33,6 +33,9 @@ public abstract class ChangeData implements SetData {
     protected MenuButton initialDataIDs;
 
     @FXML
+    protected MenuButton usersIds;
+
+    @FXML
     protected MenuButton creditIDs;
 
     @FXML
@@ -64,12 +67,19 @@ public abstract class ChangeData implements SetData {
         this.action = action;
     }
 
+    protected void setUsersIds(MenuButton usersIds, TextField usersIdField) throws ControllerException {
+        Collection<Company> values=((Map<Integer,Company>)commandProvider.getCommand(CommandName.
+                RECEIVE_ALL_USERS).execute(new Object())).values();
+        for (Entity data : values) {
+            setId(data,usersIds,usersIdField);
+        }
+    }
 
-    protected void setCompanyIds(MenuButton companyIds, TextField companyIdField) throws ControllerException {
+    protected void setCompanyIds(MenuButton company, TextField companyIdField) throws ControllerException {
         Collection<Company> values=((Map<Integer,Company>)commandProvider.getCommand(CommandName.
                 RECEIVE_ALL_COMPANY).execute(new Object())).values();
         for (Entity data : values) {
-            setId(data,companyIds,companyIdField);
+            setId(data,company,companyIdField);
         }
     }
     protected void setInitialDataIDs(MenuButton initialDataIDs,TextField initialDataIDField) throws ControllerException {
@@ -106,7 +116,7 @@ public abstract class ChangeData implements SetData {
         Collection<ReportingPeriod> values=((Map<Integer,ReportingPeriod>)commandProvider.getCommand(CommandName.
                 RECEIVE_ALL_REPORTING_PERIOD).execute(new Object())).values();
         for (Entity data : values) {
-            setId(data,companyIds,reportingPeriodIdField);
+            setId(data,reportingPeriodIDs,reportingPeriodIdField);
         }
     }
 

@@ -39,65 +39,74 @@ public class ClientWorkingThread implements Runnable{
         CommandProvider provider=CommandProvider.getCommandProvider();
         try {
             while (true) {
-                transmission = (Transmission) inObject.readObject();
-                if (transmission.getUserData() != null) {
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getUserData());
-                } else if(transmission.getBounds()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getBounds());
-                }else if(transmission.getCompany()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getCompany());
+                try {
+                    transmission = (Transmission) inObject.readObject();
+                    if (transmission.getUserData() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getUserData());
+                    } else if (transmission.getBounds() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getBounds());
+                    } else if (transmission.getCompany() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getCompany());
+                    } else if (transmission.getContactDetail() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getContactDetail());
+                    } else if (transmission.getCredit() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getCredit());
+                    } else if (transmission.getDividend() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getDividend());
+                    } else if (transmission.getInitialData() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getInitialData());
+                    } else if (transmission.getQuarter() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getQuarter());
+                    } else if (transmission.getReportingPeriod() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getReportingPeriod());
+                    } else if (transmission.getRoe() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getRoe());
+                    } else if (transmission.getSg() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getSg());
+                    } else if (transmission.getId() != null) {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getId());
+                    }else if(transmission.getCompanyRepresentatives()!=null){
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission.getCompanyRepresentatives());
+                    } else {
+                        response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
+                                execute(transmission);
+                    }
+                    outObject.writeObject(response);
+                    outObject.reset();
+                }catch ( ControllerException ex){
+                    try {
+                        outObject.writeObject(new Transmission());
+                    } catch (IOException exc) {
+                        ex.printStackTrace();
+                    }
                 }
-                else if(transmission.getContactDetail()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getContactDetail());
-                }
-                else if(transmission.getCredit()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getCredit());
-                }
-                else if(transmission.getDividend()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getDividend());
-                }
-                else if(transmission.getInitialData()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getInitialData());
-                }
-                else if(transmission.getQuarter()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getQuarter());
-                }
-                else if(transmission.getReportingPeriod()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getReportingPeriod());
-                }
-                else if(transmission.getRoe()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getRoe());
-                }
-                else if(transmission.getSg()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getSg());
-                }
-                else if(transmission.getId()!=null){
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission.getId());
-                }else {
-                    response = provider.getCommand(CommandName.valueOf(transmission.getCommand())).
-                            execute(transmission);
-                }
-                outObject.writeObject(response);
-                outObject.reset();
+
             }
 
 
-        }catch (ClassCastException ex){
+        }catch (ClassCastException  ex){
             ex.printStackTrace();
-        }catch (ClassNotFoundException | IOException | ControllerException e) {
+            try {
+                outObject.writeObject(new Transmission());
+            } catch (IOException exc) {
+                ex.printStackTrace();
+            }
+        }catch (ClassNotFoundException | IOException  e) {
             killOneClient();
+
             // e.printStackTrace();
         }
     }

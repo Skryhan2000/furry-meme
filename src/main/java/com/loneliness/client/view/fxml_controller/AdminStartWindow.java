@@ -9,6 +9,7 @@ import com.loneliness.client.view.ViewException;
 import com.loneliness.client.view.WorkWithFXMLLoader;
 import com.loneliness.client.view.fxml_controller.change_data.*;
 import com.loneliness.entity.Entity;
+import com.loneliness.entity.Transmission;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -95,6 +96,11 @@ public class AdminStartWindow {
         dataType = "USER_DATA";
         initialize();
     }
+    @FXML
+    private void workWithCompanyRepresentatives(){
+        dataType = "COMPANY_REPRESENTATIVES";
+        initialize();
+    }
 
     @FXML
     private void update() {
@@ -102,32 +108,35 @@ public class AdminStartWindow {
         try {
 
             switch (dataType) {
+                case "COMPANY_REPRESENTATIVES":
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_COMPANY_REPRESENTATIVES).execute(new Transmission()));
+                    break;
                 case "CONTACT_DETAIL":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CONTACT_DETAIL).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CONTACT_DETAIL).execute(new Transmission()));
                     break;
                 case "COMPANY":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_COMPANY).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_COMPANY).execute(new Transmission()));
                     break;
                 case "CREDIT":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CREDIT).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_CREDIT).execute(new Transmission()));
                     break;
                 case "DIVIDEND":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_DIVIDEND).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_DIVIDEND).execute(new Transmission()));
                     break;
                 case "INITIAL_DATA":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_INITIAL_DATA).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_INITIAL_DATA).execute(new Transmission()));
                     break;
                 case "REPORTING_PERIOD":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_REPORTING_PERIOD).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_REPORTING_PERIOD).execute(new Transmission()));
                     break;
                 case "ROE":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_ROE).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_ROE).execute(new Transmission()));
                     break;
                 case "SG":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_SG).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_SG).execute(new Transmission()));
                     break;
                 case "USER_DATA":
-                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_USERS).execute(new Object()));
+                    setData((Map<Integer, Entity>) commandProvider.getCommand(CommandName.RECEIVE_ALL_USERS).execute(new Transmission()));
                     break;
             }
             dataTable.refresh();
@@ -148,12 +157,24 @@ public class AdminStartWindow {
         }
         try {
             switch (dataType) {
+                case "COMPANY_REPRESENTATIVES":
+                    dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
+                            getChangeCompanyRepresentatives(), "Изменение данных");
+
+                    ChangeCompanyRepresentatives changeCompanyRepresentatives = WorkWithFXMLLoader.getInstance().getLoader().getController();
+                    changeCompanyRepresentatives.setDialogStage(dialogStage, "UPDATE");
+                    changeCompanyRepresentatives.setAllIds();
+                    changeData=changeCompanyRepresentatives;
+                    id.setText("id компании");
+                    value.setText("id_клиента");
+                    break;
                 case "CONTACT_DETAIL":
                     dialogStage = WorkWithFXMLLoader.getInstance().createStage(PathManager.getInstance().
                             getChangeContactData(), "Изменение данных");
 
                     ChangeContactData changeContactData = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeContactData.setDialogStage(dialogStage, "UPDATE");
+                    changeContactData.setAllIds();
                     changeData=changeContactData;
                     id.setText("id компании");
                     value.setText("email");
@@ -176,7 +197,7 @@ public class AdminStartWindow {
                     ChangeCredit changeCredit = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeCredit.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeCredit;
-
+                    changeCredit.setAllIds();
 
                     id.setText("id компании");
                     value.setText("сумма по кредиту");
@@ -187,7 +208,7 @@ public class AdminStartWindow {
                     ChangeDividend changeDividend = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeDividend.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeDividend;
-
+                    changeDividend.setAllIds();
 
                     id.setText("id компании");
                     value.setText("получатель");
@@ -199,7 +220,7 @@ public class AdminStartWindow {
                     ChangeInitialData changeInitialData = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeInitialData.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeInitialData;
-
+                    changeInitialData.setAllIds();
 
                     id.setText("id компании");
                     value.setText("ID отчетного периода");
@@ -210,7 +231,7 @@ public class AdminStartWindow {
                     ChangeReportingPeriod changeReportingPeriod = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeReportingPeriod.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeReportingPeriod;
-
+                    changeReportingPeriod.setAllIds();
 
                     id.setText("id компании");
                     value.setText("год");
@@ -221,7 +242,7 @@ public class AdminStartWindow {
                     ChangeRoe changeRoe = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeRoe.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeRoe;
-
+                    changeRoe.setAllIds();
 
                     id.setText("id компании");
                     value.setText("Id исходных данных ");
@@ -232,7 +253,7 @@ public class AdminStartWindow {
                     ChangeSG changeSG = WorkWithFXMLLoader.getInstance().getLoader().getController();
                     changeSG.setDialogStage(dialogStage, "UPDATE");
                     changeData=changeSG;
-
+                    changeSG.setAllIds();
 
                     id.setText("id компании");
                     value.setText("Id исходных данных ");
@@ -258,7 +279,7 @@ public class AdminStartWindow {
             value.setCellValueFactory(customerDataIntegerCellDataFeatures ->
                     customerDataIntegerCellDataFeatures.getValue().getStringValue());
             update();
-        } catch (ViewException e) {
+        } catch (ViewException | ControllerException e) {
             FilledAlert.getInstance().showAlert("Ошибка обновленя",
                     "Неизвестная ошибка", "Попробуйте повторить действие позже",
                     this.dialogStage, "ERROR");

@@ -57,7 +57,7 @@ public class ChangeInitialData extends ChangeData{
         }
 
     }
-    private void setAllIds() throws ControllerException {
+    public void setAllIds() throws ControllerException {
         setCompanyIds(companyIds,companyIdField);
         setReportingPeriodIDs(reportingPeriodIDs,reportingDateIdField);
     }

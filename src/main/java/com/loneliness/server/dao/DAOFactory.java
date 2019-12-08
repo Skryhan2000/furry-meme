@@ -15,7 +15,7 @@ public class DAOFactory {
     private final SQLReportingPeriodDAO reportingPeriodDAO = SQLReportingPeriodDAO.getInstance();
     private final SQLROEDAO roeDAO = SQLROEDAO.getInstance();
     private final SQLSGDAO sgDAO = SQLSGDAO.getInstance();
-
+    private final SQLCompanyRepresentative companyRepresentative=SQLCompanyRepresentative.getInstance();
     public static DAOFactory getInstance() {
         return instance;
     }
@@ -61,5 +61,9 @@ public class DAOFactory {
 
     public SQLSGDAO getSgDAO() {
         return sgDAO;
+    }
+
+    public SQLCompanyRepresentative getCompanyRepresentative() {
+        return companyRepresentative;
     }
 }

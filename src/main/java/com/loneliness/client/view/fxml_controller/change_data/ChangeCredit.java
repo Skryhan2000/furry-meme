@@ -52,7 +52,7 @@ public class ChangeCredit  extends ChangeData{
         }
 
     }
-    private void setAllIds() throws ControllerException {
+    public void setAllIds() throws ControllerException {
         setCompanyIds(companyIds,companyIdField);
     }
 
