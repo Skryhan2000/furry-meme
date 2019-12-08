@@ -69,7 +69,7 @@ public abstract class ChangeData implements SetData {
 
     protected void setUsersIds(MenuButton usersIds, TextField usersIdField) throws ControllerException {
         Collection<Company> values=((Map<Integer,Company>)commandProvider.getCommand(CommandName.
-                RECEIVE_ALL_USERS).execute(new Object())).values();
+                RECEIVE_ALL_MANAGER).execute(new Object())).values();
         for (Entity data : values) {
             setId(data,usersIds,usersIdField);
         }

@@ -88,6 +88,7 @@ public class ChangeContactData  extends ChangeData {
     private boolean isValid() {
         try {
             ContactDetail contactDetail = new ContactDetail();
+            if(this.contactDetail!=null)
             contactDetail.setContactDetailId(this.contactDetail.getContactDetailId());
             contactDetail.setCompanyId(Integer.parseInt(companyIdField.getText()));
             contactDetail.setEmail(emailField.getText());

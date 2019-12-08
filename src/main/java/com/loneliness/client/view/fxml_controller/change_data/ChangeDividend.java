@@ -88,6 +88,7 @@ public class ChangeDividend extends ChangeData {
     private boolean isValid(){
         try {
             Dividend dividend=new Dividend();
+            if(this.dividend!=null)
             dividend.setDividendId(this.dividend.getDividendId());
             dividend.setCompanyId(Integer.parseInt(companyIdField.getText()));
             dividend.setReportingPeriodId(Integer.parseInt(reportingPeriodIdField.getText()));

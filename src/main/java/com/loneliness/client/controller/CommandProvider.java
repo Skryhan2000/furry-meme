@@ -31,6 +31,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ALL_USERS_IN_LIMIT,new ReceiveAllUsersInLimit());
         repository.put(CommandName.RECEIVE_USER,new ReceiveUser());
         repository.put(CommandName.USER_DATA_VALIDATION,new UserDataValidation());
+        repository.put(CommandName.RECEIVE_ALL_MANAGER, new ReceiveAllManager());
 
         repository.put(CommandName.CALCULATE_ALL_ROE_DATA,new CalculateAllROEData());
         repository.put(CommandName.CALCULATE_SG,new CalculateSG());

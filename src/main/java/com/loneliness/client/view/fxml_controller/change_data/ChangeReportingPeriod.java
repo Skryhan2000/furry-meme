@@ -81,6 +81,7 @@ public class ChangeReportingPeriod extends ChangeData{
     private boolean isValid(){
         try {
             ReportingPeriod period=new ReportingPeriod();
+            if(this.period!=null)
             period.setReportingPeriodId(this.period.getReportingPeriodId());
 
             period.setYear(Integer.parseInt(yearField.getText()));

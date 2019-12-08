@@ -94,6 +94,7 @@ public class ChangeCredit  extends ChangeData{
     private boolean isValid(){
         try {
             Credit credit=new Credit();
+            if(this.credit!=null)
             credit.setCreditId(this.credit.getCreditId());
             credit.setCompanyId(Integer.parseInt(companyIdField.getText()));
             credit.setLoanPercentage(new BigDecimal(loanPercentageField.getText()));

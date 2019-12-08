@@ -100,6 +100,8 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
         return note;
     }
 
+
+
     @Override
     public String delete(UserData note) {
         String sql;
@@ -136,6 +138,25 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
         }
         return data;
     }
+
+    public Map<Integer,UserData> receiveAllManager() {
+        ResultSet resultSet;
+        ConcurrentHashMap<Integer,UserData> data=new ConcurrentHashMap<>();
+        String sql;
+        UserData userData;
+        sql = "SELECT * FROM users WHERE type='MANAGER';";
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+            resultSet=connection.createStatement().executeQuery(sql);
+            while (resultSet.next()){
+                userData=getDataFromResultSet(resultSet);
+                data.put(userData.getId(),userData);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            logger.catching(e);
+        }
+        return data;
+    }
+
 
     @Override
     public Map<Integer,UserData> receiveAllInLimit(int left, int right) {

@@ -27,6 +27,7 @@ public class CommandProvider {
         repository.put(CommandName.UPDATE_USER,new UpdateUser());
         repository.put(CommandName.RECEIVE_ALL_USERS_IN_LIMIT,new ReceiveAllUsersInLimit());
         repository.put(CommandName.RECEIVE_USER,new ReceiveUser());
+        repository.put(CommandName.RECEIVE_ALL_MANAGER,new ReceiveAllManager());
 
 
         repository.put(CommandName.CALCULATE_PROFITABILITY,new CalculateProfitability());

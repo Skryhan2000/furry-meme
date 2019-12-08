@@ -76,11 +76,15 @@ public class ChangeCompanyRepresentatives extends ChangeData {
     private boolean isValid() {
         try {
             CompanyRepresentatives company = new CompanyRepresentatives();
+            if(this.companyRepresentatives!=null)
             company.setId(this.companyRepresentatives.getId());
-            company.setManagerId(Integer.parseInt(companyIdField.getText()));
-            company.setCompanyId(Integer.parseInt(userIdField.getText()));
+            else {
+                action="ADD";
+            }
+            company.setManagerId(Integer.parseInt(userIdField.getText()));
+            company.setCompanyId(Integer.parseInt(companyIdField.getText()));
             Set<ConstraintViolation<Object>> errors = (Set<ConstraintViolation<Object>>) commandProvider.
-                    getCommand(CommandName.COMPANY_VALIDATION).execute(company);
+                    getCommand(CommandName.COMPANY_REPRESENTATIVES_VALIDATION).execute(company);
             if (errors.size() == 0) {
                 this.companyRepresentatives = company;
                 return true;

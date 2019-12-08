@@ -43,4 +43,7 @@ public class UserDataService implements DataService<UserData,String, Map<Integer
         return receive(data).getType();
         else return UserData.Type.NO_TYPE;
     }
+    public Map<Integer, UserData> receiveAllManager(){
+        return userDAO.receiveAllManager();
+    }
 }

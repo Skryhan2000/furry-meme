@@ -74,6 +74,7 @@ public class ChangeInitialData extends ChangeData{
     private boolean isValid(){
         try {
             InitialData initialData=new InitialData();
+            if(this.initialData!=null)
             initialData.setInitialDataId(this.initialData.getInitialDataId());
             initialData.setCompanyId(Integer.parseInt(companyIdField.getText()));
             initialData.setReportingDateId(Integer.parseInt(reportingDateIdField.getText()));
