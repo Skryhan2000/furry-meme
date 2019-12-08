@@ -36,6 +36,11 @@ public class SG implements Serializable ,Entity{
     }
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(SGId);
+    }
+
+    @Override
     public StringProperty getStringValue() {
         return new SimpleStringProperty(String.valueOf(initialDataId));
     }

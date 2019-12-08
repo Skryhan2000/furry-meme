@@ -68,6 +68,7 @@ public class ChangeCompany extends ChangeData {
     private boolean isValid() {
         try {
             Company company = new Company();
+            if(this.company!=null)
             company.setCompanyId(this.company.getCompanyId());
             company.setCompanyName(companyNameField.getText());
 

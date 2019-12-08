@@ -21,10 +21,10 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
     }
     @Override
     public String add(SG note) {
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
-            sql="INSERT "+tableName+" (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
-                    "id_ROE,рентабельность_продаж,RONA,FL) " +
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+
+            sql="INSERT "+tableName+" (id_компании , id_исходных_данных , id_кредита,id_диведента," +
+                    "id_ROE,реинвестиционная_прибыль,Коэффициент_реинвестирования,SG) " +
                     "VALUES ( '"+
                     note.getCompanyId()+"',' "+
                     note.getInitialDataId()+"', '"+
@@ -42,10 +42,10 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -56,14 +56,13 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 "id_компании='" + note.getCompanyId() + "'," +
                 "id_исходных_данных='" + note.getInitialDataId()+ "'," +
                 "id_кредита='" + note.getCreditId()+ "'," +
-                "id_дивиденда='" + note.getDividendID()+ "'," +
+                "id_диведента='" + note.getDividendID()+ "'," +
                 "id_ROE='" + note.getRoeId()+ "'," +
                 "реинвестиционная_прибыль='" + note.getReinvestmentProfit().toString()+ "'," +
                 "Коэффициент_реинвестирования='" + note.getReinvestmentRatio().toString()+ "'," +
                 "SG='" + note.getSG().toString()+  "' " +
                 "WHERE id_SG=" + note.getSGId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -71,10 +70,10 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
                 return "ERROR данные не могут быть обновлены";
             }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -82,14 +81,13 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
     @Override
     public SG receive(SG note) {
         sql= "SELECT * FROM "+tableName+" WHERE id_SG = " + note.getSGId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -97,8 +95,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
     @Override
     public String delete(SG note) {
         sql="DELETE FROM "+tableName+" WHERE id_SG = " + note.getSGId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -107,7 +104,7 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -152,15 +149,15 @@ public class SQLSGDAO implements IDAO<SG,String, Map<Integer,SG>> {
         ResultSet resultSet;
         ConcurrentHashMap<Integer, SG> data=new ConcurrentHashMap<>();
         SG sg;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 sg=getDataFromResultSet(resultSet);
                 data.put(sg.getSGId(),sg);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

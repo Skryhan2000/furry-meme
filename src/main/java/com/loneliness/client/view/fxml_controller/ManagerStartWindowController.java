@@ -30,6 +30,7 @@ public class ManagerStartWindowController {
         private static ReportingPeriod reportingPeriod;
         private static ROE roe;
         private static SG sg;
+        private static CompanyRepresentatives companyRepresentatives;
         @FXML
         private Stage dialogStage;
         @FXML
@@ -37,6 +38,42 @@ public class ManagerStartWindowController {
 
         public static void setCompany(Company company) {
                 ManagerStartWindowController.company = company;
+        }
+
+        public static void setCompanyRepresentatives(CompanyRepresentatives companyRepresentatives) {
+                ManagerStartWindowController.companyRepresentatives = companyRepresentatives;
+        }
+
+        public static CompanyRepresentatives getCompanyRepresentatives() {
+                return companyRepresentatives;
+        }
+
+        public static Company getCompany() {
+                return company;
+        }
+
+        public static Credit getCredit() {
+                return credit;
+        }
+
+        public static Dividend getDividend() {
+                return dividend;
+        }
+
+        public static InitialData getInitialData() {
+                return initialData;
+        }
+
+        public static ReportingPeriod getReportingPeriod() {
+                return reportingPeriod;
+        }
+
+        public static ROE getRoe() {
+                return roe;
+        }
+
+        public static SG getSg() {
+                return sg;
         }
 
         public static void setCredit(Credit credit) {

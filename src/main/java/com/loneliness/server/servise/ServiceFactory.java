@@ -18,6 +18,7 @@ public class ServiceFactory {
     private final ReportingPeriodService reportingPeriodService=ReportingPeriodService.getInstance();
     private final ROEService roeService=ROEService.getInstance();
     private final SGService sgService=SGService.getInstance();
+    private final CompanyRepresentativeService companyRepresentativeService=CompanyRepresentativeService.getInstance();
     private ServiceFactory(){}
 
     public static ServiceFactory getInstance() {
@@ -75,4 +76,7 @@ public class ServiceFactory {
         return sgService;
     }
 
+    public CompanyRepresentativeService getCompanyRepresentativeService() {
+        return companyRepresentativeService;
+    }
 }

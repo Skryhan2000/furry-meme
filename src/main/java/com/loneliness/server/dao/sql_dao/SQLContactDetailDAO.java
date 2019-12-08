@@ -30,8 +30,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
     @Override
     public String add(ContactDetail note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT контактные_данные (email , номер_телефона , инфо, id_компании) " +
                     "VALUES ( '"+
                     note.getEmail()+"',' "+
@@ -46,10 +45,10 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -63,8 +62,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
                 "инфо='" + note.getInfo() + "'," +
                 "id_компании='" +note.getCompanyId() + "' " +
                 "WHERE id_контактных_данные=" + note.getContactDetailId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -72,10 +70,10 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
                 return "ERROR данные не могут быть обновлены";
             }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -93,7 +91,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
@@ -102,8 +100,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
     public String delete(ContactDetail note) {
         String sql;
         sql="DELETE FROM контактные_данные WHERE id_контактных_данные = '"+note.getContactDetailId()+"';";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -112,7 +109,7 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -124,15 +121,14 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
         String sql;
         ContactDetail contactDetail;
         sql = "SELECT * FROM контактные_данные ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                  contactDetail=getDataFromResultSet(resultSet);
                 data.put(contactDetail.getContactDetailId(),contactDetail);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -144,15 +140,14 @@ public class SQLContactDetailDAO implements IDAO<ContactDetail,String, Map<Integ
         String sql;
         ContactDetail contactDetail;
         sql = "SELECT * FROM контактные_данные  LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 contactDetail=getDataFromResultSet(resultSet);
                 data.put(contactDetail.getContactDetailId(),contactDetail);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

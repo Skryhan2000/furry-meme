@@ -5,6 +5,7 @@ import com.loneliness.client.controller.command_impl.calculate.CalculateSG;
 import com.loneliness.client.controller.command_impl.calculate.GetState;
 import com.loneliness.client.controller.command_impl.calculate.IndexValidation;
 import com.loneliness.client.controller.command_impl.company.*;
+import com.loneliness.client.controller.command_impl.company_representative.*;
 import com.loneliness.client.controller.command_impl.contact_detail.*;
 import com.loneliness.client.controller.command_impl.credit.*;
 import com.loneliness.client.controller.command_impl.dividend.*;
@@ -30,6 +31,7 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_ALL_USERS_IN_LIMIT,new ReceiveAllUsersInLimit());
         repository.put(CommandName.RECEIVE_USER,new ReceiveUser());
         repository.put(CommandName.USER_DATA_VALIDATION,new UserDataValidation());
+        repository.put(CommandName.RECEIVE_ALL_MANAGER, new ReceiveAllManager());
 
         repository.put(CommandName.CALCULATE_ALL_ROE_DATA,new CalculateAllROEData());
         repository.put(CommandName.CALCULATE_SG,new CalculateSG());
@@ -117,6 +119,14 @@ public class CommandProvider {
 
         repository.put(CommandName.CREATE_REPORT,new CreateReport());
 
+
+        repository.put(CommandName.UPDATE_COMPANY_REPRESENTATIVES,new UpdateCompanyRepresentatives());
+        repository.put(CommandName.CREATE_COMPANY_REPRESENTATIVES,new CreateCompanyRepresentatives());
+        repository.put(CommandName.DELETE_COMPANY_REPRESENTATIVES,new DeleteCompanyRepresentatives());
+        repository.put(CommandName.RECEIVE_ALL_COMPANY_REPRESENTATIVES, new ReceiveAllCompanyRepresentatives());
+        repository.put(CommandName.RECEIVE_ALL_COMPANY_REPRESENTATIVES_IN_LIMIT, new ReceiveAllCompanyRepresentativesInLimit());
+        repository.put(CommandName.RECEIVE_COMPANY_REPRESENTATIVES,new ReceiveCompanyRepresentatives());
+        repository.put(CommandName.COMPANY_REPRESENTATIVES_VALIDATION,new CompanyRepresentativesValidation());
     }
     public Map<CommandName, Command> getRepository() {
         return repository;

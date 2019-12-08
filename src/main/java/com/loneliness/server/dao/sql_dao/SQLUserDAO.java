@@ -5,7 +5,9 @@ import com.loneliness.server.dao.DataBaseConnection;
 import com.loneliness.server.dao.IDAO;
 
 import java.beans.PropertyVetoException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,8 +30,7 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
     @Override
     public String add(UserData note) {
         String sql;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             sql="INSERT Users (login , password , type, email) " +
                     "VALUES ( '"+
                     note.getLogin()+"',' "+
@@ -37,17 +38,17 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
                     note.getType().toString()+"', '"+
                     note.getEmail()+"' "+
                     ");";
-           if(connection.prepareStatement(sql).executeUpdate()>=1){
-               return "Данные успешно добавлены";
-           }
-           else {
-               return "ERROR Ошибка добавления";
-           }
+            if(connection.prepareStatement(sql).executeUpdate()>=1){
+                return "Данные успешно добавлены";
+            }
+            else {
+                return "ERROR Ошибка добавления";
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -61,19 +62,18 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
                 "type='" + note.getType().toString() + "'," +
                 "email='" +note.getEmail() + "' " +
                 "WHERE ID=" + note.getId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
-           if(connection.createStatement().executeUpdate(sql)==1){
-               return "Данные обновлены";
-           }
-           else {
-               return "ERROR данные не могут быть обновлены";
-           }
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+            if(connection.createStatement().executeUpdate(sql)==1){
+                return "Данные обновлены";
+            }
+            else {
+                return "ERROR данные не могут быть обновлены";
+            }
         } catch (SQLException e) {
-            System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -88,25 +88,25 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
         else {
             sql= "SELECT * FROM Users WHERE login = '" + note.getLogin() + "';";
         }
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet =connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
             else note.setType(UserData.Type.NO_TYPE);
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
+
+
 
     @Override
     public String delete(UserData note) {
         String sql;
         sql="DELETE FROM Users WHERE id = '"+note.getId()+"';";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -115,7 +115,7 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -127,18 +127,36 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
         String sql;
         UserData userData;
         sql = "SELECT * FROM users ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 userData=getDataFromResultSet(resultSet);
                 data.put(userData.getId(),userData);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
+
+    public Map<Integer,UserData> receiveAllManager() {
+        ResultSet resultSet;
+        ConcurrentHashMap<Integer,UserData> data=new ConcurrentHashMap<>();
+        String sql;
+        UserData userData;
+        sql = "SELECT * FROM users WHERE type='MANAGER';";
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+            resultSet=connection.createStatement().executeQuery(sql);
+            while (resultSet.next()){
+                userData=getDataFromResultSet(resultSet);
+                data.put(userData.getId(),userData);
+            }
+        } catch (SQLException | PropertyVetoException e) {
+            logger.catching(e);
+        }
+        return data;
+    }
+
 
     @Override
     public Map<Integer,UserData> receiveAllInLimit(int left, int right) {
@@ -147,15 +165,14 @@ public class SQLUserDAO implements IDAO<UserData,String, Map<Integer,UserData>> 
         String sql;
         UserData userData;
         sql = "SELECT * FROM users Users LIMIT "+left+" , "+right+" ;";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 userData=getDataFromResultSet(resultSet);
                 data.put(userData.getId(),userData);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

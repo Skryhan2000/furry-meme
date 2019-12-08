@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loneliness.client.view.fxml_controller.change_data.ChangeCompany">
    <center>
       <AnchorPane prefHeight="507.0" prefWidth="818.0" BorderPane.alignment="CENTER">
@@ -17,7 +24,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя компании" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя компании" />
                   <TextField fx:id="companyNameField" GridPane.columnIndex="1" />
                </children>
             </GridPane>

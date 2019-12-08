@@ -30,4 +30,5 @@ public class PathManager {
     public String getSearchByID(){return "/SearchByID.fxml";}
     public String getWacc(){return "/Wacc.fxml";}
     public String getAnalysisSG(){return "/AnalysisSG.fxml";}
+    public String getChangeCompanyRepresentatives(){return "/ChangeCompanyRepresentatives.fxml";}
 }

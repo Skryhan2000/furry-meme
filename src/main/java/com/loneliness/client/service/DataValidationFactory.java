@@ -3,7 +3,6 @@ package com.loneliness.client.service;
 
 import com.loneliness.entity.*;
 
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -38,6 +37,9 @@ public class DataValidationFactory {
     }
 
     public Set<ConstraintViolation<ContactDetail>> validate(ContactDetail data) {
+        return validator.validate(data);
+    }
+    public Set<ConstraintViolation<CompanyRepresentatives>> validate(CompanyRepresentatives data) {
         return validator.validate(data);
     }
 

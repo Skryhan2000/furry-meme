@@ -68,13 +68,15 @@ public class ChangeDividend extends ChangeData {
                     getCommand(CommandName.DIVIDEND_VALIDATION).execute(dividend);
             if(errors.size() == 0){
                 setData(dividend);
-
+                setAllIds();
             }
         } catch (ControllerException e) {
             logger.catching(e);
         }
-
-
+    }
+    public void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setReportingPeriodIDs(reportingPeriodIDs,reportingPeriodIdField);
     }
     private void setData(Dividend dividend){
         companyIdField.setText(String.valueOf(dividend.getCompanyId()));
@@ -86,6 +88,7 @@ public class ChangeDividend extends ChangeData {
     private boolean isValid(){
         try {
             Dividend dividend=new Dividend();
+            if(this.dividend!=null)
             dividend.setDividendId(this.dividend.getDividendId());
             dividend.setCompanyId(Integer.parseInt(companyIdField.getText()));
             dividend.setReportingPeriodId(Integer.parseInt(reportingPeriodIdField.getText()));

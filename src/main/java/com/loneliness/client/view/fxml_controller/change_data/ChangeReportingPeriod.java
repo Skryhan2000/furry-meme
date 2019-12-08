@@ -61,6 +61,7 @@ public class ChangeReportingPeriod extends ChangeData{
                     getCommand(CommandName.REPORTING_PERIOD_VALIDATION).execute(period);
             if(errors.size() == 0){
                 setData(period);
+                setAllIds();
             }
         } catch (ControllerException e) {
             logger.catching(e);
@@ -68,6 +69,10 @@ public class ChangeReportingPeriod extends ChangeData{
         }
 
     }
+    public void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+    }
+
     private void setData(ReportingPeriod period){
         companyIdField.setText(String.valueOf(period.getCompanyId()));
         yearField.setText(String.valueOf(period.getYear()));
@@ -76,6 +81,7 @@ public class ChangeReportingPeriod extends ChangeData{
     private boolean isValid(){
         try {
             ReportingPeriod period=new ReportingPeriod();
+            if(this.period!=null)
             period.setReportingPeriodId(this.period.getReportingPeriodId());
 
             period.setYear(Integer.parseInt(yearField.getText()));

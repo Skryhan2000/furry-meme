@@ -23,20 +23,20 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="id компании" />
                   <TextField fx:id="companyIdField" GridPane.columnIndex="1" />
                   <TextField fx:id="reportingDateIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="salesField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="assetsField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="equityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="id отчетного периода" GridPane.rowIndex="1" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="выручка от реализации" GridPane.rowIndex="2" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="активы" GridPane.rowIndex="3" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="собственный капитал" GridPane.rowIndex="4" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="чистая прибыль" GridPane.rowIndex="5" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="выручка от реализации" GridPane.rowIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="активы" GridPane.rowIndex="3" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="собственный капитал" GridPane.rowIndex="4" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="чистая прибыль" GridPane.rowIndex="5" />
                   <TextField fx:id="PBITField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="привлеченный капитал" GridPane.rowIndex="6" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="привлеченный капитал" GridPane.rowIndex="6" />
                   <TextField fx:id="creditField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <MenuButton fx:id="companyIds" mnemonicParsing="false" text="id компании" />
+                  <MenuButton fx:id="reportingPeriodIDs" mnemonicParsing="false" text="id отчётного периода" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>

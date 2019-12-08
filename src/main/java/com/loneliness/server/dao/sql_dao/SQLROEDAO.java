@@ -23,8 +23,8 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
 
     @Override
     public String add(ROE note) {
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try ( Connection connection= DataBaseConnection.getInstance().getConnection()){
+
             sql="INSERT roe (id_компании , id_исходных_данных , id_кредита,id_дивиденда," +
                     "ROE,EBIT,рентабельность_продаж,RONA,FL) " +
                     "VALUES ( '"+
@@ -45,10 +45,10 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
                 return "ERROR Ошибка добавления";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -67,8 +67,8 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
                 "RONA='" + note.getRONA()+ "'," +
                 "FL='" + note.getFL().toString()+  "' " +
                 "WHERE id_ROE=" + note.getROEId() + ";";
-        try {
-            Connection connection=DataBaseConnection.getInstance().getConnection();
+        try ( Connection connection=DataBaseConnection.getInstance().getConnection()){
+
             if(connection.createStatement().executeUpdate(sql)==1){
                 return "Данные обновлены";
             }
@@ -79,7 +79,7 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
             System.out.println(e.getErrorCode()+"\n"+e.getSQLState());
             return "ERROR невозможно добавить такую запись";
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR база данных пока не доступна";
         }
     }
@@ -87,27 +87,25 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     @Override
     public ROE receive(ROE note) {
         sql= "SELECT * FROM roe WHERE id_ROE = " + note.getROEId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return note;
     }
     public ROE receive(int note) {
         sql= "SELECT * FROM roe WHERE id_ROE = " + note + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             if( resultSet.next()){
                 return getDataFromResultSet(resultSet);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return new ROE();
     }
@@ -115,8 +113,7 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
     @Override
     public String delete(ROE note) {
         sql="DELETE FROM roe WHERE id_ROE = " + note.getROEId() + ";";
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             if(connection.createStatement().executeUpdate(sql) == 1) {
                 return "Данные удалены";
             }
@@ -125,7 +122,7 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
             }
 
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
             return "ERROR Ошибка удаления";
         }
     }
@@ -149,29 +146,28 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
                 "where id_отчетного_периода="+id+";";
         Map<Integer, ROE> data=receiveData(sql);
         if(data.values().iterator().hasNext())
-        return receiveData(sql).values().iterator().next();
+            return receiveData(sql).values().iterator().next();
         else return new ROE();
     }
 
     public Map<Quarter, ROE> findRoeByReportingPeriodYear(ReportingPeriod reportingPeriod){
         sql = "SELECT * FROM roe \n"+
-        "inner join исходные_данные \n"+
-        "on исходные_данные.id_исходные_данные=roe.id_исходных_данных\n"+
-        "inner join отчётные_периоды\n"+
-        "on исходные_данные.id_отчетного_периода=отчётные_периоды.id_отчетного_периода\n"+
-        "where год="+reportingPeriod.getYear()+" and company_id="+reportingPeriod.getCompanyId()+";";
+                "inner join исходные_данные \n"+
+                "on исходные_данные.id_исходные_данные=roe.id_исходных_данных\n"+
+                "inner join отчётные_периоды\n"+
+                "on исходные_данные.id_отчетного_периода=отчётные_периоды.id_отчетного_периода\n"+
+                "where год="+reportingPeriod.getYear()+" and company_id="+reportingPeriod.getCompanyId()+";";
         ResultSet resultSet;
         ConcurrentHashMap<Quarter, ROE> data=new ConcurrentHashMap<>();
         ROE roe;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 roe=getDataFromResultSet(resultSet);
                 data.put(Quarter.valueOf(resultSet.getString("квартал")),roe);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }
@@ -194,15 +190,15 @@ public class SQLROEDAO implements IDAO<ROE,String, Map<Integer,ROE>> {
         ResultSet resultSet;
         ConcurrentHashMap<Integer, ROE> data=new ConcurrentHashMap<>();
         ROE roe;
-        try {
-            Connection connection= DataBaseConnection.getInstance().getConnection();
+        try (Connection connection= DataBaseConnection.getInstance().getConnection()){
+
             resultSet=connection.createStatement().executeQuery(sql);
             while (resultSet.next()){
                 roe=getDataFromResultSet(resultSet);
                 data.put(roe.getROEId(),roe);
             }
         } catch (SQLException | PropertyVetoException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return data;
     }

@@ -138,12 +138,12 @@ public class AnalysisROE {
     public void setRightROE(ROE rightROE) {
         this.rightROE = rightROE;
         try {
-            if (((Set<ConstraintViolation<ROE>>) provider.getCommand(CommandName.ROE_VALIDATION).execute(rightROE)).size() == 0){
+            if (((Set<ConstraintViolation<ROE>>) provider.getCommand(CommandName.ROE_VALIDATION).execute(rightROE)).size() == 0) {
                 rightInitialData.setInitialDataId(rightROE.getInitialDataId());
-            rightInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(rightInitialData);
-            setRightField(rightInitialData);
-            setRightField(rightROE);
-        }
+                rightInitialData = (InitialData) provider.getCommand(CommandName.RECEIVE_INITIAL_DATA).execute(rightInitialData);
+                setRightField(rightInitialData);
+                setRightField(rightROE);
+            }
         } catch (ControllerException e) {
             FilledAlert.getInstance().showAlert("Поиск данных",
                     "Поиск невозможен", e.getMessage(),

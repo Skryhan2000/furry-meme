@@ -2,6 +2,7 @@ package com.loneliness.server.controller;
 
 import com.loneliness.server.controller.command_implements.business.*;
 import com.loneliness.server.controller.command_implements.company.*;
+import com.loneliness.server.controller.command_implements.company_representative.*;
 import com.loneliness.server.controller.command_implements.contact_detail.*;
 import com.loneliness.server.controller.command_implements.credit.*;
 import com.loneliness.server.controller.command_implements.differential_indicators.*;
@@ -26,6 +27,7 @@ public class CommandProvider {
         repository.put(CommandName.UPDATE_USER,new UpdateUser());
         repository.put(CommandName.RECEIVE_ALL_USERS_IN_LIMIT,new ReceiveAllUsersInLimit());
         repository.put(CommandName.RECEIVE_USER,new ReceiveUser());
+        repository.put(CommandName.RECEIVE_ALL_MANAGER,new ReceiveAllManager());
 
 
         repository.put(CommandName.CALCULATE_PROFITABILITY,new CalculateProfitability());
@@ -115,6 +117,13 @@ public class CommandProvider {
         repository.put(CommandName.RECEIVE_SG,new ReceiveSG());
         repository.put(CommandName.UPDATE_SG,new UpdateSG());
         repository.put(CommandName.FIND_SG_BY_REPORTING_PERIOD_ID,new FindSGByReportingPeriodID());
+
+        repository.put(CommandName.UPDATE_COMPANY_REPRESENTATIVES,new UpdateCompanyRepresentatives());
+        repository.put(CommandName.CREATE_COMPANY_REPRESENTATIVES,new CreateCompanyRepresentatives());
+        repository.put(CommandName.DELETE_COMPANY_REPRESENTATIVES,new DeleteCompanyRepresentatives());
+        repository.put(CommandName.RECEIVE_ALL_COMPANY_REPRESENTATIVES, new ReceiveAllCompanyRepresentatives());
+        repository.put(CommandName.RECEIVE_ALL_COMPANY_REPRESENTATIVES_IN_LIMIT, new ReceiveAllCompanyRepresentativesInLimit());
+        repository.put(CommandName.RECEIVE_COMPANY_REPRESENTATIVES,new ReceiveCompanyRepresentatives());
 
     }
     public Map<CommandName, Command> getRepository() {

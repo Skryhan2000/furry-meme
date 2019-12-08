@@ -2,56 +2,61 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane gridLinesVisible="true" layoutX="192.0" layoutY="174.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Показатель" textAlignment="CENTER" wrappingWidth="195.6104278564453" />
-            <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Значение за предыдуший отчётный период. млн.руб." textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="192.0703125" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Text>
-            <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Значение за текуший отчётный период. млн.руб." textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="192.0703125" GridPane.columnIndex="2" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Чистая прибыль" textAlignment="CENTER" wrappingWidth="195.61978912353516" GridPane.rowIndex="1" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Выручка от реализации" textAlignment="CENTER" wrappingWidth="196.46434020996094" GridPane.rowIndex="2" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Активы" textAlignment="CENTER" wrappingWidth="194.3687744140625" GridPane.rowIndex="3" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Собственный капитал" textAlignment="CENTER" wrappingWidth="194.85494995117188" GridPane.rowIndex="4" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Привлеченный капитал" textAlignment="CENTER" wrappingWidth="195.72293090820312" GridPane.rowIndex="5" />
-            <Text fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="Рентабельность продаж" textAlignment="CENTER" wrappingWidth="194.51092529296875" GridPane.rowIndex="6" />
-            <Text fx:id="lastPBIT" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text fx:id="lastSales" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fx:id="lastAssets" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Text fx:id="lastEquity" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fx:id="lastCredit" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Text fx:id="lastProfR" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Text fx:id="currentPBIT" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Text fx:id="currentSales" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Text fx:id="currentAssets" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Text fx:id="currentEquity" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Text fx:id="currentCredit" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Text fx:id="currentProfR" fill="#fdb100" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <GridPane gridLinesVisible="true" layoutX="192.0" layoutY="174.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Показатель" textAlignment="CENTER" wrappingWidth="195.6104278564453" />
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Значение за предыдуший отчётный период. млн.руб." textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="192.0703125" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Text>
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Значение за текуший отчётный период. млн.руб." textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="192.0703125" GridPane.columnIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Чистая прибыль" textAlignment="CENTER" wrappingWidth="195.61978912353516" GridPane.rowIndex="1" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Выручка от реализации" textAlignment="CENTER" wrappingWidth="196.46434020996094" GridPane.rowIndex="2" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Активы" textAlignment="CENTER" wrappingWidth="194.3687744140625" GridPane.rowIndex="3" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Собственный капитал" textAlignment="CENTER" wrappingWidth="194.85494995117188" GridPane.rowIndex="4" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Привлеченный капитал" textAlignment="CENTER" wrappingWidth="195.72293090820312" GridPane.rowIndex="5" />
+                  <Text fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Рентабельность продаж" textAlignment="CENTER" wrappingWidth="194.51092529296875" GridPane.rowIndex="6" />
+                  <Text fx:id="lastPBIT" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text fx:id="lastSales" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text fx:id="lastAssets" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fx:id="lastEquity" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text fx:id="lastCredit" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text fx:id="lastProfR" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Text fx:id="currentPBIT" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Text fx:id="currentSales" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Text fx:id="currentAssets" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Text fx:id="currentEquity" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Text fx:id="currentCredit" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Text fx:id="currentProfR" fill="#0012ff" strokeType="OUTSIDE" strokeWidth="0.0" text="нет данных" textAlignment="CENTER" wrappingWidth="192.09244537353516" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </center>
+</BorderPane>

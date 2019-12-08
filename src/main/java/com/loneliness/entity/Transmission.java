@@ -17,6 +17,15 @@ public class Transmission implements Serializable {
     private ROE roe;
     private SG sg;
     private Integer id;
+    private CompanyRepresentatives companyRepresentatives;
+
+    public CompanyRepresentatives getCompanyRepresentatives() {
+        return companyRepresentatives;
+    }
+
+    public void setCompanyRepresentatives(CompanyRepresentatives companyRepresentatives) {
+        this.companyRepresentatives = companyRepresentatives;
+    }
 
     public Integer getId() {
         return id;

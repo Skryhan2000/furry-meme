@@ -21,16 +21,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#workWithSg" text="SG" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#workWithUserData" text="Пользователя" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#workWithCompanyRepresentatives" text="менеджеры компании" />
             </items>
           </Menu>
         </menus>

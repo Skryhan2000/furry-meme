@@ -89,6 +89,19 @@ public class UserRequest implements IDAO<UserData,String, Map<Integer,UserData>>
         }
     }
 
+    public Map<Integer, UserData> receiveAllManager() throws DAOException {
+        transmission = new Transmission();
+        transmission.setCommand("RECEIVE_ALL_MANAGER");
+        try {
+            Client.getOutObject().writeObject(transmission);
+            return (ConcurrentHashMap<Integer, UserData>) Client.getInObject().readObject();
+        } catch (IOException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
+        } catch (ClassNotFoundException e) {
+            throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }
+    }
+
     @Override
     public Map<Integer, UserData> receiveAllInLimit(int left, int right) throws DAOException {
         try {

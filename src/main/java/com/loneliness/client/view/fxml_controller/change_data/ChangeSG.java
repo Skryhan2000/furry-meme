@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import javax.validation.ConstraintViolation;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 public class ChangeSG extends ChangeData{
@@ -49,7 +50,7 @@ public class ChangeSG extends ChangeData{
         if(isValid()){
             try {
                 sg.setSG((BigDecimal)commandProvider.getCommand(CommandName.CALCULATE_SG).execute(sg));
-                sgField.setText(sg.getSG().toString());
+                sgField.setText(sg.getSG().setScale(4, RoundingMode.HALF_UP).toString());
             } catch (ControllerException e) {
                 FilledAlert.getInstance().showAlert("Подсчет данных",
                         "Ошибка", e.getMessage(),
@@ -69,10 +70,10 @@ public class ChangeSG extends ChangeData{
                         ManagerStartWindowController.setSg(sg);
                         break;
                     case "UPDATE":
-                        answer = (String) commandProvider.getCommand(CommandName.UPDATE_ROE).execute(sg);
+                        answer = (String) commandProvider.getCommand(CommandName.UPDATE_SG).execute(sg);
                         break;
                     case "ADD":
-                        answer = (String) commandProvider.getCommand(CommandName.CREATE_ROE).execute(sg);
+                        answer = (String) commandProvider.getCommand(CommandName.CREATE_SG).execute(sg);
                         break;
                 }
 
@@ -94,6 +95,7 @@ public class ChangeSG extends ChangeData{
         try {
             errors = (Set<ConstraintViolation<Object>>)commandProvider.
                     getCommand(CommandName.SG_VALIDATION).execute(sg);
+            setAllIds();
             if (errors.size() == 0) {
                 setData(sg);
             }
@@ -101,6 +103,14 @@ public class ChangeSG extends ChangeData{
             logger.catching(e);
         }
 
+    }
+
+    public void setAllIds() throws ControllerException {
+        setCompanyIds(companyIds,companyIdField);
+        setInitialDataIDs(initialDataIDs,initialDataIdField);
+        setCreditIDs(creditIDs,creditIdField);
+        setDividendIds(dividendIds,dividendIDField);
+        setIdROE(idROE,roeIdField);
     }
 
     private void setData(SG sg){
@@ -111,11 +121,13 @@ public class ChangeSG extends ChangeData{
         roeIdField.setText(String.valueOf(sg.getRoeId()));
         reinvestmentProfitField.setText(sg.getReinvestmentProfit().toString());
         reinvestmentRatioField.setText(sg.getReinvestmentRatio().toString());
+        if(sg.getSG()!=null)
         sgField.setText(sg.getSG().toString());
     }
     private boolean isValid(){
         try {
             SG sg=new SG();
+            if(this.sg!=null)
             sg.setSGId(this.sg.getSGId());
             sg.setCompanyId(Integer.parseInt(companyIdField.getText()));
             sg.setInitialDataId(Integer.parseInt(initialDataIdField.getText()));
@@ -173,6 +185,7 @@ public class ChangeSG extends ChangeData{
             addButton.setDisable(false);
             addButton.setVisible(true);
         }
+
     }
     @FXML
     private void add(){

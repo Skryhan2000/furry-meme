@@ -95,6 +95,7 @@ public class ChangeUser extends ChangeData{
     private boolean isValid() {
         try {
             UserData userData = new UserData();
+            if(this.userData!=null)
             userData.setId(this.userData.getId());
 
             userData.setLogin(loginField.getText());

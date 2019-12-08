@@ -29,6 +29,11 @@ public class InitialData implements Serializable ,Entity{
     private int reportingDateId;
 
     @Override
+    public String getPrimaryStringId() {
+        return String.valueOf(initialDataId);
+    }
+
+    @Override
     public IntegerProperty getIntegerId() {
         return new SimpleIntegerProperty(companyId);
     }

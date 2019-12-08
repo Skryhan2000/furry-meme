@@ -2,12 +2,13 @@ package com.loneliness.client.dao.server_request;
 
 import com.loneliness.client.dao.DAOException;
 import com.loneliness.client.launcher.Client;
-import com.loneliness.client.service.ServiceException;
-import com.loneliness.entity.*;
+import com.loneliness.entity.Index;
+import com.loneliness.entity.ROE;
+import com.loneliness.entity.SG;
+import com.loneliness.entity.Transmission;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Map;
 
 
 
@@ -25,6 +26,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -40,6 +43,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -55,6 +60,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -69,6 +76,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -83,6 +92,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -97,6 +108,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 
@@ -112,6 +125,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
     public ROE CalculateAllROEData(ROE data) throws  DAOException {
@@ -125,6 +140,8 @@ public class CalculateIndexRequest  {
             throw new DAOException(e.getMessage(), e.getCause(), "Ошибка соединения с сервером");
         } catch (ClassNotFoundException e) {
             throw new DAOException(e.getMessage(), e.getCause(), "Не верный ответ с сервера");
+        }catch (ClassCastException e){
+            throw new DAOException( e.getCause(),"Не валидные данные отправлены");
         }
     }
 

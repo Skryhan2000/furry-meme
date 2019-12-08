@@ -71,4 +71,11 @@ public class UserService implements CRUDService<UserData,String, Map<Integer,Use
             throw new ServiceException(e.getCause(),e.getMessage());
         }
     }
+    public Map<Integer, UserData> receiveAllManager() throws ServiceException {
+        try {
+            return request.receiveAllManager();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getCause(),e.getMessage());
+        }
+    }
 }
